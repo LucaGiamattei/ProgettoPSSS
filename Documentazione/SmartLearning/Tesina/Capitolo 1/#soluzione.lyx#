@@ -262,10 +262,6 @@ Servizio di mail esterno per la registrazione.
 \end_layout
 
 \begin_layout Section
-Requisiti delle Interfacce Esterne
-\end_layout
-
-\begin_layout Subsection
 Interfacce Utente
 \end_layout
 
@@ -277,12 +273,16 @@ Utente:
 Interfaccia per registrarsi;
 \end_layout
 
+\begin_layout Itemize
+Interfaccia per effettuare il Login.
+\end_layout
+
 \begin_layout Standard
 Studente:
 \end_layout
 
 \begin_layout Itemize
-Interfaccia per effettuare la ricerca;
+Interfaccia per effettuare una ricerca;
 \end_layout
 
 \begin_layout Itemize
@@ -294,7 +294,73 @@ Interfaccia per effettuare un pagamento;
 \end_layout
 
 \begin_layout Itemize
-Interfaccia per 
+Interfaccia per partecipare ad una lezione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per fare una recensione.
+\end_layout
+
+\begin_layout Standard
+Docente:
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per creare una lezione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per la gestione di tutte le lezioni create;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per avviare una videochiamata.
+\end_layout
+
+\begin_layout Section
+Requisiti Funzionali
+\end_layout
+
+\begin_layout Itemize
+Registrazione: l’utente per ottenere le credenziali di accesso deve registrarsi
+ fornendo i propri dati e verrà registrato come studente; 
+\end_layout
+
+\begin_layout Itemize
+Login: l'utente che intende utilizzare il sito deve inserire le sue credenziali
+ di accesso;
+\end_layout
+
+\begin_layout Itemize
+Registrati come docente: lo studente registrato inserisce le credenziali
+ PayPal per poter accedere alle funzioni da docente;
+\end_layout
+
+\begin_layout Itemize
+Crea Lezione: il docente crea una lezione in un determinato giorno ed orario;
+\end_layout
+
+\begin_layout Itemize
+Paga Lezione: lo studente paga una lezione a cui è interessato;
+\end_layout
+
+\begin_layout Itemize
+Valuta una lezione: lo studente valuta una lezione a cui ha partecipato;
+\end_layout
+
+\begin_layout Itemize
+Esprimi preferenza topic: lo studente registra delle preferenze in base
+ al topic per ricevere notifiche sulla creazione di nuove lezioni in base
+ a quel topic;
+\end_layout
+
+\begin_layout Itemize
+Avvia videochiamata: il docente avvia una videochiamata 
+\end_layout
+
+\begin_layout Itemize
+Visualizzazione statisticheclienti:gli Amministratori del sistema possono
+ visualizzare le statistiche dei clienti.
 \end_layout
 
 \end_body

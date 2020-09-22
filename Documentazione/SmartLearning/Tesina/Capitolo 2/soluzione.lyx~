@@ -133,28 +133,1470 @@ morecomment=[s]{--}
 \begin_body
 
 \begin_layout Section
-Soluzione
+Diagramma dei casi d'uso
 \end_layout
 
-\begin_layout Subsection
-Analisi preliminare dei dati
+\begin_layout Standard
+Per lo studio del diagramma dei casi d'uso andremo a mostrare il diagramma
+ completo, specificando solo in seguito un'analisi più approfondita del
+ singolo caso d'uso.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/Use Case .jpg
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figura 2.1: Use Case Diagram
+\end_layout
+
+\begin_layout Section
+Descrizione degli Scenari
+\end_layout
+
+\begin_layout Enumerate
+Registrazione
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Registrazione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: L’utente inserisci i propri dati per registrarsi al sistema
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Utente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: L’utente deve possedere un’email
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+L’utente seleziona “Registrazione”
+\end_layout
+
+\begin_layout Enumerate
+Il sistema mostra la pagina “Registrazione” 
+\end_layout
+
+\begin_layout Enumerate
+L’utente inserisce i propri dati 
+\end_layout
+
+\begin_layout Enumerate
+L’utente seleziona “Conferma Registrazione” 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema conferma la registrazione e crea l’account 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: L’utente è registrato
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Login
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Login
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: L’utente inserisce le proprie credenziali per accedere
+ al sito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Utente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: L’utente deve essere registrato al sito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+L’utente inserisce username e password 
+\end_layout
+
+\begin_layout Enumerate
+L’utente seleziona “Login” 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema verifica le credenziali 
+\end_layout
+
+\begin_layout Enumerate
+Se le credenziali sono corrette 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+L’utente effettua il Login 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Altrimenti 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Il sistema restituisce un messaggio d’errore 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema ritorna alla pagina di Login 
+\end_layout
+
+\end_deeper
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: L’utente riceve un token
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Crea lezione
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Crea lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Il docente crea una lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Docente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: L’utente deve essere loggato 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Il docente inserisce il titolo della lezione 
+\end_layout
+
+\begin_layout Enumerate
+Alla lezione creata associa il relativo esame 
+\end_layout
+
+\begin_layout Enumerate
+Imposta il numero massimo di studenti che possono parteciparvi 
+\end_layout
+
+\begin_layout Enumerate
+Imposta il prezzo della lezione 
+\end_layout
+
+\begin_layout Enumerate
+Seleziona data e orario della lezione 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: La lezione è creata e gli studenti possono selezionarla
+ e viene inviata una notifica agli studenti che hanno scelto quel topic
+ della lezione come preferito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Paga lezione
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Paga lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Lo studente cerca una lezione e si prenota pagando per
+ quella lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Studente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Sistema di pagamento esterno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Il docente ha creato la lezione 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Lo studente seleziona la barra di ricerca 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente cerca una lezione per titolo o nome del docente 
+\end_layout
+
+\begin_layout Enumerate
+Se la lezione è stata trovata 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Lo studente seleziona la lezione 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente visualizza lo score di quel docente 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente verifica la disponibilità della lezione 
+\end_layout
+
+\begin_layout Enumerate
+Se vi è disponibilità 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Lo studente seleziona “Paga lezione” 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema apre la pagina di pagamento Paypal 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente immette i dati di pagamento e conferma 
+\end_layout
+
+\begin_layout Enumerate
+Se il pagamento è avvenuto correttamente 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Il sistema conferma la prenotazione e aggiorna i posti disponibili 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Altrimenti 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Il sistema mostra un messaggio di errore e torna alla pagina di pagamento
+ Paypal 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Altrimenti 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Lo studente seleziona un’altra lezione 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Altrimenti 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Lo studente cerca un’altra lezione 
+\end_layout
+
+\end_deeper
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: Lo studente è prenotato per quella lezione 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Lezione non trovata, posti non disponibili
+ per una lezione, errore nel pagamento 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Prenota la lezione : Lezione non trovata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 4.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Lo studente non trova una lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Studente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Lo studente ha effettuato una ricerca
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Lo studente cerca un’altra lezione 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema reindirizza lo studente alla pagina di ricerca 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: Lo studente torna alla pagina di ricerca
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Prenota la lezione : Posti non disponibili
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 4.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Lo studente trova una lezione per cui si vuole prenotare
+ ma non ci sono posti disponibili
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Studente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Lo studente ha selezionato una lezione 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Lo studente cerca un’altra lezione 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema reindirizza lo studente alla pagina di lezioni trovate 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: Lo studente torna alla pagina per selezionare una lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Prenota la lezione : Errore nel pagamento
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 4.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Si è verificato un errore durante la transazione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Studente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Lo studente ha selezionato “Paga Lezione”
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Il sistema mostra un messaggio di errore e torna alla pagina di pagamento
+ Paypal
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: Lo studente torna alla pagina per il pagamento della lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Avvia videochiamata
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Avvia videochiamata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Il docente avvia la videochiamata relativa ad una lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Docente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Il docente ha creato la lezione e vi è un numero minimo di
+ partecipanti e la lezione viene avviata nell’orario stabilito durante la
+ creazione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Il docente seleziona la lezione programmata 
+\end_layout
+
+\begin_layout Enumerate
+Il docente seleziona “Avvia la videochiamata” 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema invia una notifica ai partecipanti 
+\end_layout
+
+\begin_layout Enumerate
+Il sistema apre la schermata di videochiamata 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: La lezione è avviata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+JoinToVideochiamata
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: JoinToVideochiamata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Lo studente partecipa alla videochiamata relativa ad
+ una lezione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Studente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Il docente ha avviato la videochiamata della lezione e lo
+ studente ha prenotato la lezione 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Lo studente riceve una notifica per la lezione prenotata 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente seleziona la lezione 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente seleziona “Partecipa alla videochiamata” 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente partecipa alla lezione 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente seleziona “Termina la videochiamata” 
+\end_layout
+
+\begin_layout Enumerate
+Lo studente valuta la lezione 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: La lezione viene valutata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Esprimi preferenza
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="1">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Caso d’uso: Esprimi preferenza
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID: 7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Breve descrizione: Lo studente esprime una preferenza di un topic a cui
+ è interessato
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori primari: Studente
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attori secondari: Nessuno
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precondizione: Lo studente è loggato nel sistema
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenza degli eventi:
+\end_layout
+
+\begin_layout Enumerate
+Lo studente seleziona 
+\begin_inset Quotes eld
+\end_inset
+
+Esprimi preferenza
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Inserisce il nome del topic d'interesse
+\end_layout
+
+\begin_layout Enumerate
+Se è stata creata una lezione con quel topic
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Lo studente riceve una notifica
+\end_layout
+
+\end_deeper
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Postcondizione: Lo studente riceve una notifica
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sequenze di eventi alternative: Nessuna
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Section
+System Domain Model
 \end_layout
 
 \begin_layout Standard
 \align left
-Si è scelto di effettuare una valutazione delle features al fine di eliminare,
- valutando il coefficiente di variazione (CV) cioè la normalizzazione della
- deviazione standard con la media, quelle che non apportano contenuto informativ
-o.
- Se il coefficiente CV è nullo, allora è costante e quella feature non viene
- inclusa perchè non spiega nessuna varianza.
+Il sistema si compone delle seguenti entità:
 \end_layout
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename images/2.png
-	scale 30
+	filename images/System Domain Model.jpg
+	scale 40
 
 \end_inset
 
@@ -163,366 +1605,18 @@ o.
 
 \begin_layout Standard
 \align center
-Figura 2.1: Distribuzione delle features
+Figura 2.2: System Domain Model
+\end_layout
+
+\begin_layout Section
+Diagramma di Contesto con Boundary
 \end_layout
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename images/2.1.png
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.2: Distribuzione delle features
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.2.png
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.3: Distribuzione delle features
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.3.png
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.4: Distribuzione delle features
-\end_layout
-
-\begin_layout Standard
-\align left
-Come si può vedere dai dati delle distribuzioni ci sono 4 features che hanno
- coefficiente pari a 0 e sono:
-\end_layout
-
-\begin_layout Itemize
-Active;
-\end_layout
-
-\begin_layout Itemize
-AnonPages;
-\end_layout
-
-\begin_layout Itemize
-avgLatency;
-\end_layout
-
-\begin_layout Itemize
-Errors.
-\end_layout
-
-\begin_layout Standard
-\align left
-Si è deciso di eliminare anche la feature 'Slab' in quanto assume valore
- diverso da 0 soltanto per una riga, costituendo quindi un outlier.
- Inoltre da un'analisi più approfondita si è notato che due features ('MemFree'
- e 'WriteBack') presentavano gli stessi valori e si è optato per eliminare
- 'MemFree'.
- Le analisi sono state condotte sulle restanti 18 features.
-\end_layout
-
-\begin_layout Subsection
-Principal Component Analysis
-\end_layout
-
-\begin_layout Standard
-\align left
-In questa fase procediamo attraverso la tecnica della PCA a ridurre ulteriorment
-e la dimensionalità del dataset ponendoci l'obiettivo di conservare almeno
- il 95% di varianza.
-\end_layout
-
-\begin_layout Standard
-\align left
-Di seguito è mostrata una figura che rappresenta:
-\end_layout
-
-\begin_layout Itemize
-Scatter Plot: spiega come i punti si distribuiscono in base alle due componenti
- principali;
-\end_layout
-
-\begin_layout Itemize
-Loading Plot: con questo tipo di grafico è possibile mostrare la vicinanza
- delle variabili in termini di tipologia di informazione; più i vettori
- sono vicini, più le due variabili sono simili.
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.4.png
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.5: Scatter plot e loading plot
-\end_layout
-
-\begin_layout Standard
-\align left
-Il grafico seguente mostra gli autovalori della matrice di correlazione
- e mostra la percentuale di varianza cumulativa.
- Si scelgono quindi 6 componenti principali che conservano il 96,769% di
- varianza.
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.5.png
-	scale 70
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.6: Autovalori della matrice di correlazione
-\end_layout
-
-\begin_layout Subsection
-Clustering
-\end_layout
-
-\begin_layout Standard
-Attraverso la tecnica di clustering si vuole ulteriormente diminuire il
- dataset, questa volta riducendo il numero di istante, accorpando in un
- cluster le istanze che presentano caratteristiche comuni.
- Si utilizza una tecnica di clustering gerarchico sulle componenti principali
- individuate scegliendo come metrica la distanza di Ward (fonde i cluster
- che comportano il minor aumento della devianza intra-gruppo e il massimo
- aumento della devianza inter-gruppo).
- La rappresentazione grafico dell'operazione di clustering è rappresentata
- dal dendrogramma.
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.6.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.7: Dendrogramma
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.7.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.8: Cronologia di clusterizzazione con valore della distanza di Ward.
-\end_layout
-
-\begin_layout Standard
-\align left
-Analizzando i valori delle distanze si è scelto un numero di cluster pari
- a 7.
- Tale valore è stato ottenuto valutando la differenza più significativa
- tra una distanza e la precedente.
-\end_layout
-
-\begin_layout Subsection
-Calcolo delle varianze
-\end_layout
-
-\begin_layout Standard
-Per effettuare il calcolo delle varianze perse e conservate dopo aver effettutat
-o le operazioni di PCA e Clustering è stato creato un file .mlx in Matlab:
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/inter.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.9: Calcolo della devianza inter-cluster
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/intra.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.10: Calcolo della devianza intra-cluster
-\end_layout
-
-\begin_layout Standard
-\align left
-Le devianze intra-cluster e inter-cluster sono state calcolate in questo
- modo:
-\end_layout
-
-\begin_layout Itemize
-\noindent
-\align left
-Devianza intra-cluster : 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/formula intra.png
-	scale 90
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Devianza inter-cluster:
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/formula inter.png
-	scale 80
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/formulefinali.png
-	scale 70
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Figura 2.11: Formule per il calcolo della varianza persa/conservata
-\end_layout
-
-\begin_layout Standard
-\align left
-La varianza_persa_post_PCA rappresenta il valore percentuale della varianza
- che perdiamo prendendo solo 6 componenti principali.
- La dev_post_PCA è la somma di tutte le varianze delle singole componenti
- scelte moltiplicate per il numero di gradi di libertà (N-1).
-\end_layout
-
-\begin_layout Standard
-\align left
-I risultati ottenuti dal tool Matlab sono i seguenti:
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/ris1.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/ris2.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Caratterizzazione del workload sintetico
-\end_layout
-
-\begin_layout Standard
-Un possibile workload può essere ottenuto attraverso un random sampling
- sui cluster individuati.
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.8.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/2.9.png
-	scale 60
+	filename images/Diagramma di Contesto delle classi Boundary.jpg
+	scale 40
 
 \end_inset
 

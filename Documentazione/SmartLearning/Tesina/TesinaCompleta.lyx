@@ -64,7 +64,7 @@ morecomment=[s]{--}
 
 \fancyhead[RO,LE]{\bfseries \leftmark}
 \fancyfoot[LE,RO]{\thepage}
-\fancyfoot[LO,CE]{Elaborato di Impianti di elaborazione}
+\fancyfoot[LO,CE]{Elaborato di Progettazione e Sviluppo di Sistemi Software}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \cfoot{}
@@ -202,7 +202,7 @@ status open
 
 
 \backslash
-title{Tesina di Progettazione e Sviluppo di un Sistema Software} 
+title{Tesina di Progettazione e Sviluppo di Sistemi Software} 
 \end_layout
 
 \end_inset
@@ -364,7 +364,7 @@ esercizio01/Tesina.lyx ->esercizio02/Tesina.lyx e così via.
 \end_layout
 
 \begin_layout Chapter
-Analisi dei requisiti
+Specifica dei requisiti
 \end_layout
 
 \begin_layout Standard
@@ -378,7 +378,7 @@ filename "Capitolo 1/Tesina.lyx"
 \end_layout
 
 \begin_layout Chapter
-Documento di analisi
+Documento di Analisi - Casi d'uso e Modellazione Logica
 \end_layout
 
 \begin_layout Standard

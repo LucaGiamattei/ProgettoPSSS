@@ -178,9 +178,9 @@ Gli studenti possono cercare una lezione in base al topic d'interesse e
  il pagamento tramite il servizio esterno PayPal.
  Al termine della partecipazione alla lezione, gli studenti possono lasciare
  una recensione al docente.
- Agli studenti è data possibilità di sottoscriversi ad un topic d'interesse
- in modo tale da ricevere una notifica non appena un docente crea una lezione
- relativa a quel topic.
+ Agli studenti è data, inoltre, la possibilità di sottoscriversi ad un topic
+ d'interesse in modo tale da ricevere una notifica non appena un docente
+ crea una lezione relativa a quel topic.
 \end_layout
 
 \begin_layout Subsection
@@ -262,10 +262,6 @@ Servizio di mail esterno per la registrazione.
 \end_layout
 
 \begin_layout Section
-Requisiti delle Interfacce Esterne
-\end_layout
-
-\begin_layout Subsection
 Interfacce Utente
 \end_layout
 
@@ -278,7 +274,7 @@ Interfaccia per registrarsi;
 \end_layout
 
 \begin_layout Itemize
-Interfaccua per effettuare il Login.
+Interfaccia per effettuare il Login.
 \end_layout
 
 \begin_layout Standard
@@ -319,6 +315,62 @@ Interfaccia per la gestione di tutte le lezioni create;
 
 \begin_layout Itemize
 Interfaccia per avviare una videochiamata.
+\end_layout
+
+\begin_layout Section
+Requisiti Funzionali
+\end_layout
+
+\begin_layout Itemize
+Registrazione: l’utente per ottenere le credenziali di accesso deve registrarsi
+ fornendo i propri dati e verrà registrato come studente; 
+\end_layout
+
+\begin_layout Itemize
+Login: l'utente che intende utilizzare il sito deve inserire le sue credenziali
+ di accesso;
+\end_layout
+
+\begin_layout Itemize
+Registrati come docente: lo studente registrato inserisce le credenziali
+ PayPal per poter accedere alle funzioni da docente;
+\end_layout
+
+\begin_layout Itemize
+Crea Lezione: il docente crea una lezione in un determinato giorno ed orario;
+\end_layout
+
+\begin_layout Itemize
+Paga Lezione: lo studente paga una lezione a cui è interessato;
+\end_layout
+
+\begin_layout Itemize
+Valuta una lezione: lo studente valuta una lezione a cui ha partecipato;
+\end_layout
+
+\begin_layout Itemize
+Esprimi preferenza topic: lo studente registra delle preferenze in base
+ al topic per ricevere notifiche sulla creazione di nuove lezioni in base
+ a quel topic;
+\end_layout
+
+\begin_layout Itemize
+Avvia videochiamata: il docente avvia una videochiamata per una lezione
+ precedentemente creata;
+\end_layout
+
+\begin_layout Itemize
+JoinToVideochiamata: lo studente partecipa alla videochiamata della lezione
+ che ha pagato.
+\end_layout
+
+\begin_layout Section
+Requisiti Non Funzionali
+\end_layout
+
+\begin_layout Itemize
+Il sistema deve assicurare che un utente non loggato non può accedere alle
+ funzionalità del sistema, per garantirne la riservatezza;
 \end_layout
 
 \end_body
