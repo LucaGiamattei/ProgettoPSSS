@@ -143,7 +143,7 @@ Scopo del Progetto
 
 \begin_layout Standard
 Si vuole realizzare un’applicazione web per la gestione di una piattaforma
- di video lezioni private.
+ di video lezioni online private.
  Con la piattaforma interagiscono gli studenti che intendono prenotarsi
  per una lezione privata e i docenti per la creazione delle lezioni.
  
@@ -165,9 +165,9 @@ to delle credenziali PayPal potrà diventare un docente e quindi avere accesso
 \align left
 I docenti possono creare una lezione specificando il topic della lezione,
  l'orario, il giorno, il costo della lezione e il numero di partecipanti.
- In seguito, nell'orario e giorno stabiliti durante la creazione, il docente
- avvierà una videochiamata per tenere la lezione.
- Ai docenti, inoltre, è data la possibilità di eliminare una lezione programmata.
+ In seguito, nell'orario e nel giorno stabiliti durante la creazione, il
+ docente avvierà una videochiamata attraverso un sistema esterno chaimato
+ Janus per tenere la lezione.
  
 \end_layout
 
@@ -180,7 +180,7 @@ Gli studenti possono cercare una lezione in base al topic d'interesse e
  una recensione al docente.
  Agli studenti è data, inoltre, la possibilità di sottoscriversi ad un topic
  d'interesse in modo tale da ricevere una notifica non appena un docente
- crea una lezione relativa a quel topic.
+ avrà creato una lezione relativa a quel topic.
 \end_layout
 
 \begin_layout Subsection
