@@ -158,6 +158,107 @@ Per lo studio del diagramma dei casi d'uso andremo a mostrare il diagramma
 Figura 2.1: Use Case Diagram
 \end_layout
 
+\begin_layout Standard
+\align left
+Dall’analisi testuale sono stati individuati i seguenti attori: 
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Studente;
+\end_layout
+
+\begin_layout Enumerate
+Docente;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Janus (secondario);
+\end_layout
+
+\begin_layout Enumerate
+\align left
+PayPal (secondario).
+\end_layout
+
+\begin_layout Standard
+\align left
+Nello specifico lo Studente è colui che interagisce maggiormente con il
+ sistema potendo diventare anche Docente definendo un conto PayPal.
+ Janus e PayPal sono stato inquadrati come attori secondari essendo dei
+ servizi esterni di cui l'applicazione usufruisce rispettivamente per la
+ gestione delle videochiamate e dei pagamenti delle lezioni.
+ 
+\end_layout
+
+\begin_layout Standard
+\align left
+Dall’analisi sono stati individuati i seguenti casi d’uso: 
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Registrazione;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Login; 
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Cerca lezione;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Paga lezione; 
+\end_layout
+
+\begin_layout Enumerate
+Valuta lezione;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Esprimi una preferenza di topic;
+\end_layout
+
+\begin_layout Enumerate
+Registrati come Docente;
+\end_layout
+
+\begin_layout Enumerate
+JoinToVideochiamata;
+\end_layout
+
+\begin_layout Enumerate
+Crea lezione;
+\end_layout
+
+\begin_layout Enumerate
+Avvia videochiamata.
+\end_layout
+
+\begin_layout Standard
+\align left
+Durante la stesura del Diagramma dei casi d’uso è stato deciso di considerare
+ il caso d’uso Cerca Lezione come incluso nel caso d’uso Paga Lezione.
+ L’inclusione infatti non è opzionale ed avviene in ogni istanza del caso
+ d’uso.
+ Inoltre è stato incluso il caso d'uso di definizione di un conto PayPal
+ nel caso d'uso di Registrazione come Docente per la ricezione dei pagamenti
+ relativi alle lezioni create come Docente.
+ Per quanto riguarda il caso d’uso Avvia una videochiamata, esso viene esteso
+ dal caso Notifica.
+ Il caso d’uso Notifica non ha senso da solo, ma solo in riferimento al
+ fatto che è stata avviata una videochiamata e quindi possono essere notificati
+ tutti gli studenti paganti per quella lezione.
+ 
+\end_layout
+
 \begin_layout Section
 Descrizione degli Scenari
 \end_layout
@@ -727,23 +828,19 @@ Lo studente immette i dati di pagamento e conferma
 Se il pagamento è avvenuto correttamente 
 \end_layout
 
-\begin_deeper
-\begin_layout Enumerate
+\begin_layout Itemize
 Il sistema conferma la prenotazione e aggiorna i posti disponibili 
 \end_layout
 
-\end_deeper
 \begin_layout Enumerate
 Altrimenti 
 \end_layout
 
-\begin_deeper
-\begin_layout Enumerate
+\begin_layout Itemize
 Il sistema mostra un messaggio di errore e torna alla pagina di pagamento
  Paypal 
 \end_layout
 
-\end_deeper
 \end_deeper
 \begin_layout Enumerate
 Altrimenti 
@@ -1218,7 +1315,7 @@ Attori primari: Docente
 \begin_inset Text
 
 \begin_layout Plain Layout
-Attori secondari: Nessuno
+Attori secondari: Janus
 \end_layout
 
 \end_inset
@@ -1355,7 +1452,7 @@ Attori primari: Studente
 \begin_inset Text
 
 \begin_layout Plain Layout
-Attori secondari: Nessuno
+Attori secondari: Janus
 \end_layout
 
 \end_inset
@@ -1610,6 +1707,27 @@ Figura 2.2: System Domain Model
 
 \begin_layout Section
 Diagramma di Contesto con Boundary
+\end_layout
+
+\begin_layout Standard
+In questo diagramma si mostra l'interazione del sistema con l'esterno.
+ L'Utente, che sia Studente o Docente, interfacciandosi con il proprio dispositi
+vo, potranno comunicare con il sistema attraverso un'interfaccia.
+ In particolare:
+\end_layout
+
+\begin_layout Enumerate
+L'interfaccia Videocall sarà collegata ad un servizio esterno per la gestione
+ delle videochiamate di nome Janus;
+\end_layout
+
+\begin_layout Enumerate
+L'interfaccia Pagamento sarà collegata al servizio esterno di PayPal;
+\end_layout
+
+\begin_layout Enumerate
+L'interfaccia Registrazione sarà collegata ad un servizio di web email esterno
+ per la conferma della registrazione.
 \end_layout
 
 \begin_layout Standard

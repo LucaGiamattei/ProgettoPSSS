@@ -158,6 +158,107 @@ Per lo studio del diagramma dei casi d'uso andremo a mostrare il diagramma
 Figura 2.1: Use Case Diagram
 \end_layout
 
+\begin_layout Standard
+\align left
+Dall’analisi testuale sono stati individuati i seguenti attori: 
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Studente;
+\end_layout
+
+\begin_layout Enumerate
+Docente;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Janus (secondario);
+\end_layout
+
+\begin_layout Enumerate
+\align left
+PayPal (secondario).
+\end_layout
+
+\begin_layout Standard
+\align left
+Nello specifico lo Studente è colui che interagisce maggiormente con il
+ sistema potendo diventare anche Docente definendo un conto PayPal.
+ Janus e PayPal sono stato inquadrati come attori secondari essendo dei
+ servizi esterni di cui l'applicazione usufruisce rispettivamente per la
+ gestione delle videochiamate e dei pagamenti delle lezioni.
+ 
+\end_layout
+
+\begin_layout Standard
+\align left
+Dall’analisi sono stati individuati i seguenti casi d’uso: 
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Registrazione;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Login; 
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Cerca lezione;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Paga lezione; 
+\end_layout
+
+\begin_layout Enumerate
+Valuta lezione;
+\end_layout
+
+\begin_layout Enumerate
+\align left
+Esprimi una preferenza di topic;
+\end_layout
+
+\begin_layout Enumerate
+Registrati come Docente;
+\end_layout
+
+\begin_layout Enumerate
+JoinToVideochiamata;
+\end_layout
+
+\begin_layout Enumerate
+Crea lezione;
+\end_layout
+
+\begin_layout Enumerate
+Avvia videochiamata.
+\end_layout
+
+\begin_layout Standard
+\align left
+Durante la stesura del Diagramma dei casi d’uso è stato deciso di considerare
+ il caso d’uso Cerca Lezione come incluso nel caso d’uso Paga Lezione.
+ L’inclusione infatti non è opzionale ed avviene in ogni istanza del caso
+ d’uso.
+ Inoltre è stato incluso il caso d'uso di definizione di un conto PayPal
+ nel caso d'uso di Registrazione come Docente per la ricezione dei pagamenti
+ relativi alle lezioni create come Docente.
+ Per quanto riguarda il caso d’uso Avvia una videochiamata, esso viene esteso
+ dal caso Notifica.
+ Il caso d’uso Notifica non ha senso da solo, ma solo in riferimento al
+ fatto che è stata avviata una videochiamata e quindi possono essere notificati
+ tutti gli studenti paganti per quella lezione.
+ 
+\end_layout
+
 \begin_layout Section
 Descrizione degli Scenari
 \end_layout
@@ -1218,7 +1319,7 @@ Attori primari: Docente
 \begin_inset Text
 
 \begin_layout Plain Layout
-Attori secondari: Nessuno
+Attori secondari: Janus
 \end_layout
 
 \end_inset
@@ -1355,7 +1456,7 @@ Attori primari: Studente
 \begin_inset Text
 
 \begin_layout Plain Layout
-Attori secondari: Nessuno
+Attori secondari: Janus
 \end_layout
 
 \end_inset
@@ -1465,7 +1566,7 @@ Caso d’uso: Esprimi preferenza
 \begin_inset Text
 
 \begin_layout Plain Layout
-ID: 67
+ID: 7
 \end_layout
 
 \end_inset
@@ -1476,8 +1577,8 @@ ID: 67
 \begin_inset Text
 
 \begin_layout Plain Layout
-Breve descrizione: Lo studente dopo aver partecipato ad una lezione effettua
- una valutazione
+Breve descrizione: Lo studente esprime una preferenza di un topic a cui
+ è interessato
 \end_layout
 
 \end_inset
@@ -1510,7 +1611,7 @@ Attori secondari: Nessuno
 \begin_inset Text
 
 \begin_layout Plain Layout
-Precondizione: La lezione è terminata 
+Precondizione: Lo studente è loggato nel sistema
 \end_layout
 
 \end_inset
@@ -1525,15 +1626,11 @@ Sequenza degli eventi:
 \end_layout
 
 \begin_layout Enumerate
-Lo studente termina la videochiamata
-\end_layout
-
-\begin_layout Enumerate
 Lo studente seleziona 
 \begin_inset Quotes eld
 \end_inset
 
-Valy
+Esprimi preferenza
 \begin_inset Quotes erd
 \end_inset
 
@@ -1541,21 +1638,19 @@ Valy
 \end_layout
 
 \begin_layout Enumerate
-Lo studente seleziona “Partecipa alla videochiamata”
+Inserisce il nome del topic d'interesse
 \end_layout
 
 \begin_layout Enumerate
-Lo studente partecipa alla lezione
+Se è stata creata una lezione con quel topic
 \end_layout
 
+\begin_deeper
 \begin_layout Enumerate
-Lo studente seleziona “Termina la videochiamata”
+Lo studente riceve una notifica
 \end_layout
 
-\begin_layout Enumerate
-Lo studente valuta la lezione
-\end_layout
-
+\end_deeper
 \end_inset
 </cell>
 </row>
@@ -1564,7 +1659,7 @@ Lo studente valuta la lezione
 \begin_inset Text
 
 \begin_layout Plain Layout
-Postcondizione: La lezione viene valutata
+Postcondizione: Lo studente riceve una notifica
 \end_layout
 
 \end_inset
@@ -1612,6 +1707,31 @@ Il sistema si compone delle seguenti entità:
 \begin_layout Standard
 \align center
 Figura 2.2: System Domain Model
+\end_layout
+
+\begin_layout Section
+Diagramma di Contesto con Boundary
+\end_layout
+
+\begin_layout Standard
+In questo diagramma si mostra l'interazione del sistema con l'esterno.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/Diagramma di Contesto delle classi Boundary.jpg
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figura 2.3: Diagramma di contesto con Boundary
 \end_layout
 
 \end_body
