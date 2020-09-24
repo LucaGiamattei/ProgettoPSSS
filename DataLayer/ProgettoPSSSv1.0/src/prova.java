@@ -5,9 +5,10 @@ import java.sql.SQLException;
 import java.util.Hashtable;
 
 import dataLayer.connectorManager.DBConnectionManager;
-import dataLayer.docente.*;
+import dataLayer.user.entities.UtenteDB;
+import dataLayer.utilities.idUser;
 import dataLayer.user.*;
-
+import dataLayer.user.controller.ControllerUtenteDB;
 public class prova {
 
 	public static void main(String[] args) throws SQLException {
@@ -42,7 +43,23 @@ public class prova {
 				Integer r = DBConnectionManager.UpdateEntryDB("Utente", conditionsFildsToValues1, fildsToValues, false);
 				System.out.println(r);
 				
+				//TEST SELECT IN SELECT
+				String [] fieldsToSelect1 = {"*"};
+				Hashtable<String,String> conditionsFildsToValues2 = new Hashtable<String, String>();
+				conditionsFildsToValues2.put("idLezione", "1");
 				
+				ResultSet result1 = DBConnectionManager.SelectEntryInSelectDB("Utente", fieldsToSelect1, "idUtente", "Lezione", "Utente_idUtente", conditionsFildsToValues2);
+				
+				while (result1.next()) {
+					System.out.println(result1.getString("Nome")+result1.getString("Cognome")+result1.getString("Email")+result1.getString("idUtente"));
+				}
+				
+				//PROVA UTENTE///
+				
+				UtenteDB ut = new UtenteDB("lorenzo", "caso", "lorenzo@gmail.com");
+				ControllerUtenteDB controller = new ControllerUtenteDB();
+				controller.createUser(ut, "passw");
+				System.out.println("ID UTENTE"+ut.getId().toString());
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -51,4 +68,5 @@ public class prova {
 		 System.out.println("HELLO");
 	}
 
+	
 }

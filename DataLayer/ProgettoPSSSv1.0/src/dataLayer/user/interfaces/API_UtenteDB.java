@@ -20,12 +20,12 @@ public interface API_UtenteDB {
 	/**
 	 * Questa funzione permette di creare un utente
 	 * 
-	 * @param utente struttura che contiene le informazioni da memorizzare per il nuovo utente
+	 * @param utente I/O struttura che contiene le informazioni da memorizzare per il nuovo utente.
+	 * Essa verrà aggiornata con l'id dell'utente.
 	 * @param password la password da memorizzare per il nuovo utente
 	 * @return StateResult Rappresenta lo stato del risultato:
 	 * - NOCHANGES
-	 * - ONE_ROWSCHANGED
-	 * - DEFAULT
+	 * - CREATED
 	 * - DBPROBLEM
 	 */
 	StateResult createUser(UtenteDB utente, String password);
@@ -34,7 +34,8 @@ public interface API_UtenteDB {
 	 * riguardo l'utente identificato dal suo id
 	 * 
 	 * @param id identificativo dell'utente da selezionare
-	 * @return ResultUtente struttura dati contenente il risultato della selezione. 
+	 * @param utente struttura che verrà aggiornata con le informazioni prelevate dalla base di dati perisistente
+	 * @return StateResult struttura dati contenente il risultato della selezione. 
 	 * Tale struttura contiene uno stato:
 	 * - NOVALID 
 	 * - VALID
@@ -42,10 +43,10 @@ public interface API_UtenteDB {
 	 * - DBPROBLEM
 	 * e l'oggetto UtenteDB
 	 */
-	ResultUtente retrieveUser(idUser id);
+	StateResult retrieveUser(idUser id, UtenteDB utente);
 	
 	/**
-	 * Questa funzione permette di ottenere la password relativa  aun utente
+	 * Questa funzione permette di ottenere la password relativa  a un utente
 	 * 
 	 * @param id identificativo dell'utente da selezionare
 	 * @param password password da validare

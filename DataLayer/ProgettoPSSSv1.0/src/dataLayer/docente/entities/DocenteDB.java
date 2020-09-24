@@ -46,8 +46,5 @@ public class DocenteDB {
 		this.mediaScoreLezioni = mediaScoreLezioni;
 	}
 	
-	public void createNewDocente() throws Exception {
-		
-		DBConnectionManager.updateQuery("UPDATE");
-	}
+	
 }

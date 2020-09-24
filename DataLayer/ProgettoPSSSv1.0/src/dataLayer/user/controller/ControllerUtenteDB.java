@@ -12,18 +12,10 @@ import dataLayer.utilities.idUser;
 
 public class ControllerUtenteDB implements API_UtenteDB{
 
-	@Override
+	
 
-/**
- *Questa funzione permette di validare l'id di un utente
- *
- *@param id
- *@return StateResult Rappresenta lo stato dell'operazione:
- *- NOVALID
- *- VALID
- *- DEFAULT
- *- DBPROBLEM
- */
+
+	
 	public StateResult validateUser(idUser id) {
 		// TODO Auto-generated method stub
 		String [] fieldsToSelect = {"*"};
@@ -37,6 +29,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 			
 			while (result.next()) {
 				numOfRows++;
+				
 			}
 			switch(numOfRows) {
 		      case 0:
@@ -60,17 +53,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		
 		
 	}
-/**
- * Questa funzione permette di creare un utente
- * 
- * @param utente struttura che contiene le informazioni da memorizzare per il nuovo utente
- * @param password la password da memorizzare per il nuovo utente
- * @return StateResult Rappresenta lo stato del risultato:
- * - NOCHANGES
- * - ONE_ROWSCHANGED
- * - DEFAULT
- * - DBPROBLEM
- */
+
 
 	@Override
 	public StateResult createUser(UtenteDB utente, String password) {
@@ -83,16 +66,14 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		
 		try {
 			Integer r = DBConnectionManager.createNewEntryDB("Utente", u,true);
-			switch(r) {
-		      case 0:
-		        return StateResult.NOCHANGES;
-		        
-		      case 1:
-		    	  return StateResult.ONE_ROWSCHANGED;
-		        
-		      default:
-		    	  return StateResult.DEFAULT;    	
-		    }
+			
+			if (r>0) {
+				utente.setId(new idUser(r));
+				return StateResult.CREATED; 
+			}else {
+				return StateResult.NOCHANGES;
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,21 +84,10 @@ public class ControllerUtenteDB implements API_UtenteDB{
 	}
 
 	@Override
-/**
- * Questa funzione permette di ottenere la struttura dati UtenteDB con le informazione 
- * riguardo l'utente identificato dal suo id
- * 
- * @param id identificativo dell'utente da selezionare
- * @return ResultUtente struttura dati contenente il risultato della selezione. 
- * Tale struttura contiene uno stato:
- * - NOVALID 
- * - VALID
- * - DEFAULT
- * - DBPROBLEM
- * e l'oggetto UtenteDB
- */
-	public ResultUtente retrieveUser(idUser id) {
-		ResultUtente risultato = new ResultUtente();
+
+	
+	public StateResult retrieveUser(idUser id,UtenteDB utente ) {
+		
 		
 		// TODO Auto-generated method stub
 		String [] fieldsToSelect = {"*"};
@@ -134,22 +104,26 @@ public class ControllerUtenteDB implements API_UtenteDB{
 			while (result.next()) {
 					numOfRows++;
 					if (numOfRows==1) {
-						UtenteDB returnUser = new UtenteDB(new idUser(result.getInt("idUtente")), result.getString("Nome"), result.getString("Cognome"), result.getString("Email"));
-						risultato.setUtente(returnUser);
+						utente.setCognome(result.getString("Cognome"));
+						utente.setEmail(result.getString("Email"));
+						utente.setId(new idUser(result.getInt("idUtente")));
+						utente.setNome(result.getString("Nome"));
+						
 					}
 			}
+			
 			switch(numOfRows) {
 				    case 0:
-				    	risultato.setStateResult(StateResult.NOVALID);
-				    	return risultato;
+				    	
+				    	return StateResult.NOVALID;
 				        
 				    case 1:
-				    	risultato.setStateResult(StateResult.VALID);
-				    	return risultato;
+				    	
+				    	return StateResult.VALID;
 				     
 				    default:
-				    	risultato.setStateResult(StateResult.DEFAULT);
-				    	return risultato;
+				    	
+				    	return StateResult.DEFAULT;
 				    	
 			}
 					
@@ -157,21 +131,13 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					risultato.setStateResult(StateResult.DBPROBLEM);
-			    	return risultato;
+					return StateResult.DBPROBLEM;
+			    	
 					
 		}
 	}
-/**
- * Questa funzione permette di ottenere la password relativa  aun utente
- * 
- * @param id identificativo dell'utente da selezionare
- * @param password password da validare
- * @return StateResult Restituisce lo stato della validazione:
- * -  VALID
- * - NOVALID
- * - DBPROBLEM
- */
+
+	
 	public StateResult verifyPassword(idUser id, String password) {
 		// TODO Auto-generated method stub
 				String [] fieldsToSelect = {"Password"};

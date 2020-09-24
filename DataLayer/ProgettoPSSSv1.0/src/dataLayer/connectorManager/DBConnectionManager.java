@@ -216,4 +216,55 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
 	return selectQuery(query);
 	
 	}
+
+
+/**
+ * Con questa funzione è possibile selezionare delle tuple all'interno della tabella che hanno come valore di una colonna il risultato di un'altra query di selezione.
+ * Esempio query: "SELECT fieldsToSelect1 FROM `nomeTabella1` WHERE fieldCondition1 IN(SELECT fieldToSelect2 FROM `nomeTabella2` WHERE conditionsFildsToValues2) ;
+ * 
+ * @param nomeTabella1
+ * @param fieldsToSelect1
+ * @param fieldCondition1
+ * @param nomeTabella2
+ * @param fieldToSelect2
+ * @param conditionsFildsToValues2
+ * @return
+ * @throws Exception
+ */
+
+public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldToSelect2, Hashtable<String, String> conditionsFildsToValues2 ) throws Exception {
+	
+	String  mappingFieldValue = "";
+	
+	Set<String> keys = conditionsFildsToValues2.keySet();
+	 
+    //Obtaining iterator over set entries
+    Iterator<String> itr = keys.iterator();
+    if(itr.hasNext()) {
+    	// Getting Key
+        String key = itr.next();
+        mappingFieldValue = mappingFieldValue+"`"+key+"` ="+"'"+conditionsFildsToValues2.get(key)+"'";
+        
+    }
+    //Displaying Key and value pairs
+    while (itr.hasNext()) { 
+       // Getting Key
+       String key = itr.next();
+       mappingFieldValue = mappingFieldValue+", `"+key+"` ="+"'"+conditionsFildsToValues2.get(key)+"'";
+       
+    }
+    String fields ="";
+    if (fieldsToSelect1.length>0) {
+    	fields = "`"+fieldsToSelect1[0]+"`";
+    }
+    for (int i = 1; i<fieldsToSelect1.length;i++) {
+    	fields = fields+",`"+fieldsToSelect1[i]+"`";
+    }
+    
+    
+	String query = "SELECT"+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+mappingFieldValue+") ;";
+	System.out.println(query);
+	return selectQuery(query);
+	
+	}
 }

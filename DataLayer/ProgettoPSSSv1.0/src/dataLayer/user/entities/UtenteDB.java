@@ -17,8 +17,17 @@ public class UtenteDB {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
-		Email = email;
+		this.Email = email;
 	}
+	
+	
+	public UtenteDB(String nome, String cognome, String email) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.Email = email;
+	}
+	
 	public idUser getId() {
 		return id;
 	}
