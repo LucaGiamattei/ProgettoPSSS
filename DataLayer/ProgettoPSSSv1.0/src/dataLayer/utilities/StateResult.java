@@ -15,6 +15,10 @@ package dataLayer.utilities;
 	 */
 	ONE_ROWSCHANGED,
 	/**
+	 * Esiste già
+	 */
+	CREATED,
+	/**
 	 * Valore di default nel caso in cui non sia nessuno degli altri stati
 	 */
 	DEFAULT,

@@ -5,11 +5,14 @@ import java.sql.SQLException;
 import java.util.Hashtable;
 
 import dataLayer.connectorManager.DBConnectionManager;
+import dataLayer.docente.*;
+import dataLayer.user.*;
 
 public class prova {
 
 	public static void main(String[] args) throws SQLException {
 		 try {
+			 	
 			 	//TEST CREATE//
 			 	Hashtable<String,String> utente = new Hashtable<String, String>();
 			 	utente.put("Nome", "Lorenzo");
@@ -38,6 +41,8 @@ public class prova {
 				fildsToValues.put("Nome", "LUCA");
 				Integer r = DBConnectionManager.UpdateEntryDB("Utente", conditionsFildsToValues1, fildsToValues, false);
 				System.out.println(r);
+				
+				
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
