@@ -15,7 +15,26 @@ public class UtenteDB {
 	private float mediaScoreLezioni;
 	
 	
+	@Override
+	public String toString() {
+		return "UtenteDB [id=" + id.toString() + ", nome=" + nome + ", cognome=" + cognome + ", Email=" + Email + ", contoPaypal="
+				+ contoPaypal + ", curriculum=" + curriculum + ", mediaScoreLezioni=" + mediaScoreLezioni + "]";
+	}
+
+	public UtenteDB() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public UtenteDB(idUser id, String nome, String cognome, String email) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.Email = email;
+	}
+	
+	public UtenteDB(String nome, String cognome, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;

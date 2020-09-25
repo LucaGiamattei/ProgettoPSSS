@@ -33,15 +33,10 @@ public class ControllerUtenteDB implements API_UtenteDB{
 				
 			}
 			switch(numOfRows) {
-		      case 0:
-		        return StateResult.NOVALID;
-		        
 		      case 1:
 		    	  return StateResult.VALID;
-		        
-		     
 		      default:
-		    	  return StateResult.DEFAULT; 
+		    	  return StateResult.NOVALID; 
 			}
 			
 		
@@ -113,20 +108,12 @@ public class ControllerUtenteDB implements API_UtenteDB{
 					}
 			}
 			
-			switch(numOfRows) {
-				    case 0:
-				    	
-				    	return StateResult.NOVALID;
-				        
-				    case 1:
-				    	
-				    	return StateResult.VALID;
-				     
-				    default:
-				    	
-				    	return StateResult.DEFAULT;
-				    	
+			if(numOfRows ==1) {
+				return StateResult.VALID;
+			}else {
+				return StateResult.NOVALID;
 			}
+			
 					
 				
 		} catch (Exception e) {
@@ -153,7 +140,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 					while (result.next()) {
 						numOfRows++;
 						if(numOfRows == 1) {
-							if(result.getString("Password")==password) {
+							
+							if(result.getString("Password").compareTo(password)==0) {
 								return StateResult.VALID;
 							}
 						}

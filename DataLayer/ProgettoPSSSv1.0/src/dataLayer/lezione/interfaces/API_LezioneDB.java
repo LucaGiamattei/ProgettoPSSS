@@ -5,6 +5,7 @@ import java.util.Vector;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.utilities.StateResult;
+import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 import dataLayer.utilities.idTopic;
@@ -37,7 +38,7 @@ public interface API_LezioneDB {
 	 *- DBPROBLEM
 	 *- CREATED
 	 */
-	StateResult createLesson(idUser idOwnerUser, idTopic idTopic, LezioneDB infoLezione);
+	StateResult createLesson(LezioneDB infoLezione);
 	
 	
 	/**
@@ -55,7 +56,7 @@ public interface API_LezioneDB {
 	 * @param lezioni (I/O) Da Input deve fornire principlamente gli identificativi delle lezioni, Da Output sarà arricchita ogni lezione con i riferimenti alle relative fasce orarie
 	 * @return 
 	 */
-	StateResult getLessonsByUserWithSlotsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
+	StateResult attachSlotsToLessonsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
 	
 	/**
 	 * Questa funzione permette di aggiungere uno o più slot a una lezione. Aggiungere più slot significherà fare un'unica transazione.
@@ -76,7 +77,7 @@ public interface API_LezioneDB {
 	 * @return
 	 */
 	
-	StateResult  updateFasciaOraria(idUser idOwnerUser, idLesson idLezione, FasciaOraria slotDaAggiornare, FasciaOraria slotAggiornato);
+	StateResult  updateFasciaOraria(idFasciaOraria id, FasciaOraria slotAggiornato);
 	
 	
 	
@@ -107,7 +108,7 @@ public interface API_LezioneDB {
 	 *- DBPROBLEM
 	 *- CREATED
 	 */
-	 StateResult getLessonbyTitle(String title, Vector<LezioneDB> lezioni);
+	 StateResult getLessonsbyTitle(String title, Vector<LezioneDB> lezioni);
 	 
 	 /**
 	  * 
@@ -116,6 +117,6 @@ public interface API_LezioneDB {
 	  * @return
 	  */
 	 
-	 StateResult getLessonsByUserWithSlotsUtente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
+	 StateResult attachSlotsToLessonsUtente(Vector<LezioneDB> lezioni);
 	
 }

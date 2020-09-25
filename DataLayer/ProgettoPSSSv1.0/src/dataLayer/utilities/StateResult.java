@@ -34,6 +34,8 @@ package dataLayer.utilities;
 	 * La validazione è andata a buon fine
 	 */
 	VALID,
+	UPDATED,
+	NOUPDATED
 
 	
 }

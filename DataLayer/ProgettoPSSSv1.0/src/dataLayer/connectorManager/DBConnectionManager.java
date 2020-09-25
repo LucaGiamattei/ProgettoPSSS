@@ -11,11 +11,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 public class DBConnectionManager
 {
 	public static String url = "jdbc:mysql://localhost:3306/";
-	public static String dbName = "PSSSdb";
+	public static String dbName = "Prova2";
 	public static String driver = "com.mysql.jdbc.Driver";
 	public static String userName = "root"; 
 	public static String password = "giorgio1996";
@@ -29,7 +30,9 @@ public class DBConnectionManager
 	  
 	  return conn;
 	}
-
+	
+	
+	
 	public static void closeConnection(Connection c) throws Exception
 	{
 		c.close();
@@ -53,6 +56,7 @@ public class DBConnectionManager
 		return ret;
 	}
 	
+	
 	public static Integer updateQueryReturnGeneratedKey(String query) throws Exception
 	{
 		Integer ret = null;
@@ -72,7 +76,12 @@ public class DBConnectionManager
 	}
 
 
-public static String getQueryNewEntryDB(String nomeTabella, Hashtable<String, String> fildsToValues ){
+	
+//----------------Gestione Transazioni-------------------//
+
+	
+
+	public static String getQueryNewEntryDB(String nomeTabella, Hashtable<String, String> fildsToValues ){
 	
 	String  values = "";
 	String  fields = "";
@@ -98,7 +107,45 @@ public static String getQueryNewEntryDB(String nomeTabella, Hashtable<String, St
 	
 	
 	}
+
+
+	public static ResultSet selectQueryTrans(String query, Connection conn) throws Exception
+	{
+		
+	    Statement statement = conn.createStatement();
+	    ResultSet ret = statement.executeQuery(query);
+	    return ret;
+	}
+
+	public static int updateQueryTrans(String query, Connection conn) throws Exception
+	{
+		Statement statement = conn.createStatement();
+		int ret = statement.executeUpdate(query);
+		return ret;
+	}
 	
+	public static Integer updateQueryReturnGeneratedKeyTrans(String query, Connection conn) throws Exception
+	{
+		Integer ret = null;
+		
+		
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+		
+		ResultSet rs = statement.getGeneratedKeys();
+		if (rs.next()){
+		    ret = rs.getInt(1);
+		}
+		
+		
+		
+		return ret;
+	}
+
+
+
+
+//----------------------------------Gestione Transazioni singoli------------//
 /**
  * Con questa funzione è possibile creare una nuova tupla in una tabella.
  * @param nomeTabella Nome della tabella della base di dati persistente
@@ -188,7 +235,7 @@ public static Integer UpdateEntryDB(String nomeTabella,Hashtable<String, String>
     while (itrCond.hasNext()) { 
        // Getting Key
        String key = itrCond.next();
-       mappingFieldValueCond = mappingFieldValueCond+", `"+key+"` ="+"'"+conditionsFildsToValues.get(key)+"'";
+       mappingFieldValueCond = mappingFieldValueCond+" && `"+key+"` ="+"'"+conditionsFildsToValues.get(key)+"'";
        
     }
     
@@ -230,7 +277,7 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
     while (itr.hasNext()) { 
        // Getting Key
        String key = itr.next();
-       mappingFieldValue = mappingFieldValue+", `"+key+"` ="+"'"+conditionsFildsToValues.get(key)+"'";
+       mappingFieldValue = mappingFieldValue+" && `"+key+"` ="+"'"+conditionsFildsToValues.get(key)+"'";
        
     }
     String fields ="";
@@ -242,7 +289,7 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
     }
     
     
-	String query = "SELECT"+fields+" FROM `"+dbName+"`.`"+nomeTabella+"` WHERE "+mappingFieldValue+" ;";
+	String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella+"` WHERE "+mappingFieldValue+" ;";
 	System.out.println(query);
 	return selectQuery(query);
 	
@@ -281,7 +328,7 @@ public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fie
     while (itr.hasNext()) { 
        // Getting Key
        String key = itr.next();
-       mappingFieldValue = mappingFieldValue+", `"+key+"` ="+"'"+conditionsFildsToValues2.get(key)+"'";
+       mappingFieldValue = mappingFieldValue+" && `"+key+"` ="+"'"+conditionsFildsToValues2.get(key)+"'";
        
     }
     String fields ="";

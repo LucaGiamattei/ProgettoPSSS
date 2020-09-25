@@ -15,7 +15,6 @@ public interface API_UtenteDB {
 	 *@return StateResult Rappresenta lo stato dell'operazione:
 	 *- NOVALID
 	 *- VALID
-	 *- DEFAULT
 	 *- DBPROBLEM
 	 */
 	StateResult validateUser(idUser id); 
@@ -41,7 +40,6 @@ public interface API_UtenteDB {
 	 * Tale struttura contiene uno stato:
 	 * - NOVALID 
 	 * - VALID
-	 * - DEFAULT
 	 * - DBPROBLEM
 	 * e l'oggetto UtenteDB
 	 */

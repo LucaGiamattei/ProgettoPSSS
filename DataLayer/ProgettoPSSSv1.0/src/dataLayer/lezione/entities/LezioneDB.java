@@ -28,7 +28,18 @@ public class LezioneDB {
 	
 	
 	private Vector<FasciaOraria> slots;
-	
+	/**
+	 * Costruttore con anche lo slot
+	 * @param id
+	 * @param nomeLezione
+	 * @param descrizioneLezione
+	 * @param media_score
+	 * @param nmax
+	 * @param idTopic
+	 * @param idUtente
+	 * @param slot
+	 * @param prezzoSlot
+	 */
 	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, dataLayer.utilities.idTopic idTopic,
 			idUser idUtente, FasciaOraria slot, float prezzoSlot) {
 		super();
@@ -43,7 +54,17 @@ public class LezioneDB {
 		this.prezzoSlot = prezzoSlot;
 		this.descrizioneLezione = descrizioneLezione;
 	}
-	
+	/**
+	 * Costruttore senza slot
+	 * @param id
+	 * @param nomeLezione
+	 * @param descrizioneLezione
+	 * @param media_score
+	 * @param nmax
+	 * @param idTopic
+	 * @param idUtente
+	 * @param prezzoSlot
+	 */
 	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, dataLayer.utilities.idTopic idTopic,
 			idUser idUtente, float prezzoSlot) {
 		super();
@@ -51,6 +72,29 @@ public class LezioneDB {
 		this.nomeLezione = nomeLezione;
 		this.media_score = media_score;
 		Nmax = nmax;
+		this.idTopic = idTopic;
+		this.idUtente = idUtente;
+		this.slots = new Vector <FasciaOraria>();
+		this.prezzoSlot = prezzoSlot;
+		this.descrizioneLezione = descrizioneLezione;
+	}
+	
+	/**
+	 * Costruttore utilizzato per la create
+	 * 
+	 * @param nomeLezione
+	 * @param descrizioneLezione
+	 * @param nmax
+	 * @param idTopic
+	 * @param idUtente
+	 * @param prezzoSlot
+	 */
+	public LezioneDB(String nomeLezione,String descrizioneLezione,int nmax, dataLayer.utilities.idTopic idTopic,
+			idUser idUtente, float prezzoSlot) {
+		super();
+		
+		this.nomeLezione = nomeLezione;
+		this.Nmax = nmax;
 		this.idTopic = idTopic;
 		this.idUtente = idUtente;
 		this.prezzoSlot = prezzoSlot;
@@ -127,6 +171,19 @@ public class LezioneDB {
 
 	public void setDescrizioneLezione(String descrizioneLezione) {
 		this.descrizioneLezione = descrizioneLezione;
+	}
+	@Override
+	public String toString() {
+		String r = "LezioneDB [id=" + id + ", nomeLezione=" + nomeLezione + ", descrizioneLezione=" + descrizioneLezione
+				+ ", Nmax=" + Nmax + ", prezzoSlot=" + prezzoSlot + ", media_score=" + media_score + ", idTopic="
+				+ idTopic + ", idUtente=" + idUtente+"\n"+"Slots: \n";
+		if (slots != null) {
+			for(int i = 0; i<slots.size();i++) {
+				r=r+slots.get(i).toString()+"\n";
+			}
+		}
+		r = r+"]";
+		return r;
 	}
 
 	
