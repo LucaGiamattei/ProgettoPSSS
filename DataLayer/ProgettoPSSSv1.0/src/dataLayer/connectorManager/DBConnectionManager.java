@@ -71,6 +71,34 @@ public class DBConnectionManager
 		return ret;
 	}
 
+
+public static String getQueryNewEntryDB(String nomeTabella, Hashtable<String, String> fildsToValues ){
+	
+	String  values = "";
+	String  fields = "";
+	Set<String> keys = fildsToValues.keySet();
+	 
+    //Obtaining iterator over set entries
+    Iterator<String> itr = keys.iterator();
+    if(itr.hasNext()) {
+    	// Getting Key
+        String key = itr.next();
+        fields = fields+"`"+key+"`";
+        values = values+"'"+fildsToValues.get(key)+"'";
+    }
+    //Displaying Key and value pairs
+    while (itr.hasNext()) { 
+       // Getting Key
+       String key = itr.next();
+       fields = fields+",`"+key+"`";
+       values = values+",'"+fildsToValues.get(key)+"'";
+       
+    } 
+	return  "INSERT INTO `"+dbName+"`.`"+nomeTabella+"` ("+fields+") VALUES ("+values+");";		
+	
+	
+	}
+	
 /**
  * Con questa funzione è possibile creare una nuova tupla in una tabella.
  * @param nomeTabella Nome della tabella della base di dati persistente

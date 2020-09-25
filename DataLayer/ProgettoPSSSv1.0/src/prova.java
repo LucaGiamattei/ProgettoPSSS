@@ -24,20 +24,24 @@ public class prova {
 				//Integer r = DBConnectionManager.createNewEntryDB("Utente", utente,true);
 				//System.out.println(r);
 				
+			 	//TEST CREATE MULTIPLE
+			 	Hashtable<String,String> lezione = new Hashtable<String, String>();
+				lezione.put("NomeLezione", "calcolo");
+			 	lezione.put("MediaScoreLezione", "0");
+			 	lezione.put("NMaxStudenti", "10");
+			 	lezione.put("Topic_idTopic", "1");
+			 	DBConnectionManager.createNewEntryDB("Lezione",lezione, true);
 			 	
-			 	//TEST CREATE DOCENTE//
-			 	Hashtable<String,String> conditionsFilds = new Hashtable<String, String>();
-				conditionsFilds.put("idUtente", "3");
-				
-				Hashtable<String,String> Update = new Hashtable<String, String>();
-				Update.put("ContoPayPal", "lorenzocaso@gmail.com");
-				Update.put("Curriculum", "laureato");
-				Update.put("MediaScoreLezioni", "5.5");
-
-				Integer r = DBConnectionManager.UpdateEntryDB("Utente", conditionsFilds, Update, false);
+			 	Hashtable<String,String> slot = new Hashtable<String, String>();
+			 	slot.put("DataLezione", "Lorenzo");
+			 	slot.put("OrarioLezione", "Caso");
+			 	slot.put("prezzo", "Lorenzo");
+			 	slot.put("Lezione_idLezione", "Lorenzsosfscxxasdsadado@unina.it");
+			 	slot.put("Docente", "0");
 			 	
-				
-				
+			 	DBConnectionManager.getQueryNewEntryDB("Lezione",lezione );
+			 	
+			 	
 				//TEST SELECT//
 				String [] fieldsToSelect = {"*"};
 				Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
