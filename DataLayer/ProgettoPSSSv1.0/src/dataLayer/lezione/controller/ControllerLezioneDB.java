@@ -134,8 +134,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			}
 			
 
-			public StateResult getLessonsbyTopics(idTopic infoTopic) {
-				ResultLezione risultato = new ResultLezione();
+			public StateResult getLessonsbyTopics(idTopic infoTopic, LezioneDB lezione) {
+
 				
 				// TODO Auto-generated method stub
 				String [] fieldsToSelect = {"*"};
@@ -144,40 +144,42 @@ public class ControllerLezioneDB implements API_LezioneDB{
 						
 				ResultSet result;
 				try {
-					result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+					result = DBConnectionManager.SelectEntryInSelectDB("FasciaOraria", fieldsToSelect, "Lezione_IdLezione", "Lezione", "*", conditionsFildsToValues);
 					
 					
 					int numOfRows = 0;
 							
 					while (result.next()) {
-							numOfRows++;
-							if (numOfRows==1) {
-								LezioneDB returnLezione = new LezioneDB(new idLesson(result.getInt("idLesson")), result.getString("NomeLezione"), result.getFloat("Prezzo"), result.getFloat("MediaScoreLezioni"),result.getInt("NMaxStudenti"), new idTopic(result.getInt("idTopic")));
-								risultato.setLezione(returnLezione);
-							}
+						numOfRows++;
+						if (numOfRows==1) {
+							utente.setCognome(result.getString("Cognome"));
+							lezione.setTitolo(result.getString("Titolo"));
+							lezione.setNmax(result.getInt(3)));
+							
+							
+						}
 					}
 					switch(numOfRows) {
-						    case 0:
-						    	risultato.setStateResult(StateResult.NOVALID);
-						    	return risultato;
-						        
-						    case 1:
-						    	risultato.setStateResult(StateResult.VALID);
-						    	return risultato;
-						     
-						    default:
-						    	risultato.setStateResult(StateResult.DEFAULT);
-						    	return risultato;
-						    	
+				    case 0:
+				    	
+				    	return StateResult.NOVALID;
+				        
+				    case 1:
+				    	
+				    	return StateResult.VALID;
+				     
+				    default:
+				    	
+				    	return StateResult.DEFAULT;
+				    	
 					}
-							
-						
+
 				} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							risultato.setStateResult(StateResult.DBPROBLEM);
-					    	return risultato;
-							
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return StateResult.DBPROBLEM;
+			    	
+					
 				}
 			}
 }

@@ -48,7 +48,7 @@ public interface API_LezioneDB {
 	 *- DBPROBLEM
 	 *- CREATED
 	 */
-	 StateResult getLessonsbyTopics(idTopic infoTopic);
+	 StateResult getLessonsbyTopics(idTopic infoTopic, LezioneDB lezione);
 	
 	/**
 	 *Questa funzione permette di cercare una lezione per nome della lezione

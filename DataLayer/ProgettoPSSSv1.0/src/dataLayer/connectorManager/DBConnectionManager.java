@@ -112,8 +112,11 @@ public static Integer createNewEntryDB(String nomeTabella, Hashtable<String, Str
 	}
 	
 	}
+
+
+
 /**
- * Questa funzione permette di aggiornare dei specifici campi di una o più tupla all'interno di una tabella.
+ * Questa funzione permette di aggiornare degli specifici campi di una o più tupla all'interno di una tabella.
  * @param nomeTabella Nome della tabella della base di dati persistente
  * @param conditionsFildsToValues una hash table con cui è possibile esprimere condizioni del tipo: "Nella colonna "key" cerca le tuple che hanno il valore "value""
  * @param fildsToValues Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
@@ -263,6 +266,61 @@ public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fie
     
     
 	String query = "SELECT"+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+mappingFieldValue+") ;";
+	System.out.println(query);
+	return selectQuery(query);
+	
+	}
+
+/**
+ * Con questa funzione è possibile eliminare delle tuple all'interno della tabella che hanno un determinato valore in determinate colonne.
+ * @param nomeTabella Nome della tabella della base di dati persistente
+ * @param conditionsFildsToValues  una hash table con cui è possibile esprimere condizioni del tipo: "Nella colonna "key" cerca le tuple che hanno il valore "value""
+ * @return removeFromDB Rimuove le tuple selezionate dalla query
+ * @throws Exception
+ * 
+ */
+public static ResultSet removeFromDB(String nomeTabella, Hashtable<String, String> conditionsFildsToValues ) throws Exception {
+	
+String  mappingFieldValue = "";
+	
+	Set<String> keys = conditionsFildsToValues.keySet();
+	 
+    //Obtaining iterator over set entries
+    Iterator<String> itr = keys.iterator();
+    if(itr.hasNext()) {
+    	// Getting Key
+        String key = itr.next();
+        mappingFieldValue = mappingFieldValue+"`"+key+"` ="+"'"+conditionsFildsToValues.get(key)+"'";
+        
+    }
+    //Displaying Key and value pairs
+    while (itr.hasNext()) { 
+       // Getting Key
+       String key = itr.next();
+       mappingFieldValue = mappingFieldValue+", `"+key+"` ="+"'"+conditionsFildsToValues.get(key)+"'";
+       
+    }
+    
+    
+	String query = "DELETE FROM `"+dbName+"`.`"+nomeTabella+"` WHERE "+mappingFieldValue+" ;";
+	System.out.println(query);
+	return selectQuery(query);
+	
+	
+	}
+
+/**
+ * Con questa funzione è possibile contare le tuple all'interno della tabella che hanno un determinato valore in determinate colonne.
+ * @param nomeTabella Nome della tabella della base di dati persistente
+ * @param conditionsFildsToValues  una hash table con cui è possibile esprimere condizioni del tipo: "Nella colonna "key" cerca le tuple che hanno il valore "value""
+ * @return removeFromDB Rimuove le tuple selezionate dalla query
+ * @throws Exception
+ * 
+ */
+public static ResultSet countEntryDB(String nomeTabella, String selectValue, String fieldToCount ) throws Exception {
+
+    
+	String query = "SELECT COUNT("+fieldToCount+"),"+selectValue+" FROM `"+dbName+"`.`"+nomeTabella+"` GROUP BY "+selectValue+"` ORDER BY COUNT("+fieldToCount+") DESC ;";
 	System.out.println(query);
 	return selectQuery(query);
 	

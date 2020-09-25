@@ -14,7 +14,7 @@ public class prova {
 	public static void main(String[] args) throws SQLException {
 		 try {
 			 	
-			 	//TEST CREATE//
+			 	//TEST CREATE UTENTE//
 			 	Hashtable<String,String> utente = new Hashtable<String, String>();
 			 	utente.put("Nome", "Lorenzo");
 			 	utente.put("Cognome", "Caso");
@@ -23,6 +23,20 @@ public class prova {
 			 	utente.put("Docente", "0");
 				//Integer r = DBConnectionManager.createNewEntryDB("Utente", utente,true);
 				//System.out.println(r);
+				
+			 	
+			 	//TEST CREATE DOCENTE//
+			 	Hashtable<String,String> conditionsFilds = new Hashtable<String, String>();
+				conditionsFilds.put("idUtente", "3");
+				
+				Hashtable<String,String> Update = new Hashtable<String, String>();
+				Update.put("ContoPayPal", "lorenzocaso@gmail.com");
+				Update.put("Curriculum", "laureato");
+				Update.put("MediaScoreLezioni", "5.5");
+
+				Integer r = DBConnectionManager.UpdateEntryDB("Utente", conditionsFilds, Update, false);
+			 	
+				
 				
 				//TEST SELECT//
 				String [] fieldsToSelect = {"*"};
@@ -40,8 +54,8 @@ public class prova {
 				conditionsFildsToValues1.put("Cognome", "Caso");
 				Hashtable<String,String> fildsToValues = new Hashtable<String, String>();
 				fildsToValues.put("Nome", "LUCA");
-				Integer r = DBConnectionManager.UpdateEntryDB("Utente", conditionsFildsToValues1, fildsToValues, false);
-				System.out.println(r);
+				Integer up = DBConnectionManager.UpdateEntryDB("Utente", conditionsFildsToValues1, fildsToValues, false);
+				System.out.println(up);
 				
 				//TEST SELECT IN SELECT
 				String [] fieldsToSelect1 = {"*"};
@@ -53,6 +67,28 @@ public class prova {
 				while (result1.next()) {
 					System.out.println(result1.getString("Nome")+result1.getString("Cognome")+result1.getString("Email")+result1.getString("idUtente"));
 				}
+				
+				
+				//TEST CREATE TOPIC//
+				Hashtable<String,String> topic = new Hashtable<String, String>();
+			 	topic.put("Nome", "Matematica");
+			 	Integer t = DBConnectionManager.createNewEntryDB("Topic", topic,true);
+				System.out.println(t);
+				
+				
+				//TEST CREATE SUBSCRIPTION//
+				Hashtable<String,String> sub = new Hashtable<String, String>();
+				sub.put("Topic_idTopic", "1");
+				sub.put("Utente_idUtente", "1");
+			 	Integer s = DBConnectionManager.createNewEntryDB("SubscriptionUtenteTopic", sub,true);
+				System.out.println(s);
+				
+				//TEST CREATE SUBSCRIPTION//
+				Hashtable<String,String> getMost = new Hashtable<String, String>();
+				getMost.put("Topic_idTopic", "1");
+			 	ResultSet gm = DBConnectionManager.countEntryDB("SubscriptionUtenteTopic", getMost);
+				System.out.println(gm);
+				
 				
 				//PROVA UTENTE///
 				

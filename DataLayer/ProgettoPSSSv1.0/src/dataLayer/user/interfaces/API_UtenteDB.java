@@ -1,8 +1,10 @@
 package dataLayer.user.interfaces;
 
+
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.user.entities.result.ResultUtente;
 import dataLayer.utilities.StateResult;
+import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 
 public interface API_UtenteDB {
@@ -56,4 +58,12 @@ public interface API_UtenteDB {
 	 * - DBPROBLEM
 	 */
 	StateResult verifyPassword(idUser id, String password);
+	
+	
+	/* QUESTE SONO LE FUNZIONI RIFERITE AL DOCENTE */
+	StateResult createDocente(idUser id, UtenteDB docente);
+	
+	StateResult getDocentebyLesson(idLesson id, UtenteDB utente);
+	
+	StateResult updateContoPaypal(idUser id, UtenteDB docente);
 }
