@@ -35,7 +35,9 @@ package dataLayer.utilities;
 	 */
 	VALID,
 	UPDATED,
-	NOUPDATED
+	NOUPDATED,
+	NOREMOVED,
+	REMOVED
 
 	
 }

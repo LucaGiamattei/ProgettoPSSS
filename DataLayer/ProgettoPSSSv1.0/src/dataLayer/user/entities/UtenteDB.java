@@ -53,6 +53,12 @@ public class UtenteDB {
 		this.mediaScoreLezioni =mediaScoreLezioni;
 	}
 	
+	
+	public UtenteDB(idUser id, String contoPaypal, String curriculum) {
+		this.id = id;
+		this.contoPaypal = contoPaypal;
+		this.curriculum = curriculum;
+	}
 
 	
 	public idUser getId() {

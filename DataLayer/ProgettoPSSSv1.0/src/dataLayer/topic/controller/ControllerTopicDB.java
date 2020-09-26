@@ -1,6 +1,7 @@
 package dataLayer.topic.controller;
 import java.sql.ResultSet;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.topic.entities.TopicDB;
@@ -15,7 +16,7 @@ public class ControllerTopicDB implements API_TopicDB{
 	
 	public StateResult createTopic(TopicDB top) {
 		Hashtable<String,String> topic = new Hashtable<String, String>();
-	 	topic.put("Nome", top.getNome());
+	 	topic.put("Name", top.getNome());
 	 	
 		
 		try {
@@ -50,16 +51,11 @@ public class ControllerTopicDB implements API_TopicDB{
 				numOfRows++;
 				
 			}
-			switch(numOfRows) {
-		      case 0:
-		        return StateResult.NOVALID;
-		        
+			switch(numOfRows) {      
 		      case 1:
-		    	  return StateResult.VALID;
-		        
-		     
+		    	  return StateResult.VALID; 
 		      default:
-		    	  return StateResult.DEFAULT; 
+		    	  return StateResult.NOVALID;
 			}
 			
 		
@@ -96,27 +92,19 @@ public class ControllerTopicDB implements API_TopicDB{
 	}
 	public StateResult removeSubscription(idSubscription id) {
 		Hashtable<String,String> removeFields = new Hashtable<String, String>();
-		removeFields.put("idSubscription", id.toString());
+		removeFields.put("idSubscriptionUtenteTopic", id.toString());
 
-		ResultSet result;
+		Integer result;
 		try {
 			result = DBConnectionManager.removeFromDB("SubscriptionUtenteTopic", removeFields);
-			int numOfRows = 0;
 			
-			while (result.next()) {
-				numOfRows++;
-				
-			}
-			switch(numOfRows) {
-		      case 0:
-		        return StateResult.NOVALID;
-		        
+			switch(result) {  
 		      case 1:
-		    	  return StateResult.VALID;
+		    	  return StateResult.REMOVED;
 		        
 		     
 		      default:
-		    	  return StateResult.DEFAULT; 
+		    	  return StateResult.NOREMOVED;
 			}
 			
 		
@@ -127,17 +115,29 @@ public class ControllerTopicDB implements API_TopicDB{
 		}
 		
 	}
-	public StateResult getMostRequestedTopic(idTopic[] id) {
+	public StateResult getMostRequestedTopic(Vector <TopicDB> topics) {
 		String selectField = "Topic_idTopic";
 
 		ResultSet result;
 		try {
 			result = DBConnectionManager.countEntryDB("SubscriptionUtenteTopic", selectField, selectField);
 			int numOfRows = 0;
+			int NumeroOccorrenze = 0;
 			
 			while (result.next()) {
 				numOfRows++;
-				id[numOfRows].setId(result.getInt("Topic_idTopic"));;
+				if (numOfRows == 1) {
+					NumeroOccorrenze = result.getInt("NumeroOccorrenze");
+					TopicDB topic = new TopicDB(new idTopic(result.getInt("Topic_idTopic")));
+					topics.add(topic);
+				}else {
+					if(NumeroOccorrenze>result.getInt("NumeroOccorrenze")) {
+						TopicDB topic = new TopicDB(new idTopic(result.getInt("Topic_idTopic")));
+						topics.add(topic);
+					}
+				}
+				
+				
 			}
 			if(numOfRows > 0) {
 				return StateResult.VALID;
@@ -149,6 +149,42 @@ public class ControllerTopicDB implements API_TopicDB{
 			e.printStackTrace();
 			return StateResult.DBPROBLEM;
 		}
+	}
+	@Override
+	public StateResult getTopicName(TopicDB topic) {
+		// TODO Auto-generated method stub
+		String [] fieldsToSelect = {"*"};
+		Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+		conditionsFildsToValues.put("idTopic", topic.getId().toString());
+				
+		ResultSet result;
+		try {
+			result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues);
+			int numOfRows = 0;
+					
+			while (result.next()) {
+				numOfRows++;
+				if(numOfRows==1) {
+					topic.setNome(result.getString("Name"));
+				}
+						
+			}
+			switch(numOfRows) {
+				case 1:
+					return StateResult.VALID;
+				        
+				     
+				default:
+					return StateResult.NOVALID;
+					}
+					
+				
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return StateResult.DBPROBLEM;
+				}
+				
 	}
 
 

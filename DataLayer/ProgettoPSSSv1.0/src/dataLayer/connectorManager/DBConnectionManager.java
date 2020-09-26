@@ -354,7 +354,7 @@ public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fie
  * @throws Exception
  * 
  */
-public static ResultSet removeFromDB(String nomeTabella, Hashtable<String, String> conditionsFildsToValues ) throws Exception {
+public static Integer removeFromDB(String nomeTabella, Hashtable<String, String> conditionsFildsToValues ) throws Exception {
 	
 String  mappingFieldValue = "";
 	
@@ -379,7 +379,7 @@ String  mappingFieldValue = "";
     
 	String query = "DELETE FROM `"+dbName+"`.`"+nomeTabella+"` WHERE "+mappingFieldValue+" ;";
 	System.out.println(query);
-	return selectQuery(query);
+	return updateQuery(query);
 	
 	
 	}
@@ -395,7 +395,7 @@ String  mappingFieldValue = "";
 public static ResultSet countEntryDB(String nomeTabella, String selectValue, String fieldToCount ) throws Exception {
 
     
-	String query = "SELECT COUNT("+fieldToCount+"),"+selectValue+" FROM `"+dbName+"`.`"+nomeTabella+"` GROUP BY "+selectValue+"` ORDER BY COUNT("+fieldToCount+") DESC ;";
+	String query = "SELECT COUNT("+fieldToCount+") AS NumeroOccorrenze, "+selectValue+" FROM `"+dbName+"`.`"+nomeTabella+"` GROUP BY `"+selectValue+"` ORDER BY COUNT("+fieldToCount+") DESC ;";
 	System.out.println(query);
 	return selectQuery(query);
 	

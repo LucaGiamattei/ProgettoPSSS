@@ -165,7 +165,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 						
 				ResultSet result;
 				try {
-					result = DBConnectionManager.SelectEntryInSelectDB("Utente", fieldsToSelect, "idUtente", "FasciaOraria", "*", conditionsFildsToValues);
+					result = DBConnectionManager.SelectEntryInSelectDB("Utente", fieldsToSelect, "idUtente", "Lezione", "Utente_idUtente", conditionsFildsToValues);
 					
 					
 					int numOfRows = 0;
@@ -179,7 +179,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 								utente.setNome(result.getString("Nome"));
 								utente.setContoPaypal(result.getString("ContoPayPal"));
 								utente.setCurriculum(result.getString("Curriculum"));
-								utente.setMediaScoreLezioni(result.getInt("MediaScoreLezione"));
+								utente.setMediaScoreLezioni(result.getInt("MediaScoreLezioni"));
 								
 							}
 					}
@@ -210,14 +210,14 @@ public class ControllerUtenteDB implements API_UtenteDB{
 	}
 
 	@Override
-	public StateResult updateContoPaypal(idUser id, UtenteDB utente) {
+	public StateResult updateContoPaypal(idUser id, String contPaypal) {
 		// TODO Auto-generated method stub
 
 		Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 		conditionsFildsToValues.put("idUtente", id.toString());
 		
 		Hashtable<String,String> fildsToUpdate = new Hashtable<String, String>();
-		fildsToUpdate.put("ContoPayPal", utente.getContoPaypal());
+		fildsToUpdate.put("ContoPayPal", contPaypal);
 	 	
 				
 		try {
@@ -225,9 +225,9 @@ public class ControllerUtenteDB implements API_UtenteDB{
 			
 			
 			if (r == 1) {
-				return StateResult.CREATED; 
+				return StateResult.UPDATED; 
 			}else {
-				return StateResult.NOCHANGES;
+				return StateResult.NOUPDATED;
 			}
 			
 		} catch (Exception e) {
@@ -239,11 +239,11 @@ public class ControllerUtenteDB implements API_UtenteDB{
 	}
 	
 	@Override
-	public StateResult createDocente(idUser id, UtenteDB utente) {
+	public StateResult createDocente(UtenteDB utente) {
 		// TODO Auto-generated method stub
 		
 		Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
-		conditionsFildsToValues.put("idUtente", id.toString());
+		conditionsFildsToValues.put("idUtente", utente.getId().toString());
 		
 		Hashtable<String,String> fildsToUpdate = new Hashtable<String, String>();
 		fildsToUpdate.put("ContoPayPal", utente.getContoPaypal());

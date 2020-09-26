@@ -15,6 +15,18 @@ public class TopicDB {
 		this.nome = nome;
 	}
 	
+	public TopicDB(idTopic id) {
+		super();
+		this.id = id;
+	
+	}
+	
+	public TopicDB( String nome) {
+		super();
+		
+		this.nome = nome;
+	}
+	
 	public idTopic getId() {
 		return id;
 	}
@@ -27,4 +39,11 @@ public class TopicDB {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	@Override
+	public String toString() {
+		return "TopicDB [id=" + id.toString() + ", nome=" + nome + "]";
+	}
+	
+	
 }

@@ -59,9 +59,9 @@ public interface API_UtenteDB {
 	
 	
 	/* QUESTE SONO LE FUNZIONI RIFERITE AL DOCENTE */
-	StateResult createDocente(idUser id, UtenteDB docente);
+	StateResult createDocente(UtenteDB docente);
 	
 	StateResult getDocentebyLesson(idLesson id, UtenteDB utente);
 	
-	StateResult updateContoPaypal(idUser id, UtenteDB docente);
+	StateResult updateContoPaypal(idUser id, String contPaypal);
 }

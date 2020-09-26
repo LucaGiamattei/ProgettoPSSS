@@ -1,5 +1,7 @@
 package dataLayer.topic.interfaces;
 
+import java.util.Vector;
+
 import dataLayer.topic.entities.TopicDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idSubscription;
@@ -12,5 +14,6 @@ public interface API_TopicDB {
 	StateResult validTopic(idTopic id);
 	StateResult createSubscription(idTopic id, idUser idU, idSubscription idS);
 	StateResult removeSubscription(idSubscription id);
-	StateResult getMostRequestedTopic(idTopic[] id);
+	StateResult getMostRequestedTopic(Vector <TopicDB> topics);
+	StateResult getTopicName(TopicDB topic);
 }
