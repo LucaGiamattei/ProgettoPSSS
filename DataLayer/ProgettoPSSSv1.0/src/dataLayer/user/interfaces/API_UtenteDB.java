@@ -59,9 +59,42 @@ public interface API_UtenteDB {
 	
 	
 	/* QUESTE SONO LE FUNZIONI RIFERITE AL DOCENTE */
-	StateResult createDocente(UtenteDB docente);
+	/**
+	 *Questa funzione permette di creare un docente  
+	 *
+	 *@param utente
+	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *
+	 *- CREATED
+	 *- NOCHANGES
+	 *- DBPROBLEM
+	 */
+	StateResult createDocente(UtenteDB utente);
 	
+	/**
+	 *Questa funzione permette di ottenere le informazioni del docente in base all'id
+	 *
+	 *@param id 
+	 *@param utente
+	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *
+	 *- VALID
+	 *- NOVALID
+	 *- DEFAULT
+	 *- DBPROBLEM
+	 */
 	StateResult getDocentebyLesson(idLesson id, UtenteDB utente);
 	
+	/**
+	 *Questa funzione permette di aggiornare il campo paypal di un profilo docente
+	 *
+	 *@param id 
+	 *@param contPaypal stringa aggiornata
+	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *
+	 *- UPDATED
+	 *- NOUPDATED
+	 *- DBPROBLEM
+	 */
 	StateResult updateContoPaypal(idUser id, String contPaypal);
 }

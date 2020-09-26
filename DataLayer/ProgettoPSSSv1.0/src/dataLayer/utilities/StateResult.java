@@ -34,9 +34,21 @@ package dataLayer.utilities;
 	 * La validazione è andata a buon fine
 	 */
 	VALID,
+	/**
+	 * L'aggiornamento è andato a buon fine
+	 */
 	UPDATED,
+	/**
+	 * L'aggiornamento non è andato a buon fine
+	 */
 	NOUPDATED,
+	/**
+	 * La rimozione non è andato a buon fine
+	 */
 	NOREMOVED,
+	/**
+	 * La rimozione è andato a buon fine
+	 */
 	REMOVED
 
 	
