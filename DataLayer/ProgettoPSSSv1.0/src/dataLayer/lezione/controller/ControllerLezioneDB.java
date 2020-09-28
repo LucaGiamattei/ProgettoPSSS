@@ -3,8 +3,11 @@ package dataLayer.lezione.controller;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Hashtable;
 import java.util.Vector;
+
+import com.mysql.jdbc.CallableStatement;
 import com.mysql.jdbc.Connection;
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.lezione.entities.FasciaOraria;
@@ -86,6 +89,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 		
 		@Override
 		public StateResult updateFasciaOraria(idFasciaOraria id, FasciaOraria slotAggiornato) {
+			/*
 			// TODO Auto-generated method stub
 			Hashtable<String,String> conditionsFildsToValues1 = new Hashtable<String, String>();
 			conditionsFildsToValues1.put("idFasciaOraria", id.toString());
@@ -110,70 +114,44 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				return StateResult.DBPROBLEM;
 			}
 			
-			
-			
+			*/
+			return StateResult.UPDATED;
 		}
 		
 		@Override
-		public StateResult addFasciaOraria(idUser idOwnerUser, idLesson idLezione, FasciaOraria[] slots) {
+		public StateResult addFasciaOraria(idUser idOwnerUser, idLesson idLezione, FasciaOraria orari) {
 			// TODO Auto-generated method stub
 			
-			FasciaOraria[] slots_Copia = new FasciaOraria[slots.length];
-			
 			Connection conn;
-			try {
+				try {
 				conn = DBConnectionManager.getConnection();
 				conn.setAutoCommit(false);
-				for (int i =0; i<slots.length;i++) {
-					Hashtable<String,String> slot = new Hashtable<String, String>();
-				 	slot.put("DataLezione", slots[i].getDataLezione().toString());
-				 	slot.put("OrarioLezione", ""+slots[i].getOrario()+"");
-				 	slot.put("Lezione_idLezione", idLezione.toString());
-				 	slot.put("Lezione_Utente_idUtente", idOwnerUser.toString());
-				 	slot.put("Visibile", ""+slots[i].getVisible()+"");
-				 	
-				 	slots_Copia[i] = new FasciaOraria(slots[i].getVisible(),slots[i].getOrario(), slots[i].getDataLezione());
-				 	
-				 	
-				 	Integer r;
-					try {
-						String transazione = DBConnectionManager.getQueryNewEntryDB("FasciaOraria", slot);
-						r = DBConnectionManager.updateQueryReturnGeneratedKeyTrans(transazione, conn);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						if (conn!=null) {
-							conn.rollback();
-							conn.close();
-						}
-						return StateResult.DBPROBLEM;
-					}
-				 	if (r<1) {
-				 		if (conn!=null) {
-							conn.rollback();
-							conn.close();	
-						}
-				 		
-				 		return StateResult.DBPROBLEM;
-				 	}
-				 	slots_Copia[i].setId(new idFasciaOraria(r));
-				 	
-				}
 				
+				String query = "{CALL inserisciCond(?,?,?,"+ idLezione+","+ idOwnerUser +", ?)}";
+				
+				CallableStatement stmt = (CallableStatement) conn.prepareCall(query);
+				
+				stmt.setDate(1,orari.getDataLezione());
+				stmt.setInt(2,orari.getOrarioInizio());
+				stmt.setInt(3,orari.getOrarioFine());
+				
+				stmt.registerOutParameter(4, Types.INTEGER);
+				
+				stmt.executeQuery();
+				
+				int outputValue = stmt.getInt(4);
+				
+				System.out.println(outputValue);
 				
 				conn.commit();
 				conn.close();
-				//assegno gli id solo se vi è stato il commit
-				for (int i =0; i<slots.length;i++) {
-					slots[i].setId(slots_Copia[i].getId());
+				}catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return StateResult.DBPROBLEM;
 				}
-				return StateResult.CREATED;
-		
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				return StateResult.DBPROBLEM;
 				
-			}
+				return StateResult.DEFAULT;
 		}
 		
 
@@ -212,6 +190,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 
 		@Override
 		public  StateResult attachSlotsToLessonsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni) {
+			/*
 			// TODO Auto-generated method stub
 			if (lezioni == null) {
 				lezioni = new Vector<LezioneDB> ();
@@ -245,13 +224,15 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				return StateResult.DBPROBLEM;
 			}
 			
-			
+			*/
+			return StateResult.VALID;
 		}
 		
 		
 	//----------------------------UTENTE------------------------------------//
 		
 		public  StateResult attachSlotsToLessonsUtente(Vector<LezioneDB> lezioni) {
+			/*
 			// TODO Auto-generated method stub
 			if (lezioni == null) {
 				lezioni = new Vector<LezioneDB> ();
@@ -286,7 +267,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				return StateResult.DBPROBLEM;
 			}
 			
-			
+			*/
+			return StateResult.VALID;
 		}
 
 

@@ -70,7 +70,7 @@ public interface API_LezioneDB {
 	 *- CREATED
 	 */
 	
-	StateResult addFasciaOraria(idUser idOwnerUser, idLesson idLezione, FasciaOraria[] slots);
+	StateResult addFasciaOraria(idUser idOwnerUser, idLesson idLezione, FasciaOraria orari);
 	
 	/**
 	 * Questa funzione permette di aggiornare uno slot di una lezione.

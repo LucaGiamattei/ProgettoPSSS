@@ -24,7 +24,7 @@ class TestLezione {
 	static void setUpBeforeClass() throws Exception {
 		controller = new ControllerLezioneDB();
 	}
-
+/*
 	@Test
 	void testValidLezione() {
 		if(controller.validLezione(new idLesson(1)) == StateResult.VALID) {
@@ -42,7 +42,7 @@ class TestLezione {
 		};
 		
 	}
-
+	/*
 	@Test
 	void testUpdateFasciaOraria() {
 		fail("Not yet implemented");
@@ -51,22 +51,20 @@ class TestLezione {
 			System.out.println("updateFasciaOraria: output UPDATED");
 		}
 	}
-
+*/
 	@Test
 	void testAddFasciaOraria() {
-		fail("Not yet implemented");
-		FasciaOraria[] slots = new  FasciaOraria[3];
-		slots[0] = new FasciaOraria(1, 23, new java.sql.Date(2021, 12, 25));
-		slots[1] = new FasciaOraria(1, 22, new java.sql.Date(2021, 10, 25));
-		slots[2] = new FasciaOraria(1, 21, new java.sql.Date(2021, 10, 25));
-		if (controller.addFasciaOraria(new idUser(1), new idLesson(1), slots) == StateResult.CREATED) {
+		 long millis=System.currentTimeMillis();  
+	     java.sql.Date date=new java.sql.Date(millis); 
+		
+		FasciaOraria orari = new  FasciaOraria(1, 220000,230000, date);
+
+		if (controller.addFasciaOraria(new idUser(1), new idLesson(1), orari) == StateResult.CREATED) {
 			System.out.println("addFasciaOraria: output CREATED"+"\n");
-			for ( int i = 0; i<slots.length;i++) {
-				System.out.println("idFasciaOOraria: "+ slots[i].getId().toString()+"\n");
-			}
+			
 		};
 	}
-
+/*
 	@Test
 	void testGetLessonsByUser() {
 		fail("Not yet implemented");
@@ -115,5 +113,5 @@ class TestLezione {
 			}
 		}
 	}
-
+*/
 }
