@@ -134,7 +134,114 @@ morecomment=[s]{--}
 \begin_body
 
 \begin_layout Section
+Possibili soluzioni ed entità in gioco
+\end_layout
 
+\begin_layout Standard
+Le funzionalità dell'applicazione Smart Learning, raccolte e definite nella
+ specifica dei requisiti, è possibile raggrupparle nei seguenti moduli.
+\end_layout
+
+\begin_layout Standard
+- un modulo Lezione che ha la responsabilità della gestione della lezione
+ e del suo calendario
+\end_layout
+
+\begin_layout Standard
+- un modulo Recensione che ha la responsabilità di gestire le Recensioni
+ delle Lezioni da parte degli utenti.
+\end_layout
+
+\begin_layout Standard
+- un modulo Utente che ha la responsbailità di gestire tuttò ciò che riguarda
+ informazioni del profilo Utente e di quello Docente
+\end_layout
+
+\begin_layout Standard
+- un modulo Pagamento che ha la responsbailità di gestire i pagamenti e
+ di tenere traccia delle persone che hanno pagato una lezione
+\end_layout
+
+\begin_layout Standard
+- un modulo Topic che ha la responsabilità di permettere agli utenti dell'applic
+azione di espremere una preferenza riguardo a particolari argomenti di lezioni
+ e dualmente di permettere ai docenti di conoscere quali sono gli argomenti
+ preferiti dagli utenti
+\end_layout
+
+\begin_layout Standard
+- un modulo VideoCall che ha la responsabilità di offrire ai docenti di
+ avviare la videochiamata e agli alunni che hanno pagato di partecipare.
+\end_layout
+
+\begin_layout Standard
+Sono state prese in considerazione due possibile soluzioni architetturali:
+ architettura a microservizi e architettura multilayer con servizi esterni.
+\end_layout
+
+\begin_layout Standard
+L'architettura a microservizi sembra adattarsi perfettamente sia per la
+ numerosità dei moduli e servizi che presenta l' applicazione Smart Learning
+ e sia perchè attribuirebbe al software flessibilità ed estensibilità (apertura
+ a nuovi servizi) necessari ad un'applicazione sviluppata ex-novo.
+\end_layout
+
+\begin_layout Standard
+Purtroppo dopo aver effettuato un'attenta analisi di fattibilità si è constatato
+ che non si sarebbero potuti rispettare i vincoli temporali di consegna
+ del progetto a causa dell'ardua e sofisticata implementazione che avrebbe
+ richiesto ogni microservizio.
+\end_layout
+
+\begin_layout Standard
+Per tale motivo si è optato verso una soluzione più semplice (multilayer
+ con servizi esterni) ma tenendo bene a mente che in futuro vi possa essere
+ un passaggio ad architettura a microservizi.
+\end_layout
+
+\begin_layout Section
+Architettura multilayer con servizi esterni
+\end_layout
+
+\begin_layout Section
+Data Layer
+\end_layout
+
+\begin_layout Standard
+Il layer DAO (Data access objects) è uno strato demandato completamente
+ a gestire la comunicazione fra l'applicazione ed il DBMS relazionale.
+\end_layout
+
+\begin_layout Standard
+Il Data Layer offre un'interfaccia (API) per disaccoppiare l'applicazione,
+ quindi la logica di business, dall'implementazione dell'interfacciamento
+ con la base di dati persistente.
+\end_layout
+
+\begin_layout Standard
+Ciò garantisce all'architettura di essere flessibile ad eventuali cambiamenti
+ che riguardano la base di dati persistente.
+\end_layout
+
+\begin_layout Standard
+Inoltre l'API del Data layer è stata progettata in modo opportuno cercando
+ di renderla quanto più flessibile e riutilizzabile tenendo a mente una
+ possibile estensione ad architettura a microservizi.
+\end_layout
+
+\begin_layout Standard
+A tal proposito si è scelto di strutturare il data layer in moduli indipendenti
+ che rispecchiassero i possibili moduli DAO di un'architettura a microservizi.
+ 
+\end_layout
+
+\begin_layout Standard
+Questi moduli nell' architettura attuale hanno in comune la dipendenza dal
+ modulo DBDataConnector per l'interfacciamento con il DBMS.
+\end_layout
+
+\begin_layout Subsection
+Moduli del Data Layer ed API
 \end_layout
 
 \end_body
