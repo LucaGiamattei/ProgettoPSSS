@@ -26,6 +26,7 @@ public class FasciaOraria {
 		this.orarioFineLezione = orarioFine;
 		this.dataLezione = date;
 	}
+	
 	public FasciaOraria(idFasciaOraria id, int visible, int orarioInizio,int orarioFine, Date date) {
 		super();
 		this.visible = visible;

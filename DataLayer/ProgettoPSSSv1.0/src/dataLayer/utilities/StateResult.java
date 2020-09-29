@@ -15,7 +15,7 @@ package dataLayer.utilities;
 	 */
 	ONE_ROWSCHANGED,
 	/**
-	 * Esiste già
+	 * E' stato creato
 	 */
 	CREATED,
 	/**

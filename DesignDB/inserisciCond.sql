@@ -1,5 +1,4 @@
-/*commento*/
-CREATE DEFINER=`root`@`localhost` PROCEDURE `inserisciCond`(IN myDataLezione DATE, IN myOrarioInizio TIME, IN myOrarioFine TIME, IN myidLezione int, IN myidUtente int, OUT result INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserisciCond`(IN myDataLezione DATE, IN myOrarioInizio TIME, IN myOrarioFine TIME, IN myidLezione int, IN myidUtente int, OUT result INT, OUT idFascia INT)
 BEGIN
 DECLARE COND INT DEFAULT 0;
 
@@ -14,5 +13,8 @@ AND DataLezione = myDataLezione;
 IF COND = 0 THEN
 INSERT INTO fasciaoraria (DataLezione, OrarioInizioLezione, OrarioFineLezione, Lezione_idLezione, Lezione_Utente_idUtente) VALUES (myDataLezione, myOrarioInizio,myOrarioFine, myidLezione,myidUtente);
 END IF;
+
 SET result = COND;
+SET idFascia = LAST_INSERT_ID();
+
 END

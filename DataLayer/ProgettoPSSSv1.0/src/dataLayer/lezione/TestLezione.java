@@ -42,32 +42,35 @@ class TestLezione {
 		};
 		
 	}
-	/*
+	*//*
 	@Test
 	void testUpdateFasciaOraria() {
-		fail("Not yet implemented");
-		FasciaOraria slotAggiornato = new FasciaOraria(1,21,new java.sql.Date(2020,5,1));
-		if (controller.updateFasciaOraria(new idFasciaOraria(1), slotAggiornato) == StateResult.UPDATED) {
+	
+		long millis=System.currentTimeMillis();  
+	    java.sql.Date date=new java.sql.Date(millis);
+	    
+		FasciaOraria slotAggiornato = new FasciaOraria(new idFasciaOraria(4),1,170000,180000,date);
+		if (controller.updateFasciaOraria(new idUser(1), slotAggiornato) == StateResult.UPDATED) {
 			System.out.println("updateFasciaOraria: output UPDATED");
 		}
-	}
-*/
+	}*/
+
 	@Test
 	void testAddFasciaOraria() {
 		 long millis=System.currentTimeMillis();  
 	     java.sql.Date date=new java.sql.Date(millis); 
 		
-		FasciaOraria orari = new  FasciaOraria(1, 220000,230000, date);
+		FasciaOraria orari = new  FasciaOraria(1, 110000,120000, date);
 
 		if (controller.addFasciaOraria(new idUser(1), new idLesson(1), orari) == StateResult.CREATED) {
 			System.out.println("addFasciaOraria: output CREATED"+"\n");
 			
 		};
 	}
-/*
+
 	@Test
 	void testGetLessonsByUser() {
-		fail("Not yet implemented");
+	
 		Vector<LezioneDB> lezioni = new Vector <LezioneDB>();
 		if ( controller.getLessonsByUser(new idUser(1), lezioni) ==StateResult.VALID) {
 			for(int i = 0; i<lezioni.size();i++) {
@@ -89,7 +92,7 @@ class TestLezione {
 
 	@Test
 	void testGetLessonsbyTopics() {
-		fail("Not yet implemented");
+		
 		Vector<LezioneDB> lezioni = new Vector <LezioneDB>();
 		if ( controller.getLessonsbyTopics(new idTopic(2), lezioni) ==StateResult.VALID) {
 			
@@ -104,7 +107,7 @@ class TestLezione {
 	@Test
 	void testGetLessonsbyTitle() {
 		Vector<LezioneDB> lezioni = new Vector <LezioneDB>();
-		if ( controller.getLessonsbyTitle("logaritmi", lezioni) ==StateResult.VALID) {
+		if ( controller.getLessonsbyTitle("matematica", lezioni) ==StateResult.VALID) {
 			
 			if ( controller.attachSlotsToLessonsUtente(lezioni) ==StateResult.VALID) {
 				for(int i = 0; i<lezioni.size();i++) {
@@ -113,5 +116,5 @@ class TestLezione {
 			}
 		}
 	}
-*/
+
 }

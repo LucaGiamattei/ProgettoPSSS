@@ -282,10 +282,10 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
     }
     String fields ="";
     if (fieldsToSelect.length>0) {
-    	fields = "`"+fieldsToSelect[0]+"`";
+    	fields = fieldsToSelect[0];
     }
     for (int i = 1; i<fieldsToSelect.length;i++) {
-    	fields = fields+",`"+fieldsToSelect[i]+"`";
+    	fields = fields+","+fieldsToSelect[i];
     }
     
     

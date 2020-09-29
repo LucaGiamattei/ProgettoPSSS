@@ -50,39 +50,40 @@ public interface API_LezioneDB {
 	 */
 	StateResult getLessonsByUser(idUser idOwnerUser, Vector<LezioneDB> lezioni);
 	
-	/**
-	 * Questa funzione permette di arricchire le lezioni di un docente con la relative fasce orarie (anche quelle non visibili agli utenti)
-	 * @param idOwnerUser 
-	 * @param lezioni (I/O) Da Input deve fornire principlamente gli identificativi delle lezioni, Da Output sarà arricchita ogni lezione con i riferimenti alle relative fasce orarie
-	 * @return StateResult Rappresenta lo stato dell'operazione:
-	 *- VALID
-	 *- DBPROBLEM
-	 */
-	StateResult attachSlotsToLessonsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
 	
 	/**
-	 * Questa funzione permette di aggiungere uno o più slot a una lezione. Aggiungere più slot significherà fare un'unica transazione.
-	 * @param idOwnerUser Owner della lezione
-	 * @param idLezione Lezione a cui aggiungere lo slot
-	 * @param slot elenco degli slot da aggiungere
+	 * Questa funzione permette di aggiungere una fascia oraria alla lezione con il vincolo di non poter essere sovrapposta ad altre lezioni dello stesso utente.
+	 * @param idUser User creatore della lezione
+	 * @param idLesson Lezione a cui aggiungere la fascia oraria
+	 * @param FasciaOraria Oggetto contenente tutti i dati da inserire (data, orari)
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- DBPROBLEM
 	 *- CREATED
+	 *- NOCHANGES
 	 */
 	
 	StateResult addFasciaOraria(idUser idOwnerUser, idLesson idLezione, FasciaOraria orari);
 	
 	/**
-	 * Questa funzione permette di aggiornare uno slot di una lezione.
-	 * @param id
-	 * @param slotAggiornato
+	 * Questa funzione permette di aggiornare una fascia oraria di una lezione.
+	 * @param idUser id utente creatore della lezione
+	 * @param FasciaOraria Oggetto contenente tutti i dati da aggiornare (data, orari)
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- UPDATED
 	 *- DBPROBLEM
 	 *- NOUPDATED
 	 */
 	
-	StateResult  updateFasciaOraria(idFasciaOraria id, FasciaOraria slotAggiornato);
+	StateResult  updateFasciaOraria(idUser id, FasciaOraria slotAggiornato);
+	/**
+	 * Questa funzione permette di arricchire le lezioni di un docente con la relative fasce orarie (anche quelle non visibili agli utenti)
+	 * @param idOwnerUser 
+	 * @param lezioni (I/O) Da Input deve fornire principlamente gli identificativi delle lezioni, Da Output sar� arricchita ogni lezione con i riferimenti alle relative fasce orarie
+	 * @return StateResult Rappresenta lo stato dell'operazione:
+	 *- VALID
+	 *- DBPROBLEM
+	 */
+	StateResult attachSlotsToLessonsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
 	
 	
 	
@@ -110,7 +111,6 @@ public interface API_LezioneDB {
 	 *- DBPROBLEM
 	 */
 	 StateResult getLessonsbyTitle(String title, Vector<LezioneDB> lezioni);
-	 
 	 /**
 	  * Questa funzione permette di collegare gli slot alle lezioni (ogni lezione deve contenere almeno l'id utente e l'id lezione)
 	  * @param lezioni
@@ -120,5 +120,4 @@ public interface API_LezioneDB {
 	  */
 	 
 	 StateResult attachSlotsToLessonsUtente(Vector<LezioneDB> lezioni);
-	
 }
