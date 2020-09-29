@@ -30,23 +30,21 @@ public class RegistrationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		System.out.println("DoPost");
+		
+		String cognome = request.getParameter("cognome");
+		String nome = request.getParameter("nome");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		System.out.println("cognome="+cognome+"&nome="+nome+"&email="+email+"&password="+password);
+		
 	}
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType( "text/html" );
-		 
-		 PrintWriter out = response.getWriter();
-		 out.println( "<html>" );
-		 out.println( "<head>" );
-		 out.println( "<title>La prima servlet</title>" );
-		 out.println( "</head>" );
-		 out.println( "<body>" );
-		 out.println( "<h1>La prima servlet del Corso di Applicazioni Telematiche che stampa in html!</h1>" );
-		 out.println( "</body>" );
-		 out.println( "</html>" );
-		 out.close();
+
 	}
 
 }

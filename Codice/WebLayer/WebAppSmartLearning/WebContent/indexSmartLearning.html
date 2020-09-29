@@ -5,18 +5,48 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Benvenuto su Smart Learning</h1>
-<FORM NAME="MyForm"> 
 
-cognome: <INPUT TYPE="text" NAME="cognome" SIZE=30> <p>
-nome: <INPUT TYPE="text" NAME="nome" SIZE=30> <p>
+<h1>Benvenuto su Smart Learning</h1>
+
+<FORM NAME="MyForm"> 
 email: <INPUT TYPE="text" NAME="email" SIZE=30> <p>
 password: <INPUT type="text" name="password" size=30> <p>
-
-
-
-<INPUT TYPE="submit">
-<INPUT TYPE="reset" NAME="resetbutton" VALUE="Clear data"> 
 </FORM>
+<button onclick="LoginFunction()">Login</button>
+<button onclick="RegisterFunction()">Register now</button>
+
 </body>
+
+<script>
+
+function LoginFunction(){
+	/*
+	var request = new XMLHttpRequest();
+	var cognome = document.getElementById("cognomeform").value;
+	
+	console.log("loginfunction "+ cognome);
+	
+	var url = "";
+	var params = "cognome="+cognome;
+	request.open('POST', url, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	        alert(request.responseText);
+	    }
+	}
+	request.send(params);*/
+}
+
+function RegisterFunction(){
+	
+	window.location.assign("RegistrationPage.html");
+}
+
+
+</script>
+
 </html>

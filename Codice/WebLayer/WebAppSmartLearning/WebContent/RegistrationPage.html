@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration</title>
+</head>
+<body>
+
+<h1>Form di registrazione</h1>
+
+<form>
+	Nome: <input id="nomeform" type = "text" size = "40" name = "firstname"><p>
+	
+	Cognome: <input id="cognomeform" type = "text" size = "40" name = "lastname"><p>
+	
+	Email: <input id="emailform" type = "text" size = "40" name = "email"><p>
+	
+	Password: <input id="passwordform" type = "text" size = "40" name = "password"><p>
+</form>
+<button onclick="RegisterFunction()">Register</button>
+
+</body>
+
+<script>
+
+function RegisterFunction(){
+	
+	var request = new XMLHttpRequest();
+	
+	var nome = document.getElementById("nomeform").value;
+	var cognome = document.getElementById("cognomeform").value;
+	var email = document.getElementById("emailform").value;
+	var password = document.getElementById("passwordform").value;
+	
+	console.log("loginfunction "+ nome +" "+ cognome +" "+ email +" "+ password);
+	
+	var url = "RegistrationServlet";
+	var params = "cognome="+cognome+"&nome="+nome+"&email="+email+"&password="+password;
+	request.open('POST', url, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	        alert(request.responseText);
+	    }
+	}
+	request.send(params);
+	
+}
+
+
+</script>
+
+</html>
