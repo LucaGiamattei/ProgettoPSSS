@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration</title>
+<!-- <link rel="stylesheet" href="index.css"/> -->
+<link rel="stylesheet" href="demo.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+</head>
+
+
+<body class="bodyContainer">
+
+<div class="container" id="mainPage">
+<div class="row">
+		<div class="col-md-12">
+			<div class="page-header" id="pHeader">
+				<h1>Smart Learning</h1>
+			</div>
+			<div class = "row">
+					<div class="jumbotron jumbotron-fluid">
+					  <div class="container">
+					    <h2 class="display-1">Effettua la registrazione</h2>
+					  </div>
+					</div>
+
+				<div class="col-md-3 myBox1 myBox2 ">
+		
+				<form>
+				  <div class="form-group">
+				    <label for="nomeform">Nome</label>
+				    <input type="text" class="form-control" id="nomeform" placeholder="Inserisci nome">
+				  </div>
+				  <div class="form-group">
+				    <label for="cognomeform">Cognome</label>
+				    <input type="text" class="form-control" id="cognomeform" placeholder="Inserisci cognome">
+				  </div>
+				  <div class="form-group">
+				    <label for="emailform">Indirizzo email</label>
+				    <input type="email" class="form-control" id="emailform" placeholder="Enter email">
+				  </div>
+				  <div class="form-group">
+				    <label for="passwordform">Password</label>
+				    <input type="password" class="form-control" id="passwordform" placeholder="Password">
+				  </div>
+				  <p><button type="button" class="btn btn-warning btn-block" onclick="RegisterFunction()">Registrati</button></p>
+				  </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+<script>
+
+function RegisterFunction(){
+	
+	if(checkData()){
+	
+	var request = new XMLHttpRequest();
+	
+	var nome = document.getElementById("nomeform").value;
+	var cognome = document.getElementById("cognomeform").value;
+	var email = document.getElementById("emailform").value;
+	var password = document.getElementById("passwordform").value;
+	
+	console.log("registerFunction "+ nome +" "+ cognome +" "+ email +" "+ password);
+	
+	var url = "RegistrationServlet";
+	var params = "cognome="+cognome+"&nome="+nome+"&email="+email+"&password="+password;
+	request.open('POST', url, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	    	gestisciRisposta(request.responseXML);
+	    }
+	}
+	request.send(params);
+	}
+}
+
+function gestisciRisposta(responseXML) {
+	if(responseXML.getElementsByTagName("risposta").length > 0) {
+		var risposta = responseXML.getElementsByTagName("risposta")[0];
+		
+		if(risposta.childNodes[0].nodeValue == "utenteCreato") {
+			
+			window.location.replace("indexSmartLearning.html");
+			alert("Utente registrato correttamente");
+			
+		} else {
+			alert("ops.. qualcosa e' andato storto, riprova!");
+		}
+	}
+}
+
+function checkData() 
+{ 
+var correct = true 
+	if (document.getElementById("nomeform").value == "") {correct = false; alert("Inserisci il tuo nome !")} 
+	else if (document.getElementById("cognomeform").value == "") {correct = false; alert("Inserisci il tuo cognome !")} 
+	else if (document.getElementById("emailform").value == "") {correct = false; alert("Inserisci il tuo indirizzo di e-mail !")} 
+	//else if ((document.MyForm.email.value.indexOf("@") == -1 ) && (document.MyForm.email.value !== "")) {correct = false; alert(" e-mail non valido !")}
+	else if (!validateEmail(document.getElementById("emailform").value)){correct = false; alert(" e-mail non valido !")}
+return correct 
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+
+</script>
+
+</html>

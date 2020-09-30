@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+<!-- <link rel="stylesheet" href="index.css"/> -->
+<link rel="stylesheet" href="demo.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+</head>
+
+<body class="bodyContainer">
+
+<div class="container" id="mainPage">
+<div class="row">
+		<div class="col-md-12">
+			<div class="page-header" id="pHeader">
+				<h1>Smart Learning</h1>
+			</div>
+			<div class = "row">
+					<div class="jumbotron jumbotron-fluid">
+					  <div class="container">
+					    <h2 class="display-1">Benvenuto!</h2>
+					    <p class="lead"><small>SmartLearning è la più grande piattaforma di lezioni online al mondo!
+					    Se possiedi un account effettua il login altrimenti accedi alla funzione di registrazione</small></p>
+					  </div>
+					</div>
+
+				<div class="col-md-3 myBox1 myBox2 ">
+		
+				
+				<form>
+				  <div class="form-group">
+				    <label for="emailform">Indirizzo email</label>
+				    <input type="email" class="form-control" id="emailform" aria-describedby="emailHelp" placeholder="Inserisci email">
+				  </div>
+				  <div class="form-group">
+				    <label for="passwordform">Password</label>
+				    <input type="password" class="form-control" id="passwordform" placeholder="Password">
+				  </div>
+				  <p><button type="button" class="btn btn-primary btn-warning btn-block" onclick="LoginFunction()">Login</button></p>
+				  <p>Non hai un account? <a href="RegistrationPage.html">Registrati ora</a></p>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+<script>
+
+function LoginFunction(){
+
+	var request = new XMLHttpRequest();
+	var email = document.getElementById("emailform").value;
+	var password = document.getElementById("passwordform").value;
+	
+	console.log("loginfunction "+ email + " " + password);
+	
+	var url = "LoginServlet";
+	var params = "email="+email+"&password="+password;
+	request.open('POST', url, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	    	gestisciRisposta(request.responseXML);
+	    }
+	}
+	request.send(params);
+}
+
+function gestisciRisposta(responseXML) {
+	if(responseXML.getElementsByTagName("risposta").length > 0) {
+		var risposta = responseXML.getElementsByTagName("risposta")[0];
+
+		if(risposta.childNodes[0].nodeValue == "utenteLoggato") {
+
+			window.location.replace("Homepage.html");
+			
+		} else if(risposta.childNodes[0].nodeValue == "passwordErrata"){
+			alert("Password errata");
+		}else{
+			alert("Email errata");
+		}
+	}
+}
+
+function RegisterFunction(){
+	
+	window.location.assign("RegistrationPage.html");
+}
+
+
+</script>
+
+</html>
