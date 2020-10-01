@@ -9,6 +9,10 @@ public class TopicDB {
 	private idTopic id;
 	private String nome;
 	
+	public TopicDB() {
+		super();
+	}
+	
 	public TopicDB(idTopic id, String nome) {
 		super();
 		this.id = id;

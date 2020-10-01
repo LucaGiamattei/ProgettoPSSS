@@ -1,6 +1,7 @@
 package dataLayer.lezione.controller;
 
 import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -335,6 +336,38 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				e.printStackTrace();
 				return StateResult.DBPROBLEM;
 			}
+			
+			
+		}
+
+		public StateResult getFasceOrarieByLessonId(idLesson idlezione, Vector<FasciaOraria> fasce) {
+			// TODO Auto-generated method stub
+			String [] fieldsToSelect = {"*"};
+			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			conditionsFildsToValues.put("Lezione_idLezione", idlezione.toString());
+
+			try {
+			 ResultSet result = DBConnectionManager.SelectEntryDB("FasciaOraria", fieldsToSelect, conditionsFildsToValues);
+			 int numOfRows = 0;
+			 
+			 while (result.next()) {
+				 FasciaOraria fascia = new FasciaOraria(new idFasciaOraria(result.getInt("idFasciaOraria")), result.getInt("Visibile"), result.getInt("OrarioInizioLezione"),result.getInt("OrarioFineLezione"), result.getDate("DataLezione"));
+				 fasce.add(fascia);
+			  numOfRows++;
+			  
+			  
+			 }
+		
+			 if(numOfRows>0) {
+				  return StateResult.VALID;
+				 }else {
+				  return StateResult.NOVALID;
+				 }
+				} catch (Exception e) {
+				 // TODO Auto-generated catch block
+				 e.printStackTrace();
+				 return StateResult.DBPROBLEM;
+				}
 			
 			
 		}

@@ -98,6 +98,16 @@ div.no-video-container {
 	height: 26px;
 }
 
+.januscon {
+	font-weight: bold;
+	animation: pulsating 1s infinite;
+}
+@keyframes pulsating {
+	30% {
+		color: #FFD700;
+	}
+}
+
 pre {
 	white-space: pre-wrap;
 	white-space: -moz-pre-wrap;

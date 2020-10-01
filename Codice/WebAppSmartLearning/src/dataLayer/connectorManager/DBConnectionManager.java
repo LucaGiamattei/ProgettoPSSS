@@ -400,4 +400,56 @@ public static ResultSet countEntryDB(String nomeTabella, String selectValue, Str
 	return selectQuery(query);
 	
 	}
+
+
+
+/**
+ * Con questa funzione è possibile effettuare una doppia query innestata
+ * 
+ * @param nomeTabella1
+ * @param fieldsToSelect1
+ * @param fieldCondition1
+ * @param nomeTabella2
+ * @param fieldToSelect2
+ * @param conditionsFildsToValues2
+ * @return
+ * @throws Exception
+ */
+public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldsToSelect2, String fieldCondition2, String nomeTabella3, String fieldsToSelect3, Hashtable<String, String> conditionsFildsToValues2 ) throws Exception {
+ 
+ String  mappingFieldValue = "";
+ 
+ Set<String> keys = conditionsFildsToValues2.keySet();
+  
+    //Obtaining iterator over set entries
+    Iterator<String> itr = keys.iterator();
+    if(itr.hasNext()) {
+     // Getting Key
+        String key = itr.next();
+        mappingFieldValue = mappingFieldValue+"`"+key+"` ="+"'"+conditionsFildsToValues2.get(key)+"'";
+        
+    }
+    //Displaying Key and value pairs
+    while (itr.hasNext()) { 
+       // Getting Key
+       String key = itr.next();
+       mappingFieldValue = mappingFieldValue+" && "+key+" ="+"'"+conditionsFildsToValues2.get(key)+"'";
+       
+    }
+    String fields ="";
+    if (fieldsToSelect1.length>0) {
+     fields = fieldsToSelect1[0];
+    }
+    for (int i = 1; i<fieldsToSelect1.length;i++) {
+     fields = fields+","+fieldsToSelect1[i];
+    }
+    
+    
+ 
+   String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldsToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+fieldCondition2+" IN(SELECT "+fieldsToSelect3+" FROM `"+dbName+"`.`"+nomeTabella3+"` WHERE "+mappingFieldValue+")) ;"; 
+   System.out.println(query);
+ return selectQuery(query);
+ 
+ }
 }
+

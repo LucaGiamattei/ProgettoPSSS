@@ -21,13 +21,10 @@ public class LezioneDB {
 	private idTopic idTopic;
 	private idUser idUtente;
 	
-	
-	
-	
-	
-	
-	
 	private Vector<FasciaOraria> slots;
+	
+	
+	
 	/**
 	 * Costruttore con anche lo slot
 	 * @param id

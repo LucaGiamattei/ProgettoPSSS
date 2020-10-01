@@ -2,13 +2,18 @@ package dataLayer.user.controller;
 
 import java.sql.ResultSet;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import dataLayer.connectorManager.DBConnectionManager;
+import dataLayer.lezione.controller.ControllerLezioneDB;
+import dataLayer.lezione.entities.FasciaOraria;
+import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.user.entities.result.ResultUtente;
 import dataLayer.user.interfaces.API_UtenteDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idLesson;
+import dataLayer.utilities.idTopic;
 import dataLayer.utilities.idUser;
 
 public class ControllerUtenteDB implements API_UtenteDB{
@@ -304,6 +309,45 @@ public class ControllerUtenteDB implements API_UtenteDB{
 			return StateResult.DBPROBLEM;
 		}
 	}
+	
+	
+	public StateResult getLessonsByCognome(String cognome, Vector<LezioneDB> lezioni) {
+		  // TODO Auto-generated method stub
+
+		    String [] fieldsToSelect = {"*"};
+		    Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+		    conditionsFildsToValues.put("Cognome", cognome);
+		    ControllerLezioneDB controllerlez = new ControllerLezioneDB();
+		    
+		      
+		    ResultSet result;
+		    try {
+		     result = DBConnectionManager.SelectEntryInSelectDB2("Lezione", fieldsToSelect, "idLezione", "FasciaOraria", "Lezione_idLezione", "Lezione_Utente_idUtente", "Utente", "idUtente", conditionsFildsToValues);
+		     
+		     int numTuple = 0;
+		     while (result.next() ) {
+		      LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")),result.getFloat("prezzo"));
+		      
+		      Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
+		      
+		      controllerlez.getFasceOrarieByLessonId(new idLesson(result.getInt("idLezione")), fasce);
+		      
+		      lezione.setSlots(fasce);
+		      
+		      lezioni.add(lezione);
+		      numTuple++;
+		     }
+		     if(numTuple>0) {
+		      return StateResult.VALID;
+		     }else {
+		      return StateResult.NOVALID;
+		     }
+		    } catch (Exception e) {
+		     // TODO Auto-generated catch block
+		     e.printStackTrace();
+		     return StateResult.DBPROBLEM;
+		    }
+		 }
 
 }
 
