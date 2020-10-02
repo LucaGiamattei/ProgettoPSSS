@@ -1,6 +1,7 @@
 package dataLayer.lezione.entities;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import dataLayer.utilities.idFasciaOraria;
 
@@ -10,30 +11,41 @@ public class FasciaOraria {
 	private idFasciaOraria id;
 	private int visible;
 	
-	private int orarioInizioLezione;
-	private int orarioFineLezione;
+	private Time orarioInizioLezione;
+	private Time orarioFineLezione;
 	private Date dataLezione ;
+	private float prezzo;
 	
 	public FasciaOraria() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FasciaOraria(int visible, int orarioInizio,int orarioFine, Date date) {
+	public FasciaOraria(int visible, Time orarioInizio,Time orarioFine, Date date, float prezzo) {
 		super();
 		this.visible = visible;
 		this.orarioInizioLezione = orarioInizio;
 		this.orarioFineLezione = orarioFine;
 		this.dataLezione = date;
+		this.prezzo = prezzo;
 	}
 	
-	public FasciaOraria(idFasciaOraria id, int visible, int orarioInizio,int orarioFine, Date date) {
+	public FasciaOraria(idFasciaOraria id, int visible, Time orarioInizio,Time orarioFine, Date date, float prezzo) {
 		super();
 		this.visible = visible;
 		this.orarioInizioLezione = orarioInizio;
 		this.orarioFineLezione = orarioFine;
 		this.dataLezione = date;
 		this.id = id;
+		this.prezzo = prezzo;
+	}
+	
+	public float getPrezzo() {
+		  return prezzo;
+	}
+
+	public void setPrezzo(float prezzo) {
+		  this.prezzo = prezzo;
 	}
 	
 	public int getVisible() {
@@ -42,16 +54,16 @@ public class FasciaOraria {
 	public void setVisible(int visible) {
 		this.visible = visible;
 	}
-	public int getOrarioInizio() {
+	public Time getOrarioInizio() {
 		return orarioInizioLezione;
 	}
-	public int getOrarioFine() {
+	public Time getOrarioFine() {
 		return orarioFineLezione;
 	}
-	public void setOrarioInizioLezione(int orario) {
+	public void setOrarioInizioLezione(Time orario) {
 		this.orarioInizioLezione = orario;
 	}
-	public void setOrarioFineLezione(int orario) {
+	public void setOrarioFineLezione(Time orario) {
 		this.orarioFineLezione = orario;
 	}
 	public Date getDataLezione() {
@@ -72,7 +84,7 @@ public class FasciaOraria {
 	@Override
 	public String toString() {
 		return "FasciaOraria [id=" + id + ", visible=" + visible + ", orarioInizioLezione=" + orarioInizioLezione+", orarioFineLezione="+ orarioFineLezione + ", dataLezione="
-				+ dataLezione + "]";
+				+ dataLezione +", prezzo=" + prezzo+  "]";
 	}
 	
 	

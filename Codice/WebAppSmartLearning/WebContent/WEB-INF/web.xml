@@ -39,7 +39,19 @@
   
   <servlet-mapping>
   <servlet-name>SearchServlet</servlet-name>
-  <url-pattern>/Search</url-pattern>
+  <url-pattern>/riservate/Search</url-pattern>
   </servlet-mapping>
+  
+  <filter>
+    <filter-name>AuthFilter</filter-name>
+    <filter-class>webLayer.filters.AuthFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>AuthFilter</filter-name>
+    <url-pattern>/riservate/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  
   
 </web-app>

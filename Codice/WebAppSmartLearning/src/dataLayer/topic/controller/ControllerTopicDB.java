@@ -4,11 +4,15 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import dataLayer.connectorManager.DBConnectionManager;
+import dataLayer.lezione.controller.ControllerLezioneDB;
+import dataLayer.lezione.entities.FasciaOraria;
+import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.topic.entities.TopicDB;
 import dataLayer.topic.interfaces.*;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idTopic;
 import dataLayer.utilities.idUser;
+import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idSubscription;
 
 public class ControllerTopicDB implements API_TopicDB{
@@ -187,6 +191,39 @@ public class ControllerTopicDB implements API_TopicDB{
 				
 	}
 
-
+	public StateResult getLessonsByTopicName(String nome, Vector<LezioneDB> lezioni) {
+		   // TODO Auto-generated method stub
+		   String [] fieldsToSelect = {"*"};
+		   Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+		   conditionsFildsToValues.put("Name", nome);
+		   ControllerLezioneDB controllerlez = new ControllerLezioneDB();
+		   
+		   try {
+		    ResultSet result = DBConnectionManager.SelectEntryInSelectDB("Lezione", fieldsToSelect, "Topic_idTopic", "Topic", "idTopic", conditionsFildsToValues);
+		    int numTuple = 0;
+		    while (result.next() ) {
+		     LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
+		     Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
+		      
+		      controllerlez.getFasceOrarieByLessonId(new idLesson(result.getInt("idLezione")), fasce);
+		      
+		      lezione.setSlots(fasce);
+		      
+		     lezioni.add(lezione);
+		     numTuple++;
+		    }
+		    if(numTuple>0) {
+		     return StateResult.VALID;
+		    }else {
+		     return StateResult.NOVALID;
+		    }
+		   } catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		    return StateResult.DBPROBLEM;
+		   }
+		   
+		  
+		  }
 
 }

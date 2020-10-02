@@ -60,12 +60,12 @@ class TestLezione {
 		 long millis=System.currentTimeMillis();  
 	     java.sql.Date date=new java.sql.Date(millis); 
 		
-		FasciaOraria orari = new  FasciaOraria(1, 110000,120000, date);
+		//FasciaOraria orari = new  FasciaOraria(1, "11:30" ,"12:30", date,10);
 
-		if (controller.addFasciaOraria(new idUser(1), new idLesson(1), orari) == StateResult.CREATED) {
-			System.out.println("addFasciaOraria: output CREATED"+"\n");
+		//if (controller.addFasciaOraria(new idUser(1), new idLesson(1), orari) == StateResult.CREATED) {
+		//	System.out.println("addFasciaOraria: output CREATED"+"\n");
 			
-		};
+		//};
 	}
 
 	@Test

@@ -1,6 +1,9 @@
 package dataLayer.user.interfaces;
 
 
+import java.util.Vector;
+
+import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.user.entities.result.ResultUtente;
 import dataLayer.utilities.StateResult;
@@ -60,14 +63,14 @@ public interface API_UtenteDB {
 	/**
 	 * Questa funzione permette di controllare i dati di login per un utente
 	 * 
-	 * @param email email dell'utente che effettua il login
+	 * @param utente che effettua il login
 	 * @param password password da validare
 	 * @return StateResult Restituisce lo stato della validazione:
 	 * -  VALID
 	 * - NOVALID
 	 * - DBPROBLEM
 	 */
-	StateResult verifyLogin(String email, String password);
+	StateResult verifyLogin(UtenteDB utente, String password);
 	
 	
 	/* QUESTE SONO LE FUNZIONI RIFERITE AL DOCENTE */
@@ -109,4 +112,18 @@ public interface API_UtenteDB {
 	 *- DBPROBLEM
 	 */
 	StateResult updateContoPaypal(idUser id, String contPaypal);
+	
+	/**
+	 *Questa funzione permette di prendere tutte le lezioni relative ad un docente tramite il cognome
+	 *
+	 *@param cognome 
+	 *@param lezioni vettore di lezioni relative al docente
+	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *
+	 *- UPDATED
+	 *- NOUPDATED
+	 *- DBPROBLEM
+	 */
+	StateResult getLessonsByCognome(String cognome, Vector<LezioneDB> lezioni);
+	
 }

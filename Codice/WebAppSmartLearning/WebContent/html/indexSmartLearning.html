@@ -77,13 +77,14 @@ function LoginFunction(){
 
 function gestisciRisposta(responseXML) {
 	if(responseXML.getElementsByTagName("risposta").length > 0) {
-		var risposta = responseXML.getElementsByTagName("risposta")[0];
-
-		if(risposta.childNodes[0].nodeValue == "utenteLoggato") {
-
+		var risultato = responseXML.getElementsByTagName("risultato")[0].childNodes[0].nodeValue;
+		
+		if(risultato == "utenteLoggato") {
+			
+			localStorage['myId'] = responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue;
 			window.location.replace("html/Homepage.html");
 			
-		} else if(risposta.childNodes[0].nodeValue == "passwordErrata"){
+		} else if(risultato == "passwordErrata"){
 			alert("Password errata");
 		}else{
 			alert("Email errata");

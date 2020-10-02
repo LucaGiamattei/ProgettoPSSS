@@ -333,10 +333,10 @@ public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fie
     }
     String fields ="";
     if (fieldsToSelect1.length>0) {
-    	fields = "`"+fieldsToSelect1[0]+"`";
+    	fields = fieldsToSelect1[0];
     }
     for (int i = 1; i<fieldsToSelect1.length;i++) {
-    	fields = fields+",`"+fieldsToSelect1[i]+"`";
+    	fields = fields+","+fieldsToSelect1[i];
     }
     
     

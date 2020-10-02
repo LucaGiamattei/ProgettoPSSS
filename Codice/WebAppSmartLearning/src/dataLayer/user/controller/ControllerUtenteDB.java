@@ -161,11 +161,11 @@ public class ControllerUtenteDB implements API_UtenteDB{
 				}
 	}
 	
-	public StateResult verifyLogin(String email, String password) {
+	public StateResult verifyLogin(UtenteDB utente, String password) {
 		// TODO Auto-generated method stub
-				String [] fieldsToSelect = {"Password"};
+				String [] fieldsToSelect = {"Password", "idUtente"};
 				Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
-				conditionsFildsToValues.put("Email", email);
+				conditionsFildsToValues.put("Email", utente.getEmail());
 				
 				ResultSet result;
 				try {
@@ -185,6 +185,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 						if(numOfRows == 1) {
 							
 							if(result.getString("Password").compareTo(password)==0) {
+								utente.setId(new idUser(result.getInt("idUtente")));
 								return StateResult.VALID;
 							}
 						}
@@ -326,7 +327,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		     
 		     int numTuple = 0;
 		     while (result.next() ) {
-		      LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")),result.getFloat("prezzo"));
+		      LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
 		      
 		      Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
 		      

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
 import serviceLayer.login.implementation.ImplLogin;
 import serviceLayer.registration.implementation.ImplRegistrazione;
@@ -49,8 +50,10 @@ public class LoginServlet extends HttpServlet {
 		
 		
 		ImplLogin log = new ImplLogin();
+		UtenteDB utente = new UtenteDB();
+		utente.setEmail(email);
 		
-		StateResult result = log.loginUtente(email, password);
+		StateResult result = log.loginUtente(utente, password);
 		
 		StringBuffer xmlReply = new StringBuffer();
 		
@@ -58,19 +61,19 @@ public class LoginServlet extends HttpServlet {
 		
 		if(result == StateResult.VALID) {
 			
-			xmlReply.append("<risposta>utenteLoggato</risposta>");
+			xmlReply.append("<risposta><id>"+utente.getId()+"</id><risultato>utenteLoggato</risultato></risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 			
 		}else if (result == StateResult.NOVALID) {
 			
-			xmlReply.append("<risposta>passwordErrata</risposta>");
+			xmlReply.append("<risposta><risultato>passwordErrata</risultato></risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 			
 		}else {
 			
-			xmlReply.append("<risposta>emailErrata</risposta>");
+			xmlReply.append("<risposta><risultato>emailErrata</risultato></risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 		}

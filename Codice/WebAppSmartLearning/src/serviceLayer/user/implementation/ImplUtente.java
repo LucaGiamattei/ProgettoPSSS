@@ -35,7 +35,7 @@ public class ImplUtente implements IUtente {
 		}
 		
 		
-		System.out.println("[IMPLUTENTE] nome: "+ str.get(1)+" topic: "+str.get(2));
+		//System.out.println("[IMPLUTENTE] nome: "+ str.get(1)+" topic: "+str.get(2));
 		return result;
 	}
 

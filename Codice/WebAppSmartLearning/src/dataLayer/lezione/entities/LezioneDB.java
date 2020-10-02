@@ -15,7 +15,6 @@ public class LezioneDB {
 	private String nomeLezione;
 	private String descrizioneLezione;
 	private int Nmax;
-	private float prezzoSlot;
 	private float media_score;
 	
 	private idTopic idTopic;
@@ -35,10 +34,9 @@ public class LezioneDB {
 	 * @param idTopic
 	 * @param idUtente
 	 * @param slot
-	 * @param prezzoSlot
 	 */
 	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, dataLayer.utilities.idTopic idTopic,
-			idUser idUtente, FasciaOraria slot, float prezzoSlot) {
+			idUser idUtente, FasciaOraria slot) {
 		super();
 		this.id = id;
 		this.nomeLezione = nomeLezione;
@@ -48,7 +46,6 @@ public class LezioneDB {
 		this.idUtente = idUtente;
 		this.slots = new Vector <FasciaOraria>();
 		this.slots.add(slot);
-		this.prezzoSlot = prezzoSlot;
 		this.descrizioneLezione = descrizioneLezione;
 	}
 	/**
@@ -60,10 +57,9 @@ public class LezioneDB {
 	 * @param nmax
 	 * @param idTopic
 	 * @param idUtente
-	 * @param prezzoSlot
 	 */
 	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, dataLayer.utilities.idTopic idTopic,
-			idUser idUtente, float prezzoSlot) {
+			idUser idUtente) {
 		super();
 		this.id = id;
 		this.nomeLezione = nomeLezione;
@@ -72,7 +68,6 @@ public class LezioneDB {
 		this.idTopic = idTopic;
 		this.idUtente = idUtente;
 		this.slots = new Vector <FasciaOraria>();
-		this.prezzoSlot = prezzoSlot;
 		this.descrizioneLezione = descrizioneLezione;
 	}
 	
@@ -84,27 +79,18 @@ public class LezioneDB {
 	 * @param nmax
 	 * @param idTopic
 	 * @param idUtente
-	 * @param prezzoSlot
 	 */
 	public LezioneDB(String nomeLezione,String descrizioneLezione,int nmax, dataLayer.utilities.idTopic idTopic,
-			idUser idUtente, float prezzoSlot) {
+			idUser idUtente) {
 		super();
 		
 		this.nomeLezione = nomeLezione;
 		this.Nmax = nmax;
 		this.idTopic = idTopic;
 		this.idUtente = idUtente;
-		this.prezzoSlot = prezzoSlot;
 		this.descrizioneLezione = descrizioneLezione;
 	}
-	
-	public float getPrezzoSlot() {
-		return prezzoSlot;
-	}
 
-	public void setPrezzoSlot(float prezzoSlot) {
-		this.prezzoSlot = prezzoSlot;
-	}
 
 	public Vector<FasciaOraria> getSlots() {
 		return slots;
@@ -172,7 +158,7 @@ public class LezioneDB {
 	@Override
 	public String toString() {
 		String r = "LezioneDB [id=" + id + ", nomeLezione=" + nomeLezione + ", descrizioneLezione=" + descrizioneLezione
-				+ ", Nmax=" + Nmax + ", prezzoSlot=" + prezzoSlot + ", media_score=" + media_score + ", idTopic="
+				+ ", Nmax=" + Nmax + ", media_score=" + media_score + ", idTopic="
 				+ idTopic + ", idUtente=" + idUtente+"\n"+"Slots: \n";
 		if (slots != null) {
 			for(int i = 0; i<slots.size();i++) {

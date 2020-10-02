@@ -1,6 +1,8 @@
 package webLayer.servlets;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -11,13 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.utilities.StateResult;
+import serviceLayer.topic.implementation.ImplTopic;
 import serviceLayer.user.implementation.ImplUtente;
 
 
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet("/SearchServlet")
+
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,34 +49,59 @@ public class SearchServlet extends HttpServlet {
 		System.out.println("DoPostSEARCH");
 		
 		String ricerca = request.getParameter("ricerca");
-		
 		System.out.println("ricerca="+ricerca+"\n");
-		
 
 		ImplUtente utente = new ImplUtente();
+		ImplTopic topic = new ImplTopic();
 		Vector<LezioneDB> lezioni = new Vector<LezioneDB>();
+		boolean isCognome = true;
+		
 		Vector<String> str = new Vector<String>();
 		str.add(ricerca);
 		
-		StateResult result = utente.getLessonsByCognome(str, lezioni);
+		StateResult result = utente.getLessonsByCognome(str, lezioni); //str(0): cognome str(1): nome str(2): topic
 		
-		System.out.println("[SEARCHSERVLET] nome: "+ str.get(1)+" topic: "+str.get(2));
+		if(result == StateResult.NOVALID) {
+			isCognome = false;
+			result = topic.getLessonsByTopic(str, lezioni); //str(0): topic str(1): cognome str(2): nome
+		}
+		
 		
 		StringBuffer xmlReply = new StringBuffer();
-		System.out.println(result.toString());
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 		
 		xmlReply.append("<risposta>");
 		
-		for(int i=0; i<lezioni.size(); i++) {
-			xmlReply.append("<lezione><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
-					"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><cognomedoc>"+ricerca+"</cognomedoc><nomedoc>"+str.get(1)+"</nomedoc><topic>"+str.get(2)+"</topic>");
-				for(int j=0; j<lezioni.get(i).getSlots().size(); j++) {
-					xmlReply.append("<fascia><data>"+lezioni.get(i).getSlots().get(j).getDataLezione()+"</data><orarioinizio>"+lezioni.get(i).getSlots().get(j).getOrarioInizio()+
-							"</orarioinizio><orariofine>"+lezioni.get(i).getSlots().get(j).getOrarioFine()+"</orariofine></fascia>");
-				
-				}
-				xmlReply.append("</lezione>");
+		
+		if(isCognome) {
+			for(int i=0; i<lezioni.size(); i++) {
+				xmlReply.append("<lezione><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
+						"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><cognomedoc>"+str.get(0)+"</cognomedoc><nomedoc>"+str.get(1)+"</nomedoc><topic>"+str.get(2)+"</topic>");
+					for(int j=0; j<lezioni.get(i).getSlots().size(); j++) {
+						xmlReply.append("<fascia><data>"+df.format(lezioni.get(i).getSlots().get(j).getDataLezione())+"</data><orarioinizio>"+lezioni.get(i).getSlots().get(j).getOrarioInizio().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioInizio().getMinutes()+
+								"</orarioinizio><orariofine>"+lezioni.get(i).getSlots().get(j).getOrarioFine().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioFine().getMinutes()+"</orariofine><prezzo>"+ 
+										lezioni.get(i).getSlots().get(j).getPrezzo()+"</prezzo>"+
+										"</fascia>");
+					
+					}
+					xmlReply.append("</lezione>");
+			}
+		}else {
+			for(int i=0; i<lezioni.size(); i++) {
+				xmlReply.append("<lezione><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
+						"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><cognomedoc>"+str.get(1)+"</cognomedoc><nomedoc>"+str.get(2)+"</nomedoc><topic>"+str.get(0)+"</topic>");
+					for(int j=0; j<lezioni.get(i).getSlots().size(); j++) {
+						xmlReply.append("<fascia><data>"+df.format(lezioni.get(i).getSlots().get(j).getDataLezione())+"</data><orarioinizio>"+lezioni.get(i).getSlots().get(j).getOrarioInizio().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioInizio().getMinutes()+
+								"</orarioinizio><orariofine>"+lezioni.get(i).getSlots().get(j).getOrarioFine().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioFine().getMinutes()+"</orariofine><prezzo>"+ 
+										lezioni.get(i).getSlots().get(j).getPrezzo()+"</prezzo>"+
+										"</fascia>");
+					
+					}
+					xmlReply.append("</lezione>");
+			}
 		}
+		
+		
 		
 		xmlReply.append("</risposta>");
 		
