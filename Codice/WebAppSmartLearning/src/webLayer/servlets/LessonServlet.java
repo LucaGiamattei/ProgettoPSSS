@@ -7,22 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
-import serviceLayer.login.implementation.ImplLogin;
-import serviceLayer.registration.implementation.ImplRegistrazione;
+import dataLayer.utilities.idUser;
+import serviceLayer.lezione.implementation.ImplLezione;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LessonServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+public class LessonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LessonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +30,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+		
+		
 	}
 
 	/**
@@ -40,43 +39,41 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("lessonServlet");
 		
-		System.out.println("DoPostLOGIN");
+		String descrizione = request.getParameter("descrizione");
+		String nome = request.getParameter("nome");
+		String topic = request.getParameter("topic");
 		
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		System.out.println("descrizione="+descrizione+"&nome="+nome+"&topic="+topic+"\n");
 		
-		System.out.println("email="+email+"&password="+password+"\n");
+		String myId = request.getParameter("requesterId");
+		ImplLezione lez = new ImplLezione();
 		
-		
-		ImplLogin log = new ImplLogin();
-		UtenteDB utente = new UtenteDB();
-		utente.setEmail(email);
-		
-		StateResult result = log.loginUtente(utente, password);
-		
+		StateResult result = lez.creaLezione(new idUser(Integer.parseInt(myId)),nome, descrizione, topic);
 		StringBuffer xmlReply = new StringBuffer();
 		
-		//System.out.println(result.toString());
+		System.out.println(result.toString());
 		
-		if(result == StateResult.VALID) {
+		if(result == StateResult.CREATED) {
 			
-			xmlReply.append("<risposta><id>"+utente.getId()+"</id><risultato>utenteLoggato</risultato></risposta>");
+			xmlReply.append("<risposta>lezioneCreata</risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 			
-		}else if (result == StateResult.NOVALID) {
+		}else if (result == StateResult.NOCHANGES) {
 			
-			xmlReply.append("<risposta><risultato>passwordErrata</risultato></risposta>");
+			xmlReply.append("<risposta>lezioneNonCreata</risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 			
 		}else {
 			
-			xmlReply.append("<risposta><risultato>emailErrata</risultato></risposta>");
+			xmlReply.append("<risposta>errore</risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 		}
-	}
 
+	}
+		
 }

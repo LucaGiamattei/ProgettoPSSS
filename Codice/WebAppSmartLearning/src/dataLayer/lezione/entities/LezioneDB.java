@@ -92,6 +92,12 @@ public class LezioneDB {
 	}
 
 
+	public LezioneDB(idUser iduser, String nome, String descrizione) {
+		// TODO Auto-generated constructor stub
+		this.nomeLezione = nome;
+		this.descrizioneLezione = descrizione;
+		this.idUtente = iduser;
+	}
 	public Vector<FasciaOraria> getSlots() {
 		return slots;
 	}

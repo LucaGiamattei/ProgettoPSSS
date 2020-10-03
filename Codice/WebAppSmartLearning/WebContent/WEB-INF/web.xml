@@ -42,6 +42,55 @@
   <url-pattern>/riservate/Search</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  <description></description>
+  <display-name>User</display-name>
+  <servlet-name>UserServlet</servlet-name>
+  <servlet-class>webLayer.servlets.UserServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>UserServlet</servlet-name>
+  <url-pattern>/riservate/GetUser</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
+  <display-name>Lesson</display-name>
+  <servlet-name>LessonServlet</servlet-name>
+  <servlet-class>webLayer.servlets.LessonServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>LessonServlet</servlet-name>
+  <url-pattern>/riservate/docente/CreateLesson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
+  <display-name>RetrieveMyLessonsServlet</display-name>
+  <servlet-name>RetrieveMyLessonsServlet</servlet-name>
+  <servlet-class>webLayer.servlets.RetrieveMyLessonsServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>RetrieveMyLessonsServlet</servlet-name>
+  <url-pattern>/riservate/docente/retrievemylessons</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
+  <display-name>RetrieveTopicsServlet</display-name>
+  <servlet-name>RetrieveTopicsServlet</servlet-name>
+  <servlet-class>webLayer.servlets.RetrieveTopicsServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>RetrieveTopicsServlet</servlet-name>
+  <url-pattern>/RetrieveTopics</url-pattern>
+  </servlet-mapping>
+  
+  
   <filter>
     <filter-name>AuthFilter</filter-name>
     <filter-class>webLayer.filters.AuthFilter</filter-class>
@@ -51,6 +100,17 @@
     <filter-name>AuthFilter</filter-name>
     <url-pattern>/riservate/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  
+   
+  <filter>
+    <filter-name>DocFilter</filter-name>
+    <filter-class>webLayer.filters.DocFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>DocFilter</filter-name>
+    <url-pattern>/riservate/docente/*</url-pattern>
   </filter-mapping>
   
   

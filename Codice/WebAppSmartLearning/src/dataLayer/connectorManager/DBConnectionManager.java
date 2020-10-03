@@ -451,5 +451,79 @@ public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fi
  return selectQuery(query);
  
  }
+
+public static Integer createNewEntryDBInSelect(String nomeTabella, Hashtable<String, String> fildsToValues,String nomeTabella2,  Hashtable<String, String> conditionToValue) throws Exception {
+	 
+	 
+	 String  mappingFieldValueCond = "";
+	 Set<String> keysCond = conditionToValue.keySet();
+
+	 Iterator<String> itrCond = keysCond.iterator();
+	    
+	    if(itrCond.hasNext()) {
+	     // Getting Key
+	        String key = itrCond.next();
+	        mappingFieldValueCond = mappingFieldValueCond+"`"+key+"` ="+"'"+conditionToValue.get(key)+"'";
+	        
+	    }
+	    //Displaying Key and value pairs
+	    while (itrCond.hasNext()) { 
+	       // Getting Key
+	       String key = itrCond.next();
+	       mappingFieldValueCond = mappingFieldValueCond+" && "+key+" ="+"'"+conditionToValue.get(key)+"'";       
+	    }
+	 String  values = "";
+	 String  fields = "";
+	 Set<String> keys = fildsToValues.keySet();
+	 	 
+	    //Obtaining iterator over set entries
+	    Iterator<String> itr = keys.iterator();
+	    if(itr.hasNext()) {
+	     // Getting Key
+	        String key = itr.next();
+
+	        fields = fields+"`"+key+"`";
+	        values = values+"'"+fildsToValues.get(key)+"'";
+	       
+	    }
+	    //Displaying Key and value pairs
+	    while (itr.hasNext()) { 
+	       // Getting Key
+	       String key = itr.next();
+	       fields = fields+",`"+key+"`";
+	       values = values+",'"+fildsToValues.get(key)+"'";	       
+	    } 
+	    	 
+	 String query = "INSERT INTO "+dbName+"."+nomeTabella+" ("+fields+", Topic_idTopic) VALUES ("+values+",(SELECT idTopic FROM "+dbName+"."+nomeTabella2+" WHERE "+mappingFieldValueCond+"));";  
+	 
+	 return updateQuery(query);	 
+	 }
+
+/**
+ * Con questa funzione è possibile selezionare tutte le tuple di una tabella
+ * @param nomeTabella Nome della tabella della base di dati persistente
+ * @param fieldsToSelect Colonne della tabella da restituire nella select
+ * @return SelectAll Restituisce le tuple selezionate dalla query
+ * @throws Exception
+ */
+
+public static ResultSet SelectAll(String nomeTabella,String [] fieldsToSelect ) throws Exception {
+ 
+    String fields ="";
+    if (fieldsToSelect.length>0) {
+     fields = fieldsToSelect[0];
+    }
+    for (int i = 1; i<fieldsToSelect.length;i++) {
+     fields = fields+","+fieldsToSelect[i];
+    }
+    
+    
+ String query = "SELECT "+fields+" FROM "+dbName+"."+nomeTabella+";";
+ System.out.println(query);
+ return selectQuery(query);
+ 
+ }
+
+
 }
 

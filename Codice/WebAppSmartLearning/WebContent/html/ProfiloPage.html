@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Learning</title>
+<!-- <link rel="stylesheet" href="index.css"/> -->
+<link rel="stylesheet" href="../css/demo.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
+
+
+
+<!-- Voglio che all'apertura di questa pagina si esegua uno script di richiesta dei dati del profilo inviando il proprio id in cache -->
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-static-top">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href=".">Smart Learning</a>
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li ><a href="Homepage.html">Home</a></li>
+			<li class="active"><a href="ProfiloPage.html">Profilo</a></li> 
+			<li><a href="#">Documentazione</a></li>
+			<li><a href="#">Contatti</a></li>
+			<li><a class="januscon" target="_blank" href="#">Upgrade Docente</a></li>
+		</ul>
+	</div>
+</div>
+</nav>
+
+<div class="container" id="mainPage">
+
+			<div class = "row">
+				<div class="col-md-2 ">
+					<ul class="nav flex-column">
+					  <li class="nav-item">
+					    <a class="nav-link active"  onclick="retrieveUserData()">Utente</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="#">Lezioni sottoscritte</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" onclick="myLessonFunc()">Lezioni mie</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="#">Impostazioni</a>
+					  </li>
+					</ul>
+				</div>
+				<div class="col-md-10 containerProfilo">
+
+				</div>
+			</div>
+
+			</div>
+
+</body>
+
+
+<script>
+
+$(document).ready(retrieveUserData());
+
+function retrieveUserData(){
+	
+	console.log("retrieveUserData");
+	$('.containerProfilo').children().remove();
+	
+	var myId = localStorage['myId'];
+
+	if(myId == undefined){
+		myId = "";
+	}
+
+	
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId;
+	var url = "../riservate/GetUser";
+	request.open('GET', url+"?"+params, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	    	gestisciRispostaUser(request.responseXML);
+	    }
+	}
+	request.send(params);
+}
+
+function gestisciRispostaUser(responseXML) {
+	
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var nome = responseXML.getElementsByTagName("nome")[0].childNodes[0].nodeValue;
+			var cognome = responseXML.getElementsByTagName("cognome")[0].childNodes[0].nodeValue;
+			var email = responseXML.getElementsByTagName("email")[0].childNodes[0].nodeValue;
+			var mediascorelezioni = responseXML.getElementsByTagName("mediascorelezioni")[0].childNodes[0].nodeValue;
+			
+			$('.containerProfilo').append(
+					'<div class="jumbotron jumbotron-fluid">'+
+					  '<div class="container">'+
+					    '<h2 class="display-4 nomeutente">'+cognome+' '+nome+'</h2>'+
+					    '<br>'+
+					    '<p class="lead email"><small>	Email: '+email+'</small></p>'+
+					    '<p class="lead score"><small>	Score medio lezioni: '+mediascorelezioni+'</small></p>'+
+					  '</div>'+
+					'</div>'
+			);
+			
+		}
+	}else{
+		//window.location.replace("http://localhost:8080/WebAppSmartLearning");
+	}
+}
+	
+function myLessonFunc(){
+	
+	$('.containerProfilo').children().remove();
+	console.log("myLessonFunc");
+	
+	var myId = localStorage['myId'];
+	
+	if(myId == undefined){
+		myId = "";
+	}
+		
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId;
+	var url = "../riservate/docente/retrievemylessons";
+	request.open('GET', url+"?"+params, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaLessons(request.responseXML);
+		}
+	}
+		request.send(params);
+}
+
+function gestisciRispostaLessons(responseXML) {
+	
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
+			
+			if(risultato == "utenteNonAutorizzato"){
+				
+				$('.containerProfilo').append('<div class="alert alert-danger" role="alert">'+
+				  'Non sei un Docente, per accedere a queste funzionalità effettua l\'upgrade'+
+				 ' </div>'
+				);
+				
+				return null;
+			}
+			
+			$('.containerProfilo').append('<button type="button" onclick="creaLezioneFunc()"class="btn btn-warning">Crea una lezione</button>');
+			
+			for (i = 0; i < risposta.childNodes.length; i++){
+				$('.containerProfilo').append('<div class="col-sm-5 scheda">'+
+					    '<div class="card">'+
+					      '<div class="card-body">'+
+					        '<h2 class="card-title">'+risposta.childNodes[i].getElementsByTagName("nome")[0].childNodes[0].nodeValue+'</h2>'+
+					        '<p class="card-text">'+
+					        '<p>Topic: '+risposta.childNodes[i].getElementsByTagName("topic")[0].childNodes[0].nodeValue+
+					        '</p>'+
+					        '<p>Score lezione: '+risposta.childNodes[i].getElementsByTagName("score")[0].childNodes[0].nodeValue+ '  |  '+
+					        ' Numero massimo studenti: '+risposta.childNodes[i].getElementsByTagName("nstudenti")[0].childNodes[0].nodeValue+ '</p>'+
+					        '</p>'+
+					        '<p>Lezioni programmate: </p>'+
+					        '<div class="fasce'+i+'"></div>'+
+					      '</div>'+
+					    '</div>'+
+					  '</div>');
+				
+				for(j=0; j < risposta.childNodes[i].getElementsByTagName("fascia").length; j++){
+					$('.fasce'+i).append(
+						'<p>Data: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("data")[0].childNodes[0].nodeValue+
+						'  |  Orario: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+						risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+						'  |  Prezzo: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+						'</p>'					
+					);
+					
+				}
+			}
+			
+			
+		}
+	}else{
+		window.location.replace("http://localhost:8080/WebAppSmartLearning");
+	}
+}
+
+
+function creaLezioneFunc() {
+	
+	$('.containerProfilo').children().remove();
+	console.log("creaLezioneFunc");
+	
+	$('.containerProfilo').append(
+			'<div class = "row justify-content-md-center">'+
+			'<div class="col col-lg-2"></div>'+
+			'<div class="col col-lg-6">'+
+	
+			'<form>'+
+			 ' <div class="form-group">'+
+			 '   <label for="nomeform">Nome</label>'+
+			'    <input type="text" class="form-control" id="nomeform" placeholder="Inserisci nome">'+
+			'  </div>'+
+			'  <div class="form-group">'+
+			'    <label for="descrizioneform">Descrizione</label>'+
+			 '   <textarea class="form-control" id="descrizioneform" placeholder="Inserisci descrizione" rows="3"></textarea>'+
+			  '</div>'+
+			  ' <div class="form-group col-md-6">'+
+			     ' <label for="inputState">Topic</label>'+
+			     ' <select id="inputState" class="form-control mysceltatopic">'+
+			      '  <option selected>Scegli...</option>'+
+			     '   <option>...</option>'+
+			      '</select>'+
+			   ' </div>'+
+			   ' <div class="form-group col-md-5">'+
+			   '   <label for="nomeform">Max studenti</label>'+
+				'    <input type="text" class="form-control" id="nomeform" placeholder="Inserisci numero">'+
+			   ' </div>'+
+			  '</form>'+
+			'</div>'+
+			'<div class="col col-lg-2"></div>'+
+		'</div>'+
+		'<div class = "row justify-content-md-center">'+
+		'<div class="col col-lg-4"></div>'+
+		'<div class="col col-lg-2">'+
+		'<button type="button" class="btn btn-warning btn-block" onclick="CreateFunction()">Crea</button>'+
+		' </div>'+
+		'<div class="col col-lg-4"></div>'+
+		'</div>'
+	);
+	var request = new XMLHttpRequest();
+	var url = "../RetrieveTopics";
+	request.open('GET', url, true);
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	    	if(request.responseXML.getElementsByTagName("risposta").length > 0) {
+				var risposta = request.responseXML.getElementsByTagName("risposta")[0];
+	    		$('.mysceltatopic').children().remove();
+	    		for (i = 0; i < risposta.childNodes.length; i++){
+	    			$('.mysceltatopic').append('<option>'+risposta.childNodes[i].childNodes[0].nodeValue+'</option>');
+	    		}
+	    	}
+	    }
+	}
+
+	request.send();
+}
+
+function CreateFunction(){
+	
+	
+	var request = new XMLHttpRequest();
+	
+	var nome = document.getElementById("nomeform").value;
+	var descrizione = document.getElementById("descrizioneform").value;
+	var topic = document.getElementById("topicform").value;
+	
+	var myId = localStorage['myId'];
+
+	if(myId == undefined){
+		myId = "";
+	}
+	
+	
+	console.log("createFunction "+ nome +" "+ descrizione +" "+ topic);
+	
+	var url = "../riservate/docente/CreateLesson";
+	var params = "descrizione="+descrizione+"&nome="+nome+"&topic="+topic+"&requesterId="+myId;
+	request.open('POST', url, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	    	gestisciRispostaCreate(request.responseXML);
+	    }
+	}
+	request.send(params);
+	}
+
+
+function gestisciRispostaCreate(responseXML) {
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			
+			if(risposta.childNodes[0].nodeValue == "lezioneCreata") {
+				alert("Lezione registrata correttamente");
+				myLessonFunc();
+				
+			} else {
+				alert("ops.. qualcosa e' andato storto, riprova!");
+			}
+		}
+	}
+}
+
+
+</script>

@@ -50,10 +50,43 @@ public class ControllerUtenteDB implements API_UtenteDB{
 			e.printStackTrace();
 			return StateResult.DBPROBLEM;
 		}
-		
-		
-		
 	}
+	
+	
+	public StateResult validateDocente(idUser id) {
+		   // TODO Auto-generated method stub
+		   String [] fieldsToSelect = {"*"};
+		   Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+		   conditionsFildsToValues.put("idUtente", id.toString());
+		   conditionsFildsToValues.put("Docente", "1");
+		   
+		   ResultSet result;
+		   try {
+		    result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues);
+		    int numOfRows = 0;
+		    
+		    while (result.next()) {
+		     numOfRows++;
+		     
+		    }
+		    switch(numOfRows) {
+		         case 1:
+		          return StateResult.VALID;
+		         default:
+		          return StateResult.NOVALID; 
+		    }
+		    
+		   
+		   } catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		    return StateResult.DBPROBLEM;
+		   }
+		   
+		   
+		   
+		  }
+	
 
 
 	@Override

@@ -22,6 +22,16 @@ public interface API_UtenteDB {
 	 */
 	StateResult validateUser(idUser id); 
 	/**
+	 *Questa funzione permette di validare l'attributo docente di un utente
+	 *
+	 *@param id
+	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *- NOVALID
+	 *- VALID
+	 *- DBPROBLEM
+	 */
+	StateResult validateDocente(idUser id);
+	/**
 	 * Questa funzione permette di creare un utente
 	 * 
 	 * @param utente I/O struttura che contiene le informazioni da memorizzare per il nuovo utente.

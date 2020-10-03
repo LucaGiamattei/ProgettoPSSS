@@ -28,15 +28,14 @@ public interface API_LezioneDB {
 	 *Questa funzione permette di creare una lezione 
 	 *@warning La lezione è intesa in senso lato, ovvero senza alcuna specializzazione in fascia oraria
 	 *
-	 *@param idLesson
-	 *@param idTopic
-	 *@param infoLezione 
+	 *@param infoLezione
+	 *@param nomeTopic
 	 *@return StateResult Rappresenta lo stato dell'operazione:
 	 *- NOCHANGES
 	 *- DBPROBLEM
 	 *- CREATED
 	 */
-	StateResult createLesson(LezioneDB infoLezione);
+	StateResult createLesson(LezioneDB infoLezione, String nomeTopic);
 	
 	/**
 	 * Questa funzione permette di selezionare tutte le lezioni di un docente (senza la fascia oraria)

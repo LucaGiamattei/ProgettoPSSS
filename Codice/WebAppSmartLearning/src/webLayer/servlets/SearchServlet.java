@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.LezioneDB;
+import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
+import dataLayer.utilities.idUser;
 import serviceLayer.topic.implementation.ImplTopic;
 import serviceLayer.user.implementation.ImplUtente;
 
@@ -38,6 +40,7 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		
 	}
 
 	/**

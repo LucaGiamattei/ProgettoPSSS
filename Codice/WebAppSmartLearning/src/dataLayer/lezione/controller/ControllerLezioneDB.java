@@ -61,31 +61,35 @@ public class ControllerLezioneDB implements API_LezioneDB{
 //---------------------OPERAZIONI DOCENTE---------------------------//
 		
 		@Override
-		public StateResult createLesson(LezioneDB infoLezione) {
-			// TODO Auto-generated method stub
-			Hashtable<String,String> lezione = new Hashtable<String, String>();
-			
-			lezione.put("NomeLezione", infoLezione.getNomeLezione());
-			lezione.put("DescrizioneLezione", infoLezione.getDescrizioneLezione());
-		 	lezione.put("NMaxStudenti", ""+infoLezione.getNmax()+"");
-		 	lezione.put("Topic_idTopic", infoLezione.getIdTopic().toString());
-		 	lezione.put("Utente_idUtente", infoLezione.getIdUtente().toString());
-		 	try {
-				Integer r = DBConnectionManager.createNewEntryDB("Lezione",lezione, true);
-				if(r>0) {
-					infoLezione.setId(new idLesson(r));
-					return StateResult.CREATED;
-				}else {
-					return StateResult.NOCHANGES;
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return StateResult.DBPROBLEM;
-			}
-			
-			
-		}
+		public StateResult createLesson(LezioneDB infoLezione, String nomeTopic) {
+			   // TODO Auto-generated method stub
+			   Hashtable<String,String> lezione = new Hashtable<String, String>();
+			   
+			   lezione.put("NomeLezione", infoLezione.getNomeLezione());
+			   lezione.put("DescrizioneLezione", infoLezione.getDescrizioneLezione());
+			    lezione.put("NMaxStudenti", ""+infoLezione.getNmax()+"");
+			    lezione.put("Utente_idUtente", ""+infoLezione.getIdUtente()+"");
+			    
+			    Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			   conditionsFildsToValues.put("Name", nomeTopic);
+			   
+			   try {
+			    Integer r = DBConnectionManager.createNewEntryDBInSelect("Lezione", lezione, "Topic", conditionsFildsToValues);
+			    
+			    if(r>0) {
+			     infoLezione.setId(new idLesson(r));
+			     return StateResult.CREATED;
+			    }else {
+			     return StateResult.NOCHANGES;
+			    }
+			   } catch (Exception e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			    return StateResult.DBPROBLEM;
+			   }
+			   
+			   
+			  }
 		
 		@Override
 		public StateResult updateFasciaOraria(idUser iduser, FasciaOraria orari) {
@@ -179,6 +183,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			String [] fieldsToSelect = {"*"};
 			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 			conditionsFildsToValues.put("Utente_idUtente", idOwnerUser.toString());
+			ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 			
 			ResultSet result;
 			try {
@@ -186,6 +191,12 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				int numTuple = 0;
 				while (result.next() ) {
 					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
+					Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
+				      
+				    controllerlez.getFasceOrarieByLessonId(new idLesson(result.getInt("idLezione")), fasce);
+				      
+				    lezione.setSlots(fasce);
+					
 					lezioni.add(lezione);
 					numTuple++;
 				}

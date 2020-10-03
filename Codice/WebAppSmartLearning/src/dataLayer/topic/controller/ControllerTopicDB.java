@@ -225,5 +225,36 @@ public class ControllerTopicDB implements API_TopicDB{
 		   
 		  
 		  }
+	
+	public StateResult getTopics(Vector<String> topics) {
+		  // TODO Auto-generated method stub
+		  String [] fieldsToSelect = {"*"};
+		  
+		  
+		  ResultSet result;
+		  try {
+		   result = DBConnectionManager.SelectAll("Topic", fieldsToSelect);
+		   int numOfRows = 0;
+		   
+		   while (result.next()) {
+		    numOfRows++;
+		    
+		    topics.add(result.getString("Name"));
+		    
+		   }
+		   if(numOfRows>0) {
+			   return StateResult.VALID;
+		   }else {
+			   return StateResult.NOVALID;
+		   }
+		   
+		  
+		  } catch (Exception e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		   return StateResult.DBPROBLEM;
+		  }
+		  
+		 }
 
 }
