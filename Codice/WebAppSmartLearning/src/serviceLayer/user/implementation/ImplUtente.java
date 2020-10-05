@@ -61,11 +61,12 @@ public class ImplUtente implements IUtente {
 		
 		StateResult result = controller.getLessonsByUser(myid, lezioni);
 		
+		if(lezioni.size() > 0) {
 		TopicDB topicvar = new TopicDB(lezioni.get(0).getIdTopic());
 		controllertopic.getTopicName(topicvar);
 
 		str.add(topicvar.getNome());
-		
+		}
 		return result;
 	}
 	

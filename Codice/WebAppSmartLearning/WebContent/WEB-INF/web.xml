@@ -90,6 +90,30 @@
   <url-pattern>/RetrieveTopics</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  <description></description>
+  <display-name>ProgramLessonServlet</display-name>
+  <servlet-name>ProgramLessonServlet</servlet-name>
+  <servlet-class>webLayer.servlets.ProgramLessonServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>ProgramLessonServlet</servlet-name>
+  <url-pattern>/riservate/docente/ProgramLesson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
+  <display-name>MyProgServlet</display-name>
+  <servlet-name>MyProgServlet</servlet-name>
+  <servlet-class>webLayer.servlets.MyProgServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>MyProgServlet</servlet-name>
+  <url-pattern>/riservate/docente/myprograms</url-pattern>
+  </servlet-mapping>
+  
   
   <filter>
     <filter-name>AuthFilter</filter-name>

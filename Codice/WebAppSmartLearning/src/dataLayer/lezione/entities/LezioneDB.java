@@ -3,8 +3,9 @@ package dataLayer.lezione.entities;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import com.mysql.fabric.xmlrpc.base.Data;
-
+/*
+//import com.mysql.fabric.xmlrpc.base.Data;
+*/
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idTopic;
@@ -97,7 +98,17 @@ public class LezioneDB {
 		this.nomeLezione = nome;
 		this.descrizioneLezione = descrizione;
 		this.idUtente = iduser;
+		
 	}
+	
+	public LezioneDB(idUser iduser, String nome, String descrizione, int nmax) {
+		// TODO Auto-generated constructor stub
+		this.nomeLezione = nome;
+		this.descrizioneLezione = descrizione;
+		this.idUtente = iduser;
+		this.Nmax = nmax;
+	}
+	
 	public Vector<FasciaOraria> getSlots() {
 		return slots;
 	}

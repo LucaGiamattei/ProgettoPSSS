@@ -45,16 +45,15 @@ public class RetrieveMyLessonsServlet extends HttpServlet {
 		StateResult result = iutente.getLessonsById(new idUser(Integer.parseInt(request.getParameter("requesterId"))),str, lezioni);
 		
 		
+		StringBuffer xmlReply = new StringBuffer();
 		
 		if (result == StateResult.VALID) {
-			
-			StringBuffer xmlReply = new StringBuffer();
 			DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 			
 			xmlReply.append("<risposta>");
 			
 			for(int i=0; i<lezioni.size(); i++) {
-				xmlReply.append("<lezione><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
+				xmlReply.append("<lezione><id>"+lezioni.get(i).getId().getId()+"</id><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
 						"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><topic>"+str.get(0)+"</topic>");
 					for(int j=0; j<lezioni.get(i).getSlots().size(); j++) {
 						xmlReply.append("<fascia><data>"+df.format(lezioni.get(i).getSlots().get(j).getDataLezione())+"</data><orarioinizio>"+lezioni.get(i).getSlots().get(j).getOrarioInizio().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioInizio().getMinutes()+
@@ -69,7 +68,9 @@ public class RetrieveMyLessonsServlet extends HttpServlet {
 			response.setContentType("text/xml"); 
 			response.getWriter().write(xmlReply.toString()); 	
 		}else {
-			response.sendError(HttpServletResponse.SC_NO_CONTENT);
+			xmlReply.append("<risposta>noLessons</risposta>");
+			response.setContentType("text/xml"); 
+			response.getWriter().write(xmlReply.toString()); 
 		}
 	}
 

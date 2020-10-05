@@ -3,6 +3,10 @@ package dataLayer.lezione;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -57,17 +61,29 @@ class TestLezione {
 
 	@Test
 	void testAddFasciaOraria() {
-		 long millis=System.currentTimeMillis();  
-	     java.sql.Date date=new java.sql.Date(millis); 
-		
-		//FasciaOraria orari = new  FasciaOraria(1, "11:30" ,"12:30", date,10);
-
-		//if (controller.addFasciaOraria(new idUser(1), new idLesson(1), orari) == StateResult.CREATED) {
-		//	System.out.println("addFasciaOraria: output CREATED"+"\n");
+		long millis=System.currentTimeMillis();  
+	    java.sql.Date date=new java.sql.Date(millis); 
+	    DateFormat formatter = new SimpleDateFormat("HH:mm");
+		Time orainizio;
+		try {
+			orainizio = new java.sql.Time(formatter.parse("22:30").getTime());
 			
-		//};
-	}
+			Time orafine = new java.sql.Time(formatter.parse("23:30").getTime());
+		     
+			FasciaOraria orari = new  FasciaOraria(1, orainizio ,orafine, date,10);
 
+
+			if (controller.addFasciaOraria(new idUser(1), new idLesson(1), orari) == StateResult.CREATED) {
+				System.out.println("addFasciaOraria: output CREATED"+"\n");
+				
+			};
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+/*
 	@Test
 	void testGetLessonsByUser() {
 	
@@ -116,5 +132,5 @@ class TestLezione {
 			}
 		}
 	}
-
+*/
 }

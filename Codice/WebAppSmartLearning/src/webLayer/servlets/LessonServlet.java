@@ -44,13 +44,14 @@ public class LessonServlet extends HttpServlet {
 		String descrizione = request.getParameter("descrizione");
 		String nome = request.getParameter("nome");
 		String topic = request.getParameter("topic");
+		String maxstud = request.getParameter("maxstud");
 		
-		System.out.println("descrizione="+descrizione+"&nome="+nome+"&topic="+topic+"\n");
+		System.out.println("descrizione="+descrizione+"&nome="+nome+"&topic="+topic+"&maxstud="+maxstud+"\n");
 		
 		String myId = request.getParameter("requesterId");
 		ImplLezione lez = new ImplLezione();
 		
-		StateResult result = lez.creaLezione(new idUser(Integer.parseInt(myId)),nome, descrizione, topic);
+		StateResult result = lez.creaLezione(new idUser(Integer.parseInt(myId)),nome, descrizione, topic, Integer.parseInt(maxstud));
 		StringBuffer xmlReply = new StringBuffer();
 		
 		System.out.println(result.toString());

@@ -140,7 +140,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				conn = DBConnectionManager.getConnection();
 				conn.setAutoCommit(false);
 				
-				String query = "{CALL inserisciCond(?,?,?,?,"+ idLezione+","+ idOwnerUser +", ?, ?)}";
+				String query = "{CALL inserisciCond(?,?,?,?,"+idLezione+","+ idOwnerUser+",?)}";
 				
 				CallableStatement stmt = (CallableStatement) conn.prepareCall(query);
 				
@@ -150,18 +150,15 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				stmt.setFloat(4,orari.getPrezzo());
 				
 				stmt.registerOutParameter(5, Types.INTEGER);
-				stmt.registerOutParameter(6, Types.INTEGER);
 				
 				stmt.executeQuery();
 				
-				
-				int outputValue = stmt.getInt(5);	
-				int retId = stmt.getInt(6);
+				int retId = stmt.getInt(5);
 				
 				conn.commit();
 				conn.close();
 				
-				if(outputValue == 0) {
+				if(retId > 0) {
 					orari.setId(new idFasciaOraria(retId));
 					return StateResult.CREATED;
 				}else {
@@ -381,4 +378,32 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				 return StateResult.DBPROBLEM;
 				}
 		}
+		
+		
+		public StateResult removeFasciaById(idFasciaOraria id) {
+			   Hashtable<String,String> removeFields = new Hashtable<String, String>();
+			   removeFields.put("idFasciaOraria", id.toString());
+
+			   Integer result;
+			   try {
+			    result = DBConnectionManager.removeFromDB("FasciaOraria", removeFields);
+			    
+			    switch(result) {  
+			         case 1:
+			          return StateResult.REMOVED;
+			           
+			        
+			         default:
+			          return StateResult.NOREMOVED;
+			    }
+			    
+			   
+			   } catch (Exception e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			    return StateResult.DBPROBLEM;
+			   }
+			   
+			  }
+		
 }
