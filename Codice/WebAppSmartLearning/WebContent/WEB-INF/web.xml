@@ -126,6 +126,17 @@
   <url-pattern>/riservate/docente/myprograms</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  <description></description>
+  <display-name>testDocente</display-name>
+  <servlet-name>testDocente</servlet-name>
+  <servlet-class>webLayer.servlets.testDocente</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>testDocente</servlet-name>
+  <url-pattern>/riservate/docente/testDocente</url-pattern>
+  </servlet-mapping>
   
   <filter>
     <filter-name>AuthFilter</filter-name>

@@ -12,8 +12,15 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/6.4.0/adapter.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
-
+<script type="text/javascript" src="../js/jsSmartLearning.js"></script>
+<!-- <script type="text/javascript" src="../js/janus.js"></script>-->
+<!-- <script type="text/javascript" src="../js/mainpage.js"></script>-->
 
 
 <!-- Voglio che all'apertura di questa pagina si esegua uno script di richiesta dei dati del profilo inviando il proprio id in cache -->
@@ -25,7 +32,7 @@
 <nav class="navbar navbar-default navbar-static-top">
 <div class="container">
 	<div class="navbar-header">
-		<a class="navbar-brand" href=".">Smart Learning</a>
+		<a class="navbar-brand" href="Homepage.html">Smart Learning</a>
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -33,12 +40,11 @@
 		</button>
 	</div>
 	<div class="navbar-collapse collapse">
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav januscon_anchor">
 			<li ><a href="Homepage.html">Home</a></li>
 			<li class="active"><a href="ProfiloPage.html">Profilo</a></li> 
 			<li><a href="#">Documentazione</a></li>
 			<li><a href="#">Contatti</a></li>
-			<li><a  href="Upgrade.html" class="januscon">Upgrade Docente</a></li>
 		</ul>
 	</div>
 </div>
@@ -389,18 +395,20 @@ function gestisciRispostaProgrammazioni(responseXML) {
 				$('.containerProfilo').append(
 						'<br>'+
 						'<div class="card">'+
-						 ' <div class="card-body">'+
-						 '<div class="col">'+
-							'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
-							'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
-							risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
-							'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
-							'</p>'+
+						 '<div class="card-body">'+
+							 '<div class="col">'+
+								'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
+								'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+								risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+								'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+								'</p>'+
 							'  </div>'+
 							'<div class="col-1">'+
 							'<a onclick="eliminaProgrammazione('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-danger btn-sm">X</a>'+
 							'  </div>'+
-							'<div class="col"></div>'+
+							'<div class="col">'+
+							'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
+							'</div>'+
 							 '</div>'+
 						'</div>'+
 						'<br>'
@@ -410,6 +418,11 @@ function gestisciRispostaProgrammazioni(responseXML) {
 		}
 	}
 	
+}
+
+function avviaVideoCall(idprog) {
+	
+	newRoom();
 }
 
 

@@ -34,7 +34,7 @@ class TestDocente {
 		}
 		
 	}
-
+/*
 	@Test
 	void testCreateDocente() {
 		UtenteDB user = new UtenteDB(new idUser(1),"giorgio@unina.it", "song nu mostr");
@@ -42,5 +42,5 @@ class TestDocente {
 			System.out.println("testCreateDocente: Output CREATED verificato");
 		}
 	}
-
+*/
 }

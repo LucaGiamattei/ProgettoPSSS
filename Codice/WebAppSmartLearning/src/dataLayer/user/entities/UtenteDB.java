@@ -1,5 +1,6 @@
 package dataLayer.user.entities;
 
+import java.io.File;
 import java.util.Hashtable;
 
 import dataLayer.connectorManager.DBConnectionManager;
@@ -11,7 +12,7 @@ public class UtenteDB {
 	private String cognome;
 	private String Email;
 	private String contoPaypal;
-	private String curriculum;
+	private File curriculum;
 	private float mediaScoreLezioni;
 	
 	
@@ -42,7 +43,7 @@ public class UtenteDB {
 		this.Email = email;
 	}
 	
-	public UtenteDB(idUser id, String nome, String cognome, String email, String contoPaypal, String curriculum, float mediaScoreLezioni) {
+	public UtenteDB(idUser id, String nome, String cognome, String email, String contoPaypal, File curriculum, float mediaScoreLezioni) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -54,7 +55,7 @@ public class UtenteDB {
 	}
 	
 	
-	public UtenteDB(idUser id, String contoPaypal, String curriculum) {
+	public UtenteDB(idUser id, String contoPaypal, File curriculum) {
 		this.id = id;
 		this.contoPaypal = contoPaypal;
 		this.curriculum = curriculum;
@@ -92,10 +93,10 @@ public class UtenteDB {
 	public void setContoPaypal(String contoPaypal) {
 		this.contoPaypal = contoPaypal;
 	}
-	public String getCurriculum() {
+	public File getCurriculum() {
 		return curriculum;
 	}
-	public void setCurriculum(String curriculum) {
+	public void setCurriculum(File curriculum) {
 		this.curriculum = curriculum;
 	}
 	public float getMediaScoreLezioni() {

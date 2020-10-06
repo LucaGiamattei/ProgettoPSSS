@@ -13,6 +13,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
 
+<script type="text/javascript" src="../jsSmartLearning.js"></script>
+
 
 </head>
 
@@ -41,35 +43,57 @@
 </nav>
 
 <div class="container" id="mainPage">
+	<div class = "row">
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h3 class="display-1">Upgrade Docente</h3>
+				<p class="lead"><small>Entra anche tu a far parte della nostra community di docenti e inizia a condividere le tue conoscenze! Inviaci la mail del conto paypal sul 
+				quale vorrai essere pagato ed il tuo curriculum. Il prima possibile ti faremo sapere se sei idoneo!</small></p>
+			</div>
+		</div>
+	</div>
 
-			<div class = "row">
-				<div class="col-md-12 ">
+
+	<div class = "row justify-content-md-center">
+		<div class="col col-lg-2"></div>
+		<div class="col col-lg-6">
 	
-				<form class="form-group">
-				<div class="col-md-10">
-				  <input type="text" class="form-control" id="paypalform" placeholder="Inserisci conto PayPal">
-				  <input type="text" class="form-control" id="curriculumform" placeholder="Inserisci curriculum">
+			<form>
+				<div class="form-group">
+					<label for="nomeform">Email conto Paypal</label>
+					<input type="text" class="form-control" id="paypalform" placeholder="Inserisci conto PayPal">
 				</div>
-				<div class="col-md-2">
-				  <button type="button" onclick="aggiorna()" class="btn btn-primary">Upgrade</button>
-				 </div>
-				</form>
-				</div>
+				
+				<div class="form-group">
+					<div class="custom-file">
+						<label for="curriculumform">Curriculum</label>
+						<input type="file" class="custom-file-input" id="curriculumform">
+					</div>
+				
+				
+			    	
+			  	</div>
+			</form>
+		</div>
+		
+		<div class="col col-lg-2"></div>
+	</div>
+	<br>
+	<div class = "row justify-content-md-center">
+		<div class="col col-lg-2"></div>
+			<div class="col col-lg-8">
+				<button type="button" onclick="aggiorna()" class="btn btn-primary">Upgrade</button>
 			</div>
-			<br>
-			<br>
-			<br>
-				<div class="row lista">
-				  
+		<div class="col col-lg-2"></div>
+	</div>
 
-				</div>
-							
-			</div>
+
 
 </body>
 
 
 <script type="text/javascript">
+
 	
 function aggiorna(){
 	

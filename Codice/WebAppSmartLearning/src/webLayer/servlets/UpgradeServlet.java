@@ -1,5 +1,6 @@
 package webLayer.servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -49,7 +50,9 @@ public class UpgradeServlet extends HttpServlet {
 		ImplUtente iutente = new ImplUtente();
 		utente.setId(new idUser(Integer.parseInt(request.getParameter("requesterId"))));
 		utente.setContoPaypal(request.getParameter("email"));
-		utente.setCurriculum(request.getParameter("curriculum"));
+		
+		File file = new File(request.getParameter("curriculum"));
+		  utente.setCurriculum(file);
 
 		StateResult result = iutente.upgradeDocente(utente);
 		

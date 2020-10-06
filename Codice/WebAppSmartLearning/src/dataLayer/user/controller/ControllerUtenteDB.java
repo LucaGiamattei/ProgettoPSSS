@@ -1,5 +1,6 @@
 package dataLayer.user.controller;
 
+import java.io.File;
 import java.sql.ResultSet;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -250,12 +251,13 @@ public class ControllerUtenteDB implements API_UtenteDB{
 					while (result.next()) {
 							numOfRows++;
 							if (numOfRows==1) {
+								File file = new File(result.getString("Curriculum"));
 								utente.setCognome(result.getString("Cognome"));
 								utente.setEmail(result.getString("Email"));
 								utente.setId(new idUser(result.getInt("idUtente")));
 								utente.setNome(result.getString("Nome"));
 								utente.setContoPaypal(result.getString("ContoPayPal"));
-								utente.setCurriculum(result.getString("Curriculum"));
+								utente.setCurriculum(file);
 								utente.setMediaScoreLezioni(result.getInt("MediaScoreLezioni"));
 								
 							}
@@ -318,13 +320,14 @@ public class ControllerUtenteDB implements API_UtenteDB{
 	@Override
 	public StateResult createDocente(UtenteDB utente) {
 		// TODO Auto-generated method stub
+		String FilepathAsString = utente.getCurriculum().getAbsolutePath();
 		
 		Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 		conditionsFildsToValues.put("idUtente", utente.getId().toString());
 		
 		Hashtable<String,String> fildsToUpdate = new Hashtable<String, String>();
 		fildsToUpdate.put("ContoPayPal", utente.getContoPaypal());
-		fildsToUpdate.put("Curriculum", utente.getCurriculum());
+		fildsToUpdate.put("Curriculum", FilepathAsString);
 		fildsToUpdate.put("MediaScoreLezioni", "" + utente.getMediaScoreLezioni() + "");
 		fildsToUpdate.put("Docente","1");
 		
