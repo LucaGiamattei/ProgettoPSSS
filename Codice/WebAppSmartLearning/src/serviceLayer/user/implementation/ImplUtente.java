@@ -64,6 +64,28 @@ public class ImplUtente implements IUtente {
 	}
 	
 	@Override
+	public StateResult validateUser(idUser id) {
+		// TODO Auto-generated method stub
+		
+		ControllerUtenteDB controller = new ControllerUtenteDB();
+		
+		StateResult result = controller.validateUser(id);
+		
+		return result;
+	}
+	
+	@Override
+	public StateResult validateDocente(idUser id) {
+		// TODO Auto-generated method stub
+		
+		ControllerUtenteDB controller = new ControllerUtenteDB();
+		
+		StateResult result = controller.validateDocente(id);
+		
+		return result;
+	}
+	
+	@Override
 	public StateResult getLessonsById(idUser myid, Vector<String> str, Vector<LezioneDB> lezioni) {
 		// TODO Auto-generated method stub
 		

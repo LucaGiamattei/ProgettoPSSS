@@ -34,13 +34,5 @@ class TestDocente {
 		}
 		
 	}
-/*
-	@Test
-	void testCreateDocente() {
-		UtenteDB user = new UtenteDB(new idUser(1),"giorgio@unina.it", "song nu mostr");
-		if (controller.createDocente(user) == StateResult.CREATED) {
-			System.out.println("testCreateDocente: Output CREATED verificato");
-		}
-	}
-*/
+
 }

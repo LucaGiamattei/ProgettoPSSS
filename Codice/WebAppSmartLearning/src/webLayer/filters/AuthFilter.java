@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
+import serviceLayer.user.implementation.ImplUtente;
 
 /**
  * Servlet Filter implementation class AuthFilter
@@ -44,7 +45,7 @@ public class AuthFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		
-		ControllerUtenteDB controller = new ControllerUtenteDB();
+		ImplUtente user = new ImplUtente();
 		String myId = request.getParameter("requesterId");
 		
 		System.out.println("FILTRO AUTH! ID:"+myId);
@@ -52,7 +53,7 @@ public class AuthFilter implements Filter {
 		if(myId == "" || myId == null) {
 
 		}else {
-			StateResult valid = controller.validateUser(new idUser(Integer.parseInt(myId)));
+			StateResult valid = user.validateUser(new idUser(Integer.parseInt(myId)));
 			
 			if(valid == StateResult.VALID) {
 				// pass the request along the filter chain

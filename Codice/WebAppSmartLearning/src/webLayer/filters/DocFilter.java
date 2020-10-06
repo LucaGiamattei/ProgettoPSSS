@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
+import serviceLayer.user.implementation.ImplUtente;
 
 /**
  * Servlet Filter implementation class DocFilter
@@ -42,10 +43,10 @@ public class DocFilter implements Filter {
 		
 		System.out.println("FILTRO DOCENTE!");
 		
-		ControllerUtenteDB controller = new ControllerUtenteDB();
+		ImplUtente utente = new ImplUtente();
 		String myId = request.getParameter("requesterId");
 		
-		StateResult result = controller.validateDocente(new idUser(Integer.parseInt(myId)));
+		StateResult result = utente.validateDocente(new idUser(Integer.parseInt(myId)));
 		
 		if(result == StateResult.VALID) {
 			// pass the request along the filter chain
