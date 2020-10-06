@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Learning</title>
+<!-- <link rel="stylesheet" href="index.css"/> -->
+<link rel="stylesheet" href="../css/demo.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-static-top">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href=".">Smart Learning</a>
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="Homepage.html">Home</a></li>
+			<li><a href="ProfiloPage.html">Profilo</a></li>
+			<li><a href="#">Documentazione</a></li>
+			<li><a href="#">Contatti</a></li>
+			<li class="active"><a  href="Upgrade.html" class="januscon">Upgrade Docente</a></li>
+		</ul>
+	</div>
+</div>
+</nav>
+
+<div class="container" id="mainPage">
+
+			<div class = "row">
+				<div class="col-md-12 ">
+	
+				<form class="form-group">
+				<div class="col-md-10">
+				  <input type="text" class="form-control" id="paypalform" placeholder="Inserisci conto PayPal">
+				  <input type="text" class="form-control" id="curriculumform" placeholder="Inserisci curriculum">
+				</div>
+				<div class="col-md-2">
+				  <button type="button" onclick="aggiorna()" class="btn btn-primary">Upgrade</button>
+				 </div>
+				</form>
+				</div>
+			</div>
+			<br>
+			<br>
+			<br>
+				<div class="row lista">
+				  
+
+				</div>
+							
+			</div>
+
+</body>
+
+
+<script type="text/javascript">
+	
+function aggiorna(){
+	
+	var myId = localStorage['myId'];
+
+	if(myId == undefined){
+		myId = "";
+	}
+	
+
+	var request = new XMLHttpRequest();
+	var email = document.getElementById("paypalform").value;
+	var curriculum = document.getElementById("curriculumform").value;
+
+	console.log("email "+ email);
+	
+	var url = "../riservate/UpgradeDocente";
+	var params = "email="+email+"&curriculum="+curriculum+"&requesterId="+myId;
+	request.open('POST', url, true);
+
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {//Call a function when the state changes.
+	    if(request.readyState == 4 && request.status == 200) {
+	    	gestisciRisposta(request.responseXML);
+	    }
+	}
+	request.send(params);
+}
+
+function gestisciRisposta(responseXML) {
+	if(responseXML.getElementsByTagName("risposta").length > 0) {
+		var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
+
+		if(risultato == "utenteAggiornato") {
+			alert("Upgrade con successo");
+			//localStorage['myId'] = responseXML.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+			window.location.replace("http://localhost:8080/WebAppSmartLearning/html/ProfiloPage.html");
+			
+		} else{
+			alert("errore");
+		}
+	}
+}
+	
+</script>

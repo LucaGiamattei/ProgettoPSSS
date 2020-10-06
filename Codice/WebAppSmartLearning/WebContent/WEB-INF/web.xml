@@ -44,6 +44,18 @@
   
   <servlet>
   <description></description>
+  <display-name>Upgrade</display-name>
+  <servlet-name>UpgradeServlet</servlet-name>
+  <servlet-class>webLayer.servlets.UpgradeServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>UpgradeServlet</servlet-name>
+  <url-pattern>/riservate/UpgradeDocente</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
   <display-name>User</display-name>
   <servlet-name>UserServlet</servlet-name>
   <servlet-class>webLayer.servlets.UserServlet</servlet-class>

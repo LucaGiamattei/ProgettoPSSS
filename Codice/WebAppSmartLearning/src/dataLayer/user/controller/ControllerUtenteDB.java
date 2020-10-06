@@ -326,6 +326,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		fildsToUpdate.put("ContoPayPal", utente.getContoPaypal());
 		fildsToUpdate.put("Curriculum", utente.getCurriculum());
 		fildsToUpdate.put("MediaScoreLezioni", "" + utente.getMediaScoreLezioni() + "");
+		fildsToUpdate.put("Docente","1");
+		
 		
 		try {
 			Integer r = DBConnectionManager.UpdateEntryDB("Utente", conditionsFildsToValues, fildsToUpdate, false);
