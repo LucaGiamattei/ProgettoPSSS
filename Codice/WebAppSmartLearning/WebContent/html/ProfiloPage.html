@@ -46,6 +46,11 @@
 			<li><a href="#">Documentazione</a></li>
 			<li><a href="#">Contatti</a></li>
 		</ul>
+		<div class="navbar-header navbar-right">
+			<ul class="nav navbar-nav">
+				<li> <a onclick="logOut()" class="navbar-link meetecho-logo">Log Out</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 </nav>
@@ -353,7 +358,7 @@ function programmaLez(idlez) {
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idlez="+idlez;
-	var url = "../riservate/docente/myprograms";
+	var url = "../riservate/myprograms";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -422,7 +427,7 @@ function gestisciRispostaProgrammazioni(responseXML) {
 
 function avviaVideoCall(idprog) {
 	
-	newRoom();
+	//newRoom();
 }
 
 
@@ -438,7 +443,7 @@ function eliminaProgrammazione(idprog) {
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
-	var url = "../riservate/docente/myprograms";
+	var url = "../riservate/docente/ProgramLesson";
 	request.open('DELETE', url+"?"+params, true);
 	
 	//Send the proper header information along with the request

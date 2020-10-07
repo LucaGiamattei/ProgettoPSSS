@@ -29,10 +29,12 @@ public class ImplUtente implements IUtente {
 		controller.retrieveUser(lezioni.get(0).getIdUtente(), utente);
 		str.add(utente.getNome());
 		
-		TopicDB topicvar = new TopicDB(lezioni.get(0).getIdTopic());
-		controllertopic.getTopicName(topicvar);
-
-		str.add(topicvar.getNome());
+		for (int i = 0; i<lezioni.size(); i++) {
+			TopicDB topicvar = new TopicDB(lezioni.get(i).getIdTopic());
+			controllertopic.getTopicName(topicvar);
+	
+			str.add(topicvar.getNome());
+		}
 		
 		}
 		
@@ -94,12 +96,13 @@ public class ImplUtente implements IUtente {
 		
 		StateResult result = controller.getLessonsByUser(myid, lezioni);
 		
-		if(lezioni.size() > 0) {
-		TopicDB topicvar = new TopicDB(lezioni.get(0).getIdTopic());
-		controllertopic.getTopicName(topicvar);
-
-		str.add(topicvar.getNome());
+		for (int i = 0; i<lezioni.size(); i++) {
+			TopicDB topicvar = new TopicDB(lezioni.get(i).getIdTopic());
+			controllertopic.getTopicName(topicvar);
+		
+			str.add(topicvar.getNome());
 		}
+		
 		return result;
 	}
 	

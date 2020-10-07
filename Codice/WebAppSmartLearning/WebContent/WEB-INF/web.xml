@@ -116,14 +116,14 @@
   
   <servlet>
   <description></description>
-  <display-name>MyProgServlet</display-name>
-  <servlet-name>MyProgServlet</servlet-name>
-  <servlet-class>webLayer.servlets.MyProgServlet</servlet-class>
+  <display-name>ProgramsLessonServlet</display-name>
+  <servlet-name>ProgramsLessonServlet</servlet-name>
+  <servlet-class>webLayer.servlets.ProgramsLessonServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>MyProgServlet</servlet-name>
-  <url-pattern>/riservate/docente/myprograms</url-pattern>
+  <servlet-name>ProgramsLessonServlet</servlet-name>
+  <url-pattern>/riservate/programs</url-pattern>
   </servlet-mapping>
   
   <servlet>

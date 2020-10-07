@@ -36,6 +36,11 @@
 			<li><a href="#">Documentazione</a></li>
 			<li><a href="#">Contatti</a></li>
 		</ul>
+		<div class="navbar-header navbar-right">
+			<ul class="nav navbar-nav">
+				<li> <a onclick="logOut()" class="navbar-link meetecho-logo">Log Out</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 </nav>
@@ -62,6 +67,12 @@
 				  
 
 				</div>
+				<div class="row">
+				 <div class="col-md-10 containerProfilo">
+
+				</div>
+
+				</div>
 							
 			</div>
 
@@ -70,6 +81,7 @@
 <script type="text/javascript">
 	
 function ricerca(){
+	$('.containerProfilo').children().remove();
 	
 	var myId = localStorage['myId'];
 
@@ -123,7 +135,7 @@ function gestisciRisposta(responseXML) {
 					        '</p>'+
 					        '<p>Lezioni programmate: </p>'+
 					        '<div class="fasce'+i+'"></div>'+
-					        '<a href="#" class="btn btn-success">Prenota ora</a>'+
+					        '<a onclick="retrievePrograms('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-success">Prenota ora</a>'+
 					      '</div>'+
 					    '</div>'+
 					  '</div>');
@@ -145,6 +157,109 @@ function gestisciRisposta(responseXML) {
 	}else{
 		window.location.replace("http://localhost:8080/WebAppSmartLearning");
 	}
+}
+
+function retrievePrograms(idlez){
+	
+	console.log("retrieveProgramsFunc");
+	
+	$('.containerProfilo').children().remove();
+	$('.lista').addClass("hide");
+	
+	var myId = localStorage['myId'];
+	
+	if(myId == undefined){
+		myId = "";
+	}
+		
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId+"&idlez="+idlez;
+	var url = "../riservate/programs";
+	request.open('GET', url+"?"+params, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaProgrammazioni(request.responseXML);
+		}
+	}
+	request.send();	
+	$('.containerProfilo').append('<button type="button" class="btn btn-primary" onclick="back()">Indietro</button><br>');
+}
+
+function gestisciRispostaProgrammazioni(responseXML) {
+	
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
+			
+			
+			if(risultato == "noFasce"){
+				return null;
+			}
+			
+			for(i=0; i <risposta.childNodes.length; i++){
+				$('.containerProfilo').append(
+						'<br>'+
+						'<div class="card">'+
+						 '<div class="card-body">'+
+							 '<div class="col">'+
+								'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
+								'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+								risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+								'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+								'</p>'+
+							'  </div>'+
+							'<div class="col-1">'+
+							'<a onclick="subscribeToProgram('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-success btn-sm">Prenota</a>'+
+							'  </div>'+
+							 '</div>'+
+						'</div>'+
+						'<br>'
+				);
+			}
+		}
+	}
+}
+
+function subscribeToProgram(idprog){
+	console.log("subscribeToProgramFunc");
+	
+	var myId = localStorage['myId'];
+	
+	if(myId == undefined){
+		myId = "";
+	}
+		
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId+"&idprog="+idprog;
+	var url = "../riservate/subscribeprog";
+	request.open('POST', url, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaSubProgram(request.responseXML);
+		}
+	}
+	request.send(params);	
+	
+}
+
+function gestisciRispostaSubProgram(responseXML) {
+	
+	
+	
+}
+
+function back(){
+	$('.containerProfilo').children().remove();
+	$('.lista').removeClass("hide");
 }
 	
 </script>

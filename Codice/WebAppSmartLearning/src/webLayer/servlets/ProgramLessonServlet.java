@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.utilities.StateResult;
+import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 import serviceLayer.lezione.implementation.ImplLezione;
@@ -94,6 +95,29 @@ public class ProgramLessonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String idfascia = request.getParameter("idprog");
+		
+		ImplLezione ilez = new ImplLezione();
+		
+		StateResult result = ilez.removeFasciaById(new idFasciaOraria(Integer.parseInt(idfascia)));
+		
+		StringBuffer xmlReply = new StringBuffer();
+		
+		if (result == StateResult.REMOVED) {
+			xmlReply.append("<risposta>progEliminata</risposta>");
+			response.setContentType("text/xml"); 
+			response.getWriter().write(xmlReply.toString()); 
+		}else {
+			xmlReply.append("<risposta>errore</risposta>");
+			response.setContentType("text/xml"); 
+			response.getWriter().write(xmlReply.toString()); 
+			
+		}
+		
 	}
 }
 

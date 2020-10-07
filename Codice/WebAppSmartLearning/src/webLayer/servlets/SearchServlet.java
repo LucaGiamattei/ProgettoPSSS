@@ -78,8 +78,8 @@ public class SearchServlet extends HttpServlet {
 		
 		if(isCognome) {
 			for(int i=0; i<lezioni.size(); i++) {
-				xmlReply.append("<lezione><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
-						"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><cognomedoc>"+str.get(0)+"</cognomedoc><nomedoc>"+str.get(1)+"</nomedoc><topic>"+str.get(2)+"</topic>");
+				xmlReply.append("<lezione><id>"+lezioni.get(i).getId().getId()+"</id><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
+						"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><cognomedoc>"+str.get(0)+"</cognomedoc><nomedoc>"+str.get(1)+"</nomedoc><topic>"+str.get(2+i)+"</topic>");
 					for(int j=0; j<lezioni.get(i).getSlots().size(); j++) {
 						xmlReply.append("<fascia><data>"+df.format(lezioni.get(i).getSlots().get(j).getDataLezione())+"</data><orarioinizio>"+lezioni.get(i).getSlots().get(j).getOrarioInizio().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioInizio().getMinutes()+
 								"</orarioinizio><orariofine>"+lezioni.get(i).getSlots().get(j).getOrarioFine().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioFine().getMinutes()+"</orariofine><prezzo>"+ 

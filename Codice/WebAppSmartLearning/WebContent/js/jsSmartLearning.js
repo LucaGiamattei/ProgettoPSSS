@@ -39,3 +39,13 @@ function isDocente(){
 	}
 		request.send();
 }
+
+
+function logOut(){
+	
+	localStorage.removeItem('myId');
+	
+	window.location.replace("http://localhost:8080/WebAppSmartLearning");
+	
+	
+}
