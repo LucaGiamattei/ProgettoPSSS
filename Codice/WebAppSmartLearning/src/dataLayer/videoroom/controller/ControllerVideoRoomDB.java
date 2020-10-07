@@ -19,10 +19,8 @@ public class ControllerVideoRoomDB implements API_VideoRoomDB{
 		addFildsToValues.put("NomeRoom", videoRoom.getNomeRoom());
 		addFildsToValues.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
 				
-				
 		try {
 			Integer r = DBConnectionManager.createNewEntryDB("Videocall", addFildsToValues, true);
-					
 					
 			if (r>0) {
 				return StateResult.CREATED; 
