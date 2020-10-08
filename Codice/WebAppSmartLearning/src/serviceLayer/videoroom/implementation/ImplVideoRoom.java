@@ -71,28 +71,30 @@ public class ImplVideoRoom implements IVideoRoom{
 	@Override
 	public String genNomeRoom(String idFasciaOraria, String idDocente) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return idFasciaOraria;
 	}
+	
 	/**
 	 * Questa funzione ha il compito di:
-	 * - 1)creare un'istanza nel database di videocall, e ottenere anche la password generata automaticamente da SQL
+	 * - 1)creare un'istanza nel database di videocall, e ottenere anche la password generata automaticamente da SQL che noi utilizziamo come token del docente
 	 * - 2) se la creazione della room sul db va  a buon fine allora si è sicuri che il nome della room sia univoco, in tal caso
 	 * - - 2a) bisognerà ottenere dal db tramite idFasciaOraria tutti gli id degli utenti che hanno pagato
 	 * - - - 2a.a) per ognuno di essi verrà generato un token e memorizzato. (i token devono essere differenti tra di loro)
 	 * - - 2b) bisognerà interfacciarsi con il server janus per creare una room con:
 	 * - - - 2b.a)la password ottenuta al passo 1)
 	 * - - - 2b.b)i tokens generati al passo 2a.a)
-	 * - - 2c) viene restituito un token e la password per poter fare la join
+	 * - - 2c) viene restituito il token del docente e tutti i token (compreso quello del docente)
 	 * @param nomeRoom
 	 * @param password
 	 * @return
 	 */
 	@Override
-	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String password) {
+	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String[] tokenDocente, Vector <String> tokens) {
 		// TODO Auto-generated method stub
 		ControllerVideoRoomDB contVideoRoom = new ControllerVideoRoomDB();
 		ControllerPagamentoDB contPagamento = new ControllerPagamentoDB();
-		 Vector<String> tokens = new Vector<String>();
+		 
 		
 		idFasciaOraria idFascia = new idFasciaOraria(Integer.parseInt(idFasciaOraria));
 		
@@ -101,20 +103,16 @@ public class ImplVideoRoom implements IVideoRoom{
 		
 		if(contVideoRoom.createNewRoom(idFascia, videoRoom)==StateResult.CREATED) {
 			tokens.add(videoRoom.getPasswordRoom());
-			password = videoRoom.getPasswordRoom();
+			tokenDocente[0] = videoRoom.getPasswordRoom();
 			Vector<PagamentoDB> payments = new Vector<PagamentoDB>();
 			if( contPagamento.genAndGetTokens(idFascia, payments) ==StateResult.UPDATED) {
-				JanusProxy janus = new JanusProxy();
+				
 				for (int i=0; i<payments.size();i++) {
 					tokens.add(payments.get(i).getToken());
 				}
-				if(janus.createRoomWithTokens(nomeRoom, tokens) == StateResult.CREATED) {
-					
-					
-					
-					
+				
 					return StateResult.CREATED;
-				}
+				
 			}
 			
 		}

@@ -1,6 +1,7 @@
 package serviceLayer.videoroom.interfaces;
 
 import java.text.ParseException;
+import java.util.Vector;
 
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.utilities.StateResult;
@@ -45,5 +46,5 @@ public interface IVideoRoom {
 	 * @param password
 	 * @return
 	 */
-	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String password);
+	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String[] tokenDocente, Vector <String> tokens) ;
 }

@@ -19,8 +19,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
 <script type="text/javascript" src="../js/jsSmartLearning.js"></script>
-<!-- <script type="text/javascript" src="../js/janus.js"></script>-->
-<!-- <script type="text/javascript" src="../js/mainpage.js"></script>-->
+<script type="text/javascript" src="../js/janus.js"></script>
+<script type="text/javascript" src="../js/mainpage.js"></script>
 
 
 <!-- Voglio che all'apertura di questa pagina si esegua uno script di richiesta dei dati del profilo inviando il proprio id in cache -->
@@ -80,7 +80,14 @@
 
 			</div>
 
-			</div>
+</div>
+
+<div class="container hide" id= "videoCallPage">
+	<div class="hide" id="gallery" >
+		<div class="video-container" id="myvideo-container"> </div>
+		<div class="video-container hide" id="myvideo-containerScreen"></div>
+	</div>
+</div>
 
 </body>
 
@@ -413,7 +420,7 @@ function gestisciRispostaProgrammazioni(responseXML) {
 							'<a onclick="eliminaProgrammazione('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-danger btn-sm">X</a>'+
 							'  </div>'+
 							'<div class="col">'+
-							'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
+							'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
 							'</div>'+
 							 '</div>'+
 						'</div>'+
@@ -435,7 +442,7 @@ function avviaVideoCall(idprog) {
 	
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
-	var url = "../riservate/docente/AvviaVideoCall";
+	var url = "../riservate/docente/avviavideocall";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -446,10 +453,44 @@ function avviaVideoCall(idprog) {
 			   gestisciRispostaAvviaVideoCall(request.responseXML);
 		}
 	}
+	
 	request.send();	
 }
 
 function gestisciRispostaAvviaVideoCall(responseXML){
+	console.log("gestisciRispostaAvviaVideoCall 0");
+	if(responseXML != null){
+		console.log("gestisciRispostaAvviaVideoCall 1");
+		
+		console.log("risposta.childNodes[0].nodeValue: "+risposta.childNodes[0].nodeValue);
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			console.log("gestisciRispostaAvviaVideoCall 2");
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			console.log("risposta.childNodes[0].nodeValue: "+risposta.childNodes[0].nodeValue);
+			if(risposta.childNodes[0].nodeValue == "VideoCallCreata"){
+				nomeRoom= risposta.childNodes[1].childNodes[0].nodeValue;
+				tokenDocente  = risposta.childNodes[2].childNodes[0].nodeValue;
+				localStorage['nomeRoom'] = nomeRoom;
+				localStorage['tokenDocente'] = tokenDocente;
+				console.log("tokenDocente: "+tokenDocente+", nomeRoom: "+nomeRoom);
+				for(i=0;i<responseXML.getElementsByTagName("tokenUtente")[0].childNodes.length;i++){
+					tokens[i] = responseXML.getElementsByTagName("tokenUtente")[0].childNodes[i].childNodes[0].nodeValue;
+					console.log("tokenUtente: "+tokens[i]);
+				}
+				console.log("tokenDocente: "+tokenDocente+", nomeRoom: "+nomeRoom);
+				
+				//creaHandler();
+				
+			}else{
+				
+			}
+			
+
+			
+		}
+		
+	}
+	
 	
 }
 
