@@ -90,6 +90,7 @@ public class LezioneDB {
 		this.idTopic = idTopic;
 		this.idUtente = idUtente;
 		this.descrizioneLezione = descrizioneLezione;
+		this.slots = new Vector <FasciaOraria>();
 	}
 
 
@@ -98,6 +99,7 @@ public class LezioneDB {
 		this.nomeLezione = nome;
 		this.descrizioneLezione = descrizione;
 		this.idUtente = iduser;
+		this.slots = new Vector <FasciaOraria>();
 		
 	}
 	
@@ -107,8 +109,22 @@ public class LezioneDB {
 		this.descrizioneLezione = descrizione;
 		this.idUtente = iduser;
 		this.Nmax = nmax;
+		this.slots = new Vector <FasciaOraria>();
 	}
 	
+	public LezioneDB(idUser iduser, String nome, int nmax) {
+		// TODO Auto-generated constructor stub
+		this.nomeLezione = nome;
+		this.idUtente = iduser;
+		this.Nmax = nmax;
+		this.slots = new Vector <FasciaOraria>();
+	}
+	
+	public LezioneDB(idLesson idLesson) {
+		// TODO Auto-generated constructor stub
+		this.id = idLesson;
+		this.slots = new Vector <FasciaOraria>();
+	}
 	public Vector<FasciaOraria> getSlots() {
 		return slots;
 	}

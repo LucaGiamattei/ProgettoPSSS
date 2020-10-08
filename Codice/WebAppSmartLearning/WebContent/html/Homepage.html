@@ -247,12 +247,23 @@ function subscribeToProgram(idprog){
 			   gestisciRispostaSubProgram(request.responseXML);
 		}
 	}
-	request.send(params);	
-	
+	request.send(params);
 }
 
 function gestisciRispostaSubProgram(responseXML) {
-	
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			
+			if(risposta.childNodes[0].nodeValue == "subscribeOK") {
+				alert("Subscribe eseguita correttamente");
+				back();
+				
+			} else {
+				alert("ops.. qualcosa e' andato storto, riprova!");
+			}
+		}
+	}
 	
 	
 }

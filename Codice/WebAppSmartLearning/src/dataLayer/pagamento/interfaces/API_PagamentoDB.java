@@ -11,7 +11,7 @@ public interface API_PagamentoDB {
 	public StateResult subscribePayment(idUser idUser, idFasciaOraria idFasciaOraria, idPagamento idPagamento);
 	public StateResult verifyUserHasPayed(idUser idUser, idFasciaOraria idFasciaOraria);
 	public StateResult getUsersPayedLesson(idFasciaOraria idFasciaOraria, Vector<idUser> users);
-	
+	public StateResult getFasceStillUpByUserId(idUser idUser, Vector<idFasciaOraria> idFasce);
 	
 
 }

@@ -5,7 +5,11 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import com.mysql.jdbc.CallableStatement;
@@ -66,9 +70,13 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			   Hashtable<String,String> lezione = new Hashtable<String, String>();
 			   
 			   lezione.put("NomeLezione", infoLezione.getNomeLezione());
-			   lezione.put("DescrizioneLezione", infoLezione.getDescrizioneLezione());
-			    lezione.put("NMaxStudenti", ""+infoLezione.getNmax()+"");
-			    lezione.put("Utente_idUtente", ""+infoLezione.getIdUtente()+"");
+			   
+			   if(infoLezione.getDescrizioneLezione() != null) {
+				   lezione.put("DescrizioneLezione", infoLezione.getDescrizioneLezione());
+			   }
+			   
+			   lezione.put("NMaxStudenti", ""+infoLezione.getNmax()+"");
+			   lezione.put("Utente_idUtente", ""+infoLezione.getIdUtente()+"");
 			    
 			    Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 			   conditionsFildsToValues.put("Name", nomeTopic);
@@ -188,16 +196,15 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				int numTuple = 0;
 				while (result.next() ) {
 					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
-					Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
-				      
-				    controllerlez.getFasceOrarieByLessonId(new idLesson(result.getInt("idLezione")), fasce);
-				      
-				    lezione.setSlots(fasce);
-					
-					lezioni.add(lezione);
+				    
+					lezioni.add(lezione); 
+
 					numTuple++;
 				}
+				
+				
 				if(numTuple!=0) {
+					controllerlez.attachSlotsToLessonsUtente(lezioni);
 					return StateResult.VALID;
 				}else {
 					return StateResult.NOVALID;
@@ -213,20 +220,54 @@ public class ControllerLezioneDB implements API_LezioneDB{
 		}
 		
 		@Override
-		public  StateResult attachSlotsToLessonsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni) {
+		public StateResult getLessonsByDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni) {
+			// TODO Auto-generated method stub
+			String [] fieldsToSelect = {"*"};
+			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			conditionsFildsToValues.put("Utente_idUtente", idOwnerUser.toString());
+			ControllerLezioneDB controllerlez = new ControllerLezioneDB();
+			
+			ResultSet result;
+			try {
+				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+				int numTuple = 0;
+				while (result.next() ) {
+					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
+				    
+					lezioni.add(lezione); 
+
+					numTuple++;
+				}
+				
+				
+				if(numTuple!=0) {
+					controllerlez.attachSlotsToLessonsDocente(lezioni);
+					return StateResult.VALID;
+				}else {
+					return StateResult.NOVALID;
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return StateResult.DBPROBLEM;
+			}
+	
+		}
+		
+		@Override
+		public  StateResult attachSlotsToLessonsDocente(Vector<LezioneDB> lezioni) {
 			// TODO Auto-generated method stub
 			if (lezioni == null) {
 				lezioni = new Vector<LezioneDB> ();
 			}
 			// TODO Auto-generated method stub
 			
-			
-			
 			try {
 				for (int i =0;i<lezioni.size();i++) {
 					String [] fieldsToSelect = {"*"};
 					Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
-					conditionsFildsToValues.put("Utente_idUtente", idOwnerUser.toString());
 					conditionsFildsToValues.put("idLezione", lezioni.get(i).getId().toString());
 					ResultSet result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues);
 					
@@ -259,6 +300,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			String [] fieldsToSelect = {"*"};
 			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 			conditionsFildsToValues.put("Topic_idTopic", infoTopic.toString());
+			ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 			
 			try {
 				ResultSet result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
@@ -269,6 +311,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 					numTuple++;
 				}
 				if(numTuple>0) {
+					controllerlez.attachSlotsToLessonsUtente(lezioni);
 					return StateResult.VALID;
 				}else {
 					return StateResult.NOVALID;
@@ -324,7 +367,6 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				for (int i =0;i<lezioni.size();i++) {
 					String [] fieldsToSelect = {"*"};
 					Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
-					conditionsFildsToValues.put("Utente_idUtente", lezioni.get(i).getIdUtente().toString());
 					conditionsFildsToValues.put("idLezione", lezioni.get(i).getId().toString());
 					conditionsFildsToValues.put("visibile", "1");
 					ResultSet result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues);
@@ -348,7 +390,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			
 			
 		}
-
+/*
 		public StateResult getFasceOrarieByLessonId(idLesson idlezione, Vector<FasciaOraria> fasce) {
 			// TODO Auto-generated method stub
 			String [] fieldsToSelect = {"*"};
@@ -378,7 +420,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				 return StateResult.DBPROBLEM;
 				}
 		}
-		
+		*/
 		
 		public StateResult removeFasciaById(idFasciaOraria id) {
 			   Hashtable<String,String> removeFields = new Hashtable<String, String>();
@@ -405,5 +447,104 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			   }
 			   
 			  }
+		
+		@Override
+		public StateResult getLessonsPayedStillUp(idUser idUser, Vector<LezioneDB> lezioni) {
+			// TODO Auto-generated method stub
+			
+			String [] fieldsToSelect = {"FasciaOraria_idFasciaOraria"};
+			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			Hashtable<String,List<String>> conditionsFildsToValuesList = new Hashtable<String, List<String>>();
+			conditionsFildsToValues.put("Utente_idUtente", idUser.toString());
+			
+			
+			ResultSet result;
+			try {
+						
+				result = DBConnectionManager.SelectEntryDB("pagamento",fieldsToSelect,conditionsFildsToValues);
+				
+				if (result.next()) {
+					
+					List<String> list = new ArrayList<>();
+					String [] fieldsToSelectlist = {"*"};
+					
+					result.beforeFirst();
+					while(result.next()) {
+						list.add(Integer.toString(result.getInt("FasciaOraria_idFasciaOraria")));
+					}
+					
+					conditionsFildsToValuesList.put("idFasciaOraria",list);
+					
+					result = DBConnectionManager.SelectEntryORDB("catalogolezioni",fieldsToSelectlist,conditionsFildsToValuesList);
+					
+
+					while(result.next()) {
+							
+						boolean newlez = true;
+						int index = 0;
+							
+						for(int i = 0; i < lezioni.size(); i++) {
+							if(lezioni.get(i).getId().getId() == result.getInt("idLezione")) {
+								newlez = false;
+								index = i;
+								break;
+							} 
+						}
+						
+						FasciaOraria fascia = new FasciaOraria(new idFasciaOraria(result.getInt("idFasciaOraria")),result.getInt("visibile"), result.getTime("OrarioInizioLezione"),result.getTime("OrarioFineLezione"), result.getDate("DataLezione"), result.getFloat("prezzo"));
+
+						
+						if(newlez) {
+							LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
+							lezione.getSlots().add(fascia);
+							lezioni.add(lezione);
+						}else {
+							lezioni.get(index).getSlots().add(fascia);
+						}
+					}
+
+					
+				
+					if(lezioni.size() > 0) {
+						return StateResult.VALID;
+					}else {
+						return StateResult.NOVALID;
+					}
+				}else {return StateResult.NOVALID;}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return StateResult.DBPROBLEM;
+			}
+	
+		}
+	/*	
+		public StateResult getFasceOrariePayedStillUpByLessonId(String idlezione, String idUser, String datacurr, String timecurr, Vector<FasciaOraria> fasce) {
+			// TODO Auto-generated method stub
+			
+			try {
+			 ResultSet result = DBConnectionManager.queryRetrieveFascebyLezionePayedStillUp(idlezione, idUser,datacurr,timecurr);
+			 int numOfRows = 0;
+			 
+			 while (result.next()) {
+				 FasciaOraria fascia = new FasciaOraria(new idFasciaOraria(result.getInt("idFasciaOraria")), result.getInt("Visibile"), result.getTime("OrarioInizioLezione"),result.getTime("OrarioFineLezione"), result.getDate("DataLezione"),result.getFloat("prezzo"));
+				 fasce.add(fascia);
+			  numOfRows++;
+			  
+			  
+			 }
+		
+			 if(numOfRows>0) {
+				  return StateResult.VALID;
+				 }else {
+				  return StateResult.NOVALID;
+				 }
+				} catch (Exception e) {
+				 // TODO Auto-generated catch block
+				 e.printStackTrace();
+				 return StateResult.DBPROBLEM;
+				}
+		}*/
 		
 }

@@ -64,7 +64,7 @@
 					    <a class="nav-link active"  onclick="retrieveUserData()">Utente</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link" href="#">Lezioni sottoscritte</a>
+					    <a class="nav-link" onclick="mysubscribesFunc()">Lezioni sottoscritte</a>
 					  </li>
 					  <li class="nav-item">
 					    <a class="nav-link" onclick="myLessonFunc()">Lezioni mie</a>
@@ -205,6 +205,7 @@ function gestisciRispostaLessons(responseXML) {
 					        '</p>'+
 					        '<p>Score lezione: '+risposta.childNodes[i].getElementsByTagName("score")[0].childNodes[0].nodeValue+ '  |  '+
 					        ' Numero massimo studenti: '+risposta.childNodes[i].getElementsByTagName("nstudenti")[0].childNodes[0].nodeValue+ '</p>'+
+					        '<p>Descrizione: '+risposta.childNodes[i].getElementsByTagName("descrizione")[0].childNodes[0].nodeValue+'</p>'+
 					        '</p>'+
 					        '<p>Lezioni programmate: </p>'+
 					        '<div id="fascia" class="fasce'+i+'"></div>'+
@@ -582,6 +583,77 @@ function gestisciRispostaProgrammazione(responseXML) {
 	}
 	
 }
+
+function mysubscribesFunc(){
+	$('.containerProfilo').children().remove();
+	console.log("mysubscribesFunc");
+	
+	var myId = localStorage['myId'];
+	
+	if(myId == undefined){
+		myId = "";
+	}
+		
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId;
+	var url = "../riservate/retrievemysubscribes";
+	request.open('GET', url+"?"+params, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaSubscribes(request.responseXML);
+		}
+	}
+		request.send();
+}
+
+function gestisciRispostaSubscribes(responseXML) {
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
+			
+						
+			if(risultato == "noSubscribes"){
+				return null;
+			}
+			
+			for (i = 0; i < risposta.childNodes.length; i++){
+				$('.containerProfilo').append('<div class="col-sm-5 scheda'+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">'+
+					    '<div class="card">'+
+					      '<div class="card-body">'+
+					        '<h2 class="card-title">'+risposta.childNodes[i].getElementsByTagName("nome")[0].childNodes[0].nodeValue+'</h2>'+
+					        '<p class="card-text">'+
+					        '<p>Topic: '+risposta.childNodes[i].getElementsByTagName("topic")[0].childNodes[0].nodeValue+'</p>'+
+					        '<p>Descrizione: '+risposta.childNodes[i].getElementsByTagName("descrizione")[0].childNodes[0].nodeValue+'</p>'+
+					        '</p>'+
+					        '<p>Lezioni programmate: </p>'+
+					        '<div id="fascia" class="fasce'+i+'"></div>'+
+					        '<button type="button" onclick="" class="btn btn-info btn-sm">Vedi le programmazioni</button>'+			
+					      '</div>'+
+					    '</div>'+
+					  '</div>');
+				
+				for(j=0; j < risposta.childNodes[i].getElementsByTagName("fascia").length; j++){
+					$('.fasce'+i).append(
+						'<p>Data: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("data")[0].childNodes[0].nodeValue+
+						'  |  Orario: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+						risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+						'</p>'					
+					);
+				}
+			}
+			
+			
+		}
+	}else{
+		window.location.replace("http://localhost:8080/WebAppSmartLearning");
+	}
+}
+
 
 
 </script>
