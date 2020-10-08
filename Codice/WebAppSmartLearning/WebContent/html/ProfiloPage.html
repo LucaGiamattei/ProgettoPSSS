@@ -427,10 +427,31 @@ function gestisciRispostaProgrammazioni(responseXML) {
 }
 
 function avviaVideoCall(idprog) {
+	console.log("avviaVideoChiamata");
+	var myId = localStorage['myId'];
+	if(myId == undefined){
+		myId = "";
+	}
 	
-	//newRoom();
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId+"&idprog="+idprog;
+	var url = "../riservate/docente/AvviaVideoCall";
+	request.open('GET', url+"?"+params, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaAvviaVideoCall(request.responseXML);
+		}
+	}
+	request.send();	
 }
 
+function gestisciRispostaAvviaVideoCall(responseXML){
+	
+}
 
 function eliminaProgrammazione(idprog) {
 	

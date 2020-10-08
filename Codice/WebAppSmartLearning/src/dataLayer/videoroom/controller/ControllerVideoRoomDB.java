@@ -1,7 +1,11 @@
 package dataLayer.videoroom.controller;
 
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.Hashtable;
+
+import com.mysql.jdbc.CallableStatement;
+import com.mysql.jdbc.Connection;
 
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.utilities.StateResult;
@@ -14,25 +18,41 @@ public class ControllerVideoRoomDB implements API_VideoRoomDB{
 
 	@Override
 	public StateResult createNewRoom(idFasciaOraria idFasciaOraria, VideoRoomDB videoRoom) {
-		// TODO Auto-generated method stub
-		Hashtable<String,String> addFildsToValues = new Hashtable<String, String>();
-		addFildsToValues.put("NomeRoom", videoRoom.getNomeRoom());
-		addFildsToValues.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
-				
-		try {
-			Integer r = DBConnectionManager.createNewEntryDB("Videocall", addFildsToValues, true);
-					
-			if (r>0) {
-				return StateResult.CREATED; 
+
+		Connection conn;
+			try {
+			conn = DBConnectionManager.getConnection();
+			conn.setAutoCommit(false);
+			
+			String query = "{CALL inserisciVideocall(?,?,?)}";
+			
+			CallableStatement stmt = (CallableStatement) conn.prepareCall(query);
+			
+			stmt.setInt(1,idFasciaOraria.getId());
+			stmt.setString(2,videoRoom.getNomeRoom());
+			
+			
+			stmt.registerOutParameter(3, Types.VARCHAR);
+			
+			stmt.executeQuery();
+			
+			String outputValue = stmt.getString(3);
+			videoRoom.setPasswordRoom(outputValue);
+
+			conn.commit();
+			conn.close();
+			
+			if(outputValue !=null) {
+				return StateResult.CREATED;
 			}else {
-				return StateResult.NOCHANGES;
+				return StateResult.NOUPDATED;
 			}
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return StateResult.DBPROBLEM;
-				}
+			
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return StateResult.DBPROBLEM;
+			}
 	}
 
 	@Override
