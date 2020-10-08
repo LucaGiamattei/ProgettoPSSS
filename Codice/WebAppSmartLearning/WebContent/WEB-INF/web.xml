@@ -138,6 +138,30 @@
   <url-pattern>/riservate/docente/testDocente</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  <description></description>
+  <display-name>SubscribeServlet</display-name>
+  <servlet-name>SubscribeServlet</servlet-name>
+  <servlet-class>webLayer.servlets.SubscribeServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>SubscribeServlet</servlet-name>
+  <url-pattern>/riservate/subscribeprog</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
+  <display-name>SubscribesServlet</display-name>
+  <servlet-name>SubscribesServlet</servlet-name>
+  <servlet-class>webLayer.servlets.SubscribesServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>SubscribesServlet</servlet-name>
+  <url-pattern>/riservate/retrievemysubscribes</url-pattern>
+  </servlet-mapping>
+  
   <filter>
     <filter-name>AuthFilter</filter-name>
     <filter-class>webLayer.filters.AuthFilter</filter-class>

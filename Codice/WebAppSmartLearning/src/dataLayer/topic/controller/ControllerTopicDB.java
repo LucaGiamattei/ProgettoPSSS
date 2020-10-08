@@ -193,30 +193,34 @@ public class ControllerTopicDB implements API_TopicDB{
 
 	public StateResult getLessonsByTopicName(String nome, Vector<LezioneDB> lezioni) {
 		   // TODO Auto-generated method stub
-		   String [] fieldsToSelect = {"*"};
+		   String [] fieldsToSelect = {"idTopic"};
 		   Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 		   conditionsFildsToValues.put("Name", nome);
 		   ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 		   
 		   try {
-		    ResultSet result = DBConnectionManager.SelectEntryInSelectDB("Lezione", fieldsToSelect, "Topic_idTopic", "Topic", "idTopic", conditionsFildsToValues);
-		    int numTuple = 0;
-		    while (result.next() ) {
-		     LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
-		     Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
-		      
-		      controllerlez.getFasceOrarieByLessonId(new idLesson(result.getInt("idLezione")), fasce);
-		      
-		      lezione.setSlots(fasce);
-		      
-		     lezioni.add(lezione);
-		     numTuple++;
-		    }
-		    if(numTuple>0) {
-		     return StateResult.VALID;
+		    ResultSet result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues);
+		    if(result.next()) {
+			    controllerlez.getLessonsbyTopics(new idTopic(result.getInt("idTopic")), lezioni);
+		    	
+		    	int i = 0;
+		    	while(i < lezioni.size()) {
+		    		
+		    		if(lezioni.get(i).getSlots().size() == 0) {
+		    			lezioni.remove(i);
+		    		}else{
+		    			i++;
+		    		}
+		    	}
+	    	
+			     if(lezioni.size()>0) {
+			     return StateResult.VALID;
+			    }else {
+			     return StateResult.NOVALID;
+			    }
 		    }else {
-		     return StateResult.NOVALID;
-		    }
+		    	return StateResult.NOVALID;
+		    } 
 		   } catch (Exception e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();

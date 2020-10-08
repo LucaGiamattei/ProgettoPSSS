@@ -38,7 +38,7 @@ public interface API_LezioneDB {
 	StateResult createLesson(LezioneDB infoLezione, String nomeTopic);
 	
 	/**
-	 * Questa funzione permette di selezionare tutte le lezioni di un docente (senza la fascia oraria)
+	 * Questa funzione permette di selezionare tutte le lezioni di un docente (con controllo visibile su fasce orarie = '1')
 	 * 
 	 * @param idOwnerUser 
 	 * @param lezioni vettore di lezioni dell'utente
@@ -49,6 +49,17 @@ public interface API_LezioneDB {
 	 */
 	StateResult getLessonsByUser(idUser idOwnerUser, Vector<LezioneDB> lezioni);
 	
+	/**
+	 * Questa funzione permette di selezionare tutte le lezioni di un docente (senza controllo su visibile in fasce orarie)
+	 * 
+	 * @param idOwnerUser 
+	 * @param lezioni vettore di lezioni dell'utente
+	 * @return StateResult Rappresenta lo stato dell'operazione:
+	 *- VALID
+	 *- DBPROBLEM
+	 *- NOVALID
+	 */
+	StateResult getLessonsByDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
 	
 	/**
 	 * Questa funzione permette di aggiungere una fascia oraria alla lezione con il vincolo di non poter essere sovrapposta ad altre lezioni dello stesso utente.
@@ -82,7 +93,7 @@ public interface API_LezioneDB {
 	 *- VALID
 	 *- DBPROBLEM
 	 */
-	StateResult attachSlotsToLessonsDocente(idUser idOwnerUser, Vector<LezioneDB> lezioni);
+	StateResult attachSlotsToLessonsDocente(Vector<LezioneDB> lezioni);
 	
 	
 	
@@ -119,4 +130,14 @@ public interface API_LezioneDB {
 	  */
 	 
 	 StateResult attachSlotsToLessonsUtente(Vector<LezioneDB> lezioni);
+	 
+	 /**
+	  * Questa funzione restituisce tutte le lezioni con relative fasce pagate da un utente e ancora non "scadute"
+	  * @param idUser
+	  * @param lezioni vettore di lezioni in uscita
+	  * @return StateResult Rappresenta lo stato dell'operazione:
+	  *- VALID
+	  *- DBPROBLEM
+	  */
+	 StateResult getLessonsPayedStillUp(idUser idUser, Vector<LezioneDB> lezioni);
 }

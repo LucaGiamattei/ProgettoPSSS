@@ -41,13 +41,16 @@ public class ProgramsLessonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		System.out.println("ProgramsLessonServlet");
+		
 		String idlez = request.getParameter("idlez");
 		
 		ImplLezione ilez = new ImplLezione();
 		Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
 		
-		StateResult result = ilez.getFasceOrarie(new idLesson(Integer.parseInt(idlez)), fasce);
+		System.out.println("idlez="+idlez);
 		
+		StateResult result = ilez.getFasceOrarie(new idLesson(Integer.parseInt(idlez)), fasce);
 
 		StringBuffer xmlReply = new StringBuffer();
 		

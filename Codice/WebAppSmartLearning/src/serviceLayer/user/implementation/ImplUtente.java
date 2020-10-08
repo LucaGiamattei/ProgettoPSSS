@@ -94,7 +94,7 @@ public class ImplUtente implements IUtente {
 		ControllerLezioneDB controller = new ControllerLezioneDB();
 		ControllerTopicDB controllertopic = new ControllerTopicDB();
 		
-		StateResult result = controller.getLessonsByUser(myid, lezioni);
+		StateResult result = controller.getLessonsByDocente(myid, lezioni);
 		
 		for (int i = 0; i<lezioni.size(); i++) {
 			TopicDB topicvar = new TopicDB(lezioni.get(i).getIdTopic());

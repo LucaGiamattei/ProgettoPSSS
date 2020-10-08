@@ -14,19 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
-import serviceLayer.user.implementation.ImplUtente;
+import serviceLayer.lezione.implementation.ImplLezione;
 
 /**
- * Servlet implementation class retrieveMyLessons
+ * Servlet implementation class SubscribesServlet
  */
 
-public class RetrieveMyLessonsServlet extends HttpServlet {
+public class SubscribesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RetrieveMyLessonsServlet() {
+    public SubscribesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,14 +36,17 @@ public class RetrieveMyLessonsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("DoGet_RETRIEVEMYLESSONS");
 		
-		ImplUtente iutente = new ImplUtente();
-		Vector<String> str = new Vector<String>();
+		System.out.println("doGET_subscribesServlet");
+		
+		ImplLezione impll = new ImplLezione();
 		Vector<LezioneDB> lezioni = new Vector<LezioneDB>();
+		Vector<String> topics = new Vector<String>();
+		String reqId = request.getParameter("requesterId");
 		
-		StateResult result = iutente.getLessonsById(new idUser(Integer.parseInt(request.getParameter("requesterId"))),str, lezioni);
 		
+		
+		StateResult result = impll.getPayedLessons(new idUser(Integer.parseInt(reqId)), topics, lezioni);
 		
 		StringBuffer xmlReply = new StringBuffer();
 		
@@ -53,25 +56,25 @@ public class RetrieveMyLessonsServlet extends HttpServlet {
 			xmlReply.append("<risposta>");
 			
 			for(int i=0; i<lezioni.size(); i++) {
-				xmlReply.append("<lezione><id>"+lezioni.get(i).getId().getId()+"</id><nome>"+lezioni.get(i).getNomeLezione()+"</nome><nstudenti>"+lezioni.get(i).getNmax()+"</nstudenti><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
-						"</descrizione><score>"+lezioni.get(i).getMedia_score()+"</score><topic>"+str.get(i)+"</topic>");
+				xmlReply.append("<lezione><id>"+lezioni.get(i).getId().getId()+"</id><nome>"+lezioni.get(i).getNomeLezione()+"</nome><descrizione>"+lezioni.get(i).getDescrizioneLezione()+
+						"</descrizione><topic>"+topics.get(i)+"</topic>");
 					for(int j=0; j<lezioni.get(i).getSlots().size(); j++) {
 						xmlReply.append("<fascia><data>"+df.format(lezioni.get(i).getSlots().get(j).getDataLezione())+"</data><orarioinizio>"+lezioni.get(i).getSlots().get(j).getOrarioInizio().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioInizio().getMinutes()+
-								"</orarioinizio><orariofine>"+lezioni.get(i).getSlots().get(j).getOrarioFine().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioFine().getMinutes()+"</orariofine><prezzo>"+ 
-										lezioni.get(i).getSlots().get(j).getPrezzo()+"</prezzo>"+
+								"</orarioinizio><orariofine>"+lezioni.get(i).getSlots().get(j).getOrarioFine().getHours()+':'+lezioni.get(i).getSlots().get(j).getOrarioFine().getMinutes()+"</orariofine>"+
 										"</fascia>");
 					
 					}
 					xmlReply.append("</lezione>");
 			}
 			xmlReply.append("</risposta>");
-			response.setContentType("text/xml");
+			response.setContentType("text/xml"); 
 			response.getWriter().write(xmlReply.toString()); 	
 		}else {
-			xmlReply.append("<risposta>noLessons</risposta>");
+			xmlReply.append("<risposta>noSubscribes</risposta>");
 			response.setContentType("text/xml"); 
 			response.getWriter().write(xmlReply.toString()); 
 		}
+		
 	}
 
 	/**
