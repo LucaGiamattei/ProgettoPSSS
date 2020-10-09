@@ -88,14 +88,22 @@ public interface API_LezioneDB {
 	/**
 	 * Questa funzione permette di arricchire le lezioni di un docente con la relative fasce orarie (anche quelle non visibili agli utenti)
 	 * @param idOwnerUser 
-	 * @param lezioni (I/O) Da Input deve fornire principlamente gli identificativi delle lezioni, Da Output sarà arricchita ogni lezione con i riferimenti alle relative fasce orarie
+	 * @param lezioni (I/O) Da Input deve fornire principlamente gli identificativi delle lezioni, Da Output sarï¿½ arricchita ogni lezione con i riferimenti alle relative fasce orarie
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- VALID
 	 *- DBPROBLEM
 	 */
 	StateResult attachSlotsToLessonsDocente(Vector<LezioneDB> lezioni);
 	
-	
+	/**
+	 * Verifica che la fascia oraria esista e sia stata generata da uno specificoo docente. Nel caso di esito positivo 
+	 * la funzione restituisce le informazioni sulla fascia oraria.
+	 * @warning la la fasciaoraria Ã¨ sia di input (da cui viene valutato idFasciaOraria) sia di output (i campi vengono riempiti in base all'esito della verifica)
+	 * @param id
+	 * @param fascia
+	 * @return
+	 */
+	public StateResult getFasciaOraria(idUser id, FasciaOraria fascia);
 	
 //------------------------OPERAZIONI UTENTE-------------------------------------
 	
