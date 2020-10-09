@@ -538,7 +538,7 @@ public static ResultSet SelectAll(String nomeTabella,String [] fieldsToSelect ) 
  * @return
  * @throws Exception
  */
-
+/*
 //ATTENZIONE!!! FUNZIONE DA CONTROLLARE!!!
 public static ResultSet SelectEntryInGTSelectDB(String nomeTabella1 ,String [] fieldsToSelect1,Hashtable<String, String> fieldCondition1,String fieldCondition2,String nomeTabella2, String fieldToSelect2, Hashtable<String, String> conditionsFildsToValues2 ) throws Exception {
 	

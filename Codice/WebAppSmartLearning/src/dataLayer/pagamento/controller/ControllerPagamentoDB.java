@@ -28,6 +28,8 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 		LocalDateTime now = LocalDateTime.now();
 		addFildsToValues.put("DataPagamento", dtf.format(now));
 		
+		//AGGIUNGERE CONTROLLO DATA
+		
 		try {
 			Integer r = DBConnectionManager.createNewEntryDB("Pagamento", addFildsToValues, true);
 			
