@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Smart Learning</title>
-<!-- <link rel="stylesheet" href="index.css"/> -->
+<link rel="stylesheet" href="../css/index.css" type="text/css"/>
 <link rel="stylesheet" href="../css/demo.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
@@ -29,65 +29,67 @@
 
 <body>
 
-<nav class="navbar navbar-default navbar-static-top">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="Homepage.html">Smart Learning</a>
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-	</div>
-	<div class="navbar-collapse collapse">
-		<ul class="nav navbar-nav januscon_anchor">
-			<li ><a href="Homepage.html">Home</a></li>
-			<li class="active"><a href="ProfiloPage.html">Profilo</a></li> 
-			<li><a href="#">Documentazione</a></li>
-			<li><a href="#">Contatti</a></li>
-		</ul>
-		<div class="navbar-header navbar-right">
-			<ul class="nav navbar-nav">
-				<li> <a onclick="logOut()" class="navbar-link meetecho-logo">Log Out</a></li>
+<div class = "row">
+	<nav class="navbar navbar-default navbar-static-top" id="nav">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="Homepage.html">Smart Learning</a>
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav januscon_anchor">
+				<li ><a href="Homepage.html">Home</a></li>
+				<li class="active"><a href="ProfiloPage.html">Profilo</a></li> 
+				<li><a href="#">Documentazione</a></li>
+				<li><a href="#">Contatti</a></li>
 			</ul>
+			<div class="navbar-header navbar-right">
+				<ul class="nav navbar-nav">
+					<li> <a onclick="logOut()" class="navbar-link meetecho-logo">Log Out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</nav>
+</div>
+<div class = "row">
+	<div class="container" id="mainPage">
+		<div class = "row">
+			<div class="col-md-2 ">
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link active"  onclick="retrieveUserData()">Utente</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" onclick="mysubscribesFunc()">Lezioni sottoscritte</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" onclick="myLessonFunc()">Lezioni mie</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Impostazioni</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-10 containerProfilo"></div>
 		</div>
 	</div>
 </div>
-</nav>
 
-<div class="container" id="mainPage">
-
-			<div class = "row">
-				<div class="col-md-2 ">
-					<ul class="nav flex-column">
-					  <li class="nav-item">
-					    <a class="nav-link active"  onclick="retrieveUserData()">Utente</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link" onclick="mysubscribesFunc()">Lezioni sottoscritte</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link" onclick="myLessonFunc()">Lezioni mie</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link" href="#">Impostazioni</a>
-					  </li>
-					</ul>
-				</div>
-				<div class="col-md-10 containerProfilo">
-
-				</div>
-
-			</div>
-
-</div>
-
-<div class="container hide" id= "videoCallPage">
-	<div class="hide" id="gallery" >
-		<div class="video-container" id="myvideo-container"> </div>
-		<div class="video-container hide" id="myvideo-containerScreen"></div>
+<!-- <div class="container hide" id= "videoCallPage"> -->
+<div class = "row bd">
+	<div class="col-md-9">
+		<div class="hide" id="gallery" >
+			<div class="video-container" id="myvideo-container"> </div>
+			<div class="video-container hide" id="myvideo-containerScreen"></div>
+		</div>
 	</div>
 </div>
+<!-- </div> -->
 
 </body>
 
@@ -134,6 +136,8 @@ function gestisciRispostaUser(responseXML) {
 			var cognome = responseXML.getElementsByTagName("cognome")[0].childNodes[0].nodeValue;
 			var email = responseXML.getElementsByTagName("email")[0].childNodes[0].nodeValue;
 			var mediascorelezioni = responseXML.getElementsByTagName("mediascorelezioni")[0].childNodes[0].nodeValue;
+			
+			username = nome+' '+cognome;
 			
 			$('.containerProfilo').append(
 					'<div class="jumbotron jumbotron-fluid">'+
@@ -387,7 +391,8 @@ function gestisciRispostaProgrammazioni(responseXML) {
 	if(responseXML != null){
 		if(responseXML.getElementsByTagName("risposta").length > 0) {
 			var risposta = responseXML.getElementsByTagName("risposta")[0];
-			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
+			
+			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue; 
 			
 			
 			if(risultato == "utenteNonAutorizzato"){
@@ -458,28 +463,33 @@ function avviaVideoCall(idprog) {
 }
 
 function gestisciRispostaAvviaVideoCall(responseXML){
-	console.log("gestisciRispostaAvviaVideoCall 0");
 	if(responseXML != null){
-		console.log("gestisciRispostaAvviaVideoCall 1");
+		var risposta = responseXML.getElementsByTagName("risposta")[0];
+		var risultato = responseXML.getElementsByTagName("risultato")[0];
 		
-		console.log("risposta.childNodes[0].nodeValue: "+risposta.childNodes[0].nodeValue);
 		if(responseXML.getElementsByTagName("risposta").length > 0) {
-			console.log("gestisciRispostaAvviaVideoCall 2");
-			var risposta = responseXML.getElementsByTagName("risposta")[0];
-			console.log("risposta.childNodes[0].nodeValue: "+risposta.childNodes[0].nodeValue);
-			if(risposta.childNodes[0].nodeValue == "VideoCallCreata"){
+						
+			if(risultato.childNodes[0].nodeValue == "VideoCallCreata"){
+				
 				nomeRoom= risposta.childNodes[1].childNodes[0].nodeValue;
 				tokenDocente  = risposta.childNodes[2].childNodes[0].nodeValue;
 				localStorage['nomeRoom'] = nomeRoom;
 				localStorage['tokenDocente'] = tokenDocente;
 				console.log("tokenDocente: "+tokenDocente+", nomeRoom: "+nomeRoom);
+				
 				for(i=0;i<responseXML.getElementsByTagName("tokenUtente")[0].childNodes.length;i++){
 					tokens[i] = responseXML.getElementsByTagName("tokenUtente")[0].childNodes[i].childNodes[0].nodeValue;
 					console.log("tokenUtente: "+tokens[i]);
 				}
-				console.log("tokenDocente: "+tokenDocente+", nomeRoom: "+nomeRoom);
+				tokens[responseXML.getElementsByTagName("tokenUtente")[0].childNodes.length] = tokenDocente;
 				
-				//creaHandler();
+				$("#mainPage").addClass("hide");
+				//$("#nav").addClass("hide");
+				//$("#videoCallPage").removeClass("hide");
+				$(".bodyclass").addClass("bd");
+				
+				
+				creaHandler();
 				
 			}else{
 				

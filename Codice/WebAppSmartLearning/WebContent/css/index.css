@@ -3,18 +3,16 @@
 	--width:0px;
 	--heigth:0px;
 	--cols: 0;
-
 }
-
-body {
+  .bd {
 	margin: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
   
-	background-color: #c0c0c0;
   }
+  
   
   #gallery {
 	display: flex;
@@ -30,8 +28,6 @@ body {
 	position: relative;
 
   }
-  
-
 
   video {
 	height: 100%;
@@ -57,9 +53,9 @@ body {
   }
  
   #unpublish{
-	position: absolute; top:1%;  right: 1% ;
+	position: absolute; top:8%;  right: 1% ;
   }
 
   #publishScreen{
-	position: absolute; top:10%;  right: 1% ;
+	position: absolute; top:12%;  right: 1% ;
   }

@@ -52,10 +52,19 @@ public class ImplLezione implements ILezione {
 		
 		StateResult result = controller.attachSlotsToLessonsDocente(lezioneV);
 		
+		if(result == StateResult.DBPROBLEM) {
+			return StateResult.DBPROBLEM;
+		}
+		
 		for(int i = 0; i < lezioneV.get(0).getSlots().size(); i++) {
 			fasce.add(lezioneV.get(0).getSlots().get(i));
 		}
-		return result;
+		
+		if(lezioneV.get(0).getSlots().size() > 0) {
+			return StateResult.VALID;
+		}else {
+			return StateResult.NOVALID;
+		}
 	}
 
 	@Override

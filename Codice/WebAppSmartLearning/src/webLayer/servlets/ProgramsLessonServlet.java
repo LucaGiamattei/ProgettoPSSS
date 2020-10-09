@@ -73,7 +73,8 @@ public class ProgramsLessonServlet extends HttpServlet {
 			response.setContentType("text/xml"); 
 			response.getWriter().write(xmlReply.toString()); 
 		}
-
+		
+		System.out.println(xmlReply.toString());
 	}
 
 	/**

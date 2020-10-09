@@ -418,8 +418,9 @@ public class ControllerLezioneDB implements API_LezioneDB{
 					
 				}
 				
-				return StateResult.VALID;
-				
+			
+			return StateResult.VALID;
+		
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

@@ -67,14 +67,17 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 			CallableStatement stmt = (CallableStatement) conn.prepareCall(query);
 			stmt.setInt(1, idFasciaOraria.getId());
 			ResultSet result = stmt.executeQuery();
-			conn.commit();
+			
 			int cont = 0;
 			while (result.next()) {
 				PagamentoDB pagamento = new PagamentoDB(idFasciaOraria, new idUser(result.getInt("Utente_idUtente")), result.getString("TOKEN"));
 				payments.add(pagamento);
 				cont++;
 			}
+			
+			conn.commit();
 			conn.close();
+			
 			if(cont>0) {
 				
 				return StateResult.UPDATED;
@@ -134,7 +137,6 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 					
 					while (result.next()) {
 						numOfRows++;
-						
 					}
 					switch(numOfRows) {      
 				      case 1:

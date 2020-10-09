@@ -33,15 +33,18 @@ public class AvviaVideoCallServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("AVVIA VIDEO CHIAMATA");
+		System.out.println("doGet_AVVIAVIDEOCALL");
 		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
 		String[] tokenDocente = new String[1]; ;
 		Vector<String> tokens = new Vector<String>();
 		
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String idFasciaOraria = request.getParameter("idprog");
 		String idDocente = request.getParameter("requesterId");
+		
+		System.out.println("idFasciaOraria="+idFasciaOraria+"&idDocente="+idDocente+"\n");
+		
 		FasciaOraria fascia = new FasciaOraria();
 		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
 		
@@ -64,13 +67,13 @@ public class AvviaVideoCallServlet extends HttpServlet {
 				xmlReply.append("<risposta><risultato>VideoCallNonCreata</risultato></risposta>");
 				response.setContentType("text/xml");
 				response.getWriter().write(xmlReply.toString());
-				System.out.println("XML: "+ xmlReply.toString());
+				System.out.println("XML1: "+ xmlReply.toString());
 			}
 		}else {
 			xmlReply.append("<risposta><risultato>VideoCallNonCreata</risultato></risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
-			System.out.println("XML: "+ xmlReply.toString());
+			System.out.println("XML2: "+ xmlReply.toString());
 		}
 		
 	}

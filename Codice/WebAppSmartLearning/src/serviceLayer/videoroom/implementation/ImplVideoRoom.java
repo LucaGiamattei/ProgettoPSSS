@@ -36,10 +36,10 @@ public class ImplVideoRoom implements IVideoRoom{
 	@Override
 	public StateResult verifyFasciaOrariaIsInProgress(FasciaOraria fascia) {
 		
-		System.out.println("verifyFasciaOrariaIsInProgress");
+		//System.out.println("verifyFasciaOrariaIsInProgress");
 		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = new Date();
-		System.out.println("verifyFasciaOrariaIsInProgress1");
+		//System.out.println("verifyFasciaOrariaIsInProgress1");
 		Date d1;
 		Date d2;
 		try {
@@ -50,7 +50,7 @@ public class ImplVideoRoom implements IVideoRoom{
 			e1.printStackTrace();
 			return StateResult.NOVALID;
 		}
-		System.out.println("comparo le seguenti date: "+sdformat.format(d1)+", "+ sdformat.format(d2));
+		//System.out.println("comparo le seguenti date: "+sdformat.format(d1)+", "+ sdformat.format(d2));
 		//sdformat.format(fascia.getDataLezione());
 		//sdformat.format(date);
 		
@@ -58,7 +58,7 @@ public class ImplVideoRoom implements IVideoRoom{
 			//le date sono uguali
 			String orarioFine = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioFine());
 			String orarioInizio = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioInizio());
-			System.out.println("orario Inizio "+LocalTime.now().isAfter(LocalTime.parse( orarioInizio))+"\n OrarioFIne"+LocalTime.now().isBefore(LocalTime.parse( orarioFine) ));
+			//System.out.println("orario Inizio "+LocalTime.now().isAfter(LocalTime.parse( orarioInizio))+"\n OrarioFIne"+LocalTime.now().isBefore(LocalTime.parse( orarioFine) ));
 			if(LocalTime.now().isAfter(LocalTime.parse( orarioInizio)) && LocalTime.now().isBefore(LocalTime.parse( orarioFine ))) {
 				return StateResult.VALID;
 			}
@@ -102,11 +102,12 @@ public class ImplVideoRoom implements IVideoRoom{
 		videoRoom.setNomeRoom(nomeRoom);
 		
 		if(contVideoRoom.createNewRoom(idFascia, videoRoom)==StateResult.CREATED) {
-			tokens.add(videoRoom.getPasswordRoom());
+			//System.out.println("start_1");
+			//tokens.add(videoRoom.getPasswordRoom());
 			tokenDocente[0] = videoRoom.getPasswordRoom();
 			Vector<PagamentoDB> payments = new Vector<PagamentoDB>();
 			if( contPagamento.genAndGetTokens(idFascia, payments) ==StateResult.UPDATED) {
-				
+				//System.out.println("start_2");
 				for (int i=0; i<payments.size();i++) {
 					tokens.add(payments.get(i).getToken());
 				}

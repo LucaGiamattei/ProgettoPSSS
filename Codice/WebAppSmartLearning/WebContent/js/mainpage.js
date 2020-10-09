@@ -35,14 +35,14 @@ window.onresize=recalculateLayout;
 
 
 /*-----------------------------------------------HANDLER PUBLISHER WEBCAM----------------------------------------------------------------------- */
-
+/*
 if(window.location.protocol === 'http:')
 	server = "http://" + window.location.hostname + ":8088/janus";
 else
     server = "https://" + window.location.hostname + ":8089/janus";
+*/
 
-
-
+server = "http://20.49.195.171:8088/janus";
 
 
 function creaHandler() {
@@ -70,11 +70,16 @@ function creaHandler() {
                             success: function(pluginHandle) {
 								
                                 handle_vr = pluginHandle;
+
                                 Janus.log("Plugin attached! (" + handle_vr.getPlugin() + ", id=" + handle_vr.getId() + ")");
                                 Janus.log("  -- This is a publisher/manager");
-                                $('#joinToRoom').click(joinToRoom);
-                                $('#createRoom').click(newRoom);
+                                //$('#joinToRoom').click(joinToRoom);
+                                //$('#createRoom').click(newRoom);
                                 
+                                //NON VA BENE QUESTA SOLUZIONE: DA RIVEDERE!
+                                if(tokenDocente != null){
+                                	newRoom();
+                                }	
                             },
                             error: function(error) {
                                 Janus.error("  -- Error attaching plugin...", error);
@@ -321,10 +326,10 @@ function creaHandler() {
 									$('#myvideo-container').append('<button class="btn " id="mute">Mute</button>');
 									$('#mute').click(toggleMute);
 									// Add an 'unpublish' button
-									$('#bd').append('<button class="btn " id="unpublish">Unpublish Webcam</button>');
+									$('.bd').append('<button class="btn " id="unpublish">Unpublish Webcam</button>');
 									$('#unpublish').click(toggleOwnFeed);
 									//Add an 'share screen' button
-									$('#bd').append('<button class="btn " id="publishScreen">Publish Screen</button>');
+									$('.bd').append('<button class="btn " id="publishScreen">Publish Screen</button>');
 									$('#publishScreen').click(toggleOwnFeedScreen);
 								}
 
@@ -405,8 +410,8 @@ function joinToRoom(){
    } else {
 	   $("#buttonsPage").addClass("hide");
 	   $("#JoinedOrCreatedToRoom").removeClass("hide").show();
-	   var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
-	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);
+	   /*var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
+	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
 	   var register = {
 		   request: "join",
 		   room: room,
@@ -421,35 +426,32 @@ function joinToRoom(){
 
 
 function newRoom(){
-   room = parseInt(prompt("Name of the room to create"));
    
-   if(isNaN(room) ||room === null ) {
-	   bootbox.alert("Please enter an integer value");
-   } else {
-	   $("#buttonsPage").addClass("hide");
-	   $("#JoinedOrCreatedToRoom").removeClass("hide").show();
-	   var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
-	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);
+	   /*var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
+	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
+	
+		room = parseInt(nomeRoom);
 	   create_request= {
 		   request: "create",
 		   room: room,
-		   publishers: 100    
+		   publishers: 100, //deve essere settato al numero di subscribers + 1 (docente) [tokens.length]
+		   allowed: tokens
 	   }
 	   handle_vr.send({ message: create_request ,success: function (msg){
 		   if (msg["videoroom"]==="created"){
+			   Janus.log("CREATED_invio join");
 			   var register = {
 				   request: "join",
 				   room: room,
 				   ptype: "publisher",
-				   display: username
+				   display: username,
+				   token: tokenDocente
 			   };
 			   handle_vr.send({ message: register });
 
 		   }
 		  
 	   }});
-
-   }
 
 }
 
