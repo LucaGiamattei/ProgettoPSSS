@@ -53,7 +53,7 @@ public class SubscribeServlet extends HttpServlet {
 		
 		ImplPagamento implp = new ImplPagamento();
 		
-		
+		//if (implVideoRoom.verifyFasciaOrariaIsInProgress(fascia) == StateResult.VALID)
 		StateResult result = implp.effettuaPagamento(new idUser(Integer.parseInt(reqId)), new idFasciaOraria(Integer.parseInt(progId)));
 		
 		StringBuffer xmlReply = new StringBuffer();

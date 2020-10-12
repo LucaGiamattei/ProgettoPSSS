@@ -20,6 +20,15 @@ import dataLayer.videoroom.entities.VideoRoomDB;
 import serviceLayer.videoroom.interfaces.IVideoRoom;
 
 public class ImplVideoRoom implements IVideoRoom{
+	
+	@Override
+	public StateResult deleteVideoRoom(idFasciaOraria id) {
+		ControllerVideoRoomDB controllerVideoRoom = new ControllerVideoRoomDB();
+		if(controllerVideoRoom.removeRoom(id)==StateResult.REMOVED) {
+			return StateResult.REMOVED;
+		}
+		return StateResult.NOREMOVED;
+	}
 
 	@Override
 	public StateResult verifyDocenteHasFasciaOraria(String idUtente, FasciaOraria fascia) {
@@ -101,7 +110,8 @@ public class ImplVideoRoom implements IVideoRoom{
 		VideoRoomDB  videoRoom = new VideoRoomDB();
 		videoRoom.setNomeRoom(nomeRoom);
 		
-		if(contVideoRoom.createNewRoom(idFascia, videoRoom)==StateResult.CREATED) {
+		
+		if(contPagamento.thereAreUsersPayedLesson(idFascia)==StateResult.VALID && contVideoRoom.createNewRoom(idFascia, videoRoom)==StateResult.CREATED) {
 			//System.out.println("start_1");
 			//tokens.add(videoRoom.getPasswordRoom());
 			tokenDocente[0] = videoRoom.getPasswordRoom();
@@ -114,6 +124,10 @@ public class ImplVideoRoom implements IVideoRoom{
 				
 					return StateResult.CREATED;
 				
+			}else {
+				//delete video room
+				contVideoRoom.removeRoom(idFascia);
+				System.out.println("Rollback:RooomEliminata");
 			}
 			
 		}

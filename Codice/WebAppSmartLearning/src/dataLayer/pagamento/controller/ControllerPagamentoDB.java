@@ -183,7 +183,33 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 			   return StateResult.DBPROBLEM;
 		  }
 	}
-
+	
+	public StateResult thereAreUsersPayedLesson(idFasciaOraria idFasciaOraria) {
+		 // TODO Auto-generated method stub
+		 String [] fieldsToSelect = {"Utente_idUtente"};
+		 Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+		 conditionsFildsToValues.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
+		  ResultSet result;
+		  try {
+			  result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues);
+			  int numOfRows = 0;
+		   
+			  while (result.next()) {
+			    numOfRows++;    
+			  }
+			   if(numOfRows>0) {
+				   return StateResult.VALID;
+			   }else {
+				   return StateResult.NOVALID;
+			   }
+			   
+		  
+		  } catch (Exception e) {
+			   // TODO Auto-generated catch block
+			   e.printStackTrace();
+			   return StateResult.DBPROBLEM;
+		  }
+	}
 	
 	
 

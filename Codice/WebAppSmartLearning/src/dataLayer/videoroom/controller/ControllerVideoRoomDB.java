@@ -14,7 +14,38 @@ import dataLayer.utilities.idFasciaOraria;
 import dataLayer.videoroom.entities.VideoRoomDB;
 import dataLayer.videoroom.interfaces.API_VideoRoomDB;
 
+
+
 public class ControllerVideoRoomDB implements API_VideoRoomDB{
+	
+	
+	
+	@Override
+	public StateResult removeRoom(idFasciaOraria idFasciaOraria) {
+		Hashtable<String,String> removeFields = new Hashtable<String, String>();
+		removeFields.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
+
+		Integer result;
+		try {
+			result = DBConnectionManager.removeFromDB("Videocall", removeFields);
+			
+			switch(result) {  
+		      case 1:
+		    	  return StateResult.REMOVED;
+		        
+		     
+		      default:
+		    	  return StateResult.NOREMOVED;
+			}
+			
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return StateResult.DBPROBLEM;
+		}
+		
+	}
 
 	@Override
 	public StateResult createNewRoom(idFasciaOraria idFasciaOraria, VideoRoomDB videoRoom) {
@@ -97,5 +128,7 @@ public class ControllerVideoRoomDB implements API_VideoRoomDB{
 					
 		}
 	}
+
+	
 
 }

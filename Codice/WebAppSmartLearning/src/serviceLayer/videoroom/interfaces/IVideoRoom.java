@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.utilities.StateResult;
+import dataLayer.utilities.idFasciaOraria;
 
 public interface IVideoRoom {
 	/**
@@ -47,4 +48,9 @@ public interface IVideoRoom {
 	 * @return
 	 */
 	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String[] tokenDocente, Vector <String> tokens) ;
+	
+	
+	
+	public StateResult deleteVideoRoom(idFasciaOraria id);
+	
 }

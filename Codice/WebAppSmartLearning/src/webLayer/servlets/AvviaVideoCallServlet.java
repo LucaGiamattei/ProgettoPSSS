@@ -39,7 +39,7 @@ public class AvviaVideoCallServlet extends HttpServlet {
 		Vector<String> tokens = new Vector<String>();
 		
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		String idFasciaOraria = request.getParameter("idprog");
 		String idDocente = request.getParameter("requesterId");
 		
@@ -84,6 +84,35 @@ public class AvviaVideoCallServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doGet_DELETEVIDEOCALL");
+		String idFasciaOraria = request.getParameter("idprog");
+		String idDocente = request.getParameter("requesterId");
+		StringBuffer xmlReply = new StringBuffer();
+		
+		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
+		FasciaOraria fascia = new FasciaOraria();
+		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
+		
+		
+		if (implVideoRoom.verifyDocenteHasFasciaOraria(idDocente, fascia)==StateResult.VALID) {
+			if(implVideoRoom.deleteVideoRoom(fascia.getId())==StateResult.REMOVED) {
+				xmlReply.append("<risposta><risultato>VideoCallEliminata</risultato></risposta>");
+				
+			}else {
+				xmlReply.append("<risposta><risultato>VideoCallNonEliminata</risultato></risposta>");
+			}
+			
+		}else {
+			xmlReply.append("<risposta><risultato>VideoCallNonEliminata</risultato></risposta>");
+		}
+		response.setContentType("text/xml");
+		response.getWriter().write(xmlReply.toString());
 	}
 
 }

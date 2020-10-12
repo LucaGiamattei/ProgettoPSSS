@@ -14,5 +14,6 @@ public interface API_PagamentoDB {
 	public StateResult getUsersPayedLesson(idFasciaOraria idFasciaOraria, Vector<idUser> users);
 	public StateResult genAndGetTokens(idFasciaOraria idFasciaOraria, Vector<PagamentoDB>payments);
 	public StateResult getTokenByUtente(PagamentoDB pagamentoUtente);
+	public StateResult thereAreUsersPayedLesson(idFasciaOraria idFasciaOraria);
 
 }

@@ -431,11 +431,13 @@ function newRoom(){
 	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
 	
 		room = parseInt(nomeRoom);
+		//secret: password required to edit/destroy the room, optional
 	   create_request= {
 		   request: "create",
 		   room: room,
 		   publishers: 100, //deve essere settato al numero di subscribers + 1 (docente) [tokens.length]
-		   allowed: tokens
+		   allowed: tokens,
+		   secret: tokenDocente
 	   }
 	   handle_vr.send({ message: create_request ,success: function (msg){
 		   if (msg["videoroom"]==="created"){
@@ -455,6 +457,59 @@ function newRoom(){
 
 }
 
+
+function destroyRoom(){
+		room = parseInt(nomeRoom);
+		//secret: password required to edit/destroy the room, optional
+	   create_request= {
+		   request: "destroy",
+		   room: room,
+		   secret: tokenDocente,
+		   permanent: true
+	   }
+	   
+	   handle_vr.send({ message: create_request ,success: function (msg){
+		   if (msg["videoroom"]==="destroyed"){
+				var request = new XMLHttpRequest();
+				var params = "requesterId="+myId+"&idprog="+idprog;
+				var url = "../riservate/docente/deleteroom";
+				request.open('DELETE', url+"?"+params, true);
+				request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+				request.onreadystatechange = function() {
+				    if(request.readyState == 4 && request.status == 200) {
+				    	gestisciRispostaDelete(request.responseXML);
+				    }
+				}
+				request.send(params);
+		   }
+		  
+	   }});
+
+}
+
+function gestisciRispostaDelete(responseXML){
+	if(responseXML != null){
+		var risposta = responseXML.getElementsByTagName("risposta")[0];
+		
+		
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+						
+			if(risultato.childNodes[0].nodeValue == "VideoCallEliminata"){
+				
+				
+				
+			}else{
+				
+			}
+			
+
+			
+		}
+		
+	}
+	
+}
 
 function publishOwnFeed(useAudio) {
    handle_vr.createOffer(
