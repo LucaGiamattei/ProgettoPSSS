@@ -332,7 +332,45 @@ public class ControllerLezioneDB implements API_LezioneDB{
 		
 		
 	//----------------------------UTENTE------------------------------------//
-
+public StateResult getFasciaOraria(FasciaOraria fascia) {
+			
+			// TODO Auto-generated method stub
+			String [] fieldsToSelect = {"*"};
+			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			conditionsFildsToValues.put("idFasciaOraria", fascia.getId().toString());
+			conditionsFildsToValues.put("visibile", "1");
+			
+						ResultSet result;
+						try {
+							result = DBConnectionManager.SelectEntryDB("FasciaOraria", fieldsToSelect, conditionsFildsToValues);
+							
+							int numOfRows = 0;
+							
+							while (result.next()) {
+								numOfRows++;
+								fascia.setVisible(result.getInt("visibile"));
+								fascia.setOrarioInizioLezione(result.getTime("OrarioInizioLezione"));
+								fascia.setOrarioFineLezione(result.getTime("OrarioFineLezione"));
+								fascia.setPrezzo(result.getFloat("prezzo"));
+								fascia.setDataLezione(result.getDate("DataLezione"));
+								
+							}
+							switch(numOfRows) {
+						      case 1:
+						    	  return StateResult.VALID;
+						      default:
+						    	  return StateResult.NOVALID;
+							}
+							
+						
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							return StateResult.DBPROBLEM;
+						}
+			
+		}
+		
 		@Override
 		public StateResult getLessonsbyTopics(idTopic infoTopic, Vector<LezioneDB> lezioni) {
 			// TODO Auto-generated method stub

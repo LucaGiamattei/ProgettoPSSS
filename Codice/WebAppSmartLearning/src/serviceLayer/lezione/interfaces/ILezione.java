@@ -16,4 +16,5 @@ public interface ILezione {
 	public StateResult getFasceOrarie(idLesson idlesson, Vector<FasciaOraria> fascia);
 	public StateResult removeFasciaById(idFasciaOraria id);
 	public StateResult getPayedLessons(idUser iduser, Vector<String> topics, Vector<LezioneDB> lezioni);
+	
 }

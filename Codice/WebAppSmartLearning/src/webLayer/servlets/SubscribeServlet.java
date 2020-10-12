@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idUser;
@@ -44,19 +45,20 @@ public class SubscribeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		System.out.println("doGET_subscribeServlet");
-		
 		String reqId = request.getParameter("requesterId");
 		String progId = request.getParameter("idprog");
-
-		
 		System.out.println("requesterId="+reqId+"&idprog="+progId+"\n");
-		
-		ImplPagamento implp = new ImplPagamento();
-		
-		//if (implVideoRoom.verifyFasciaOrariaIsInProgress(fascia) == StateResult.VALID)
-		StateResult result = implp.effettuaPagamento(new idUser(Integer.parseInt(reqId)), new idFasciaOraria(Integer.parseInt(progId)));
-		
 		StringBuffer xmlReply = new StringBuffer();
+		StateResult result = StateResult.NOCHANGES;
+		ImplPagamento implp = new ImplPagamento();
+		FasciaOraria fascia = new FasciaOraria();
+		fascia.setId(new idFasciaOraria(Integer.parseInt(progId)));
+		
+		
+		
+		if (implp.verifyFasciaOrariaIsNotStarted(fascia ) == StateResult.VALID){
+			result = implp.effettuaPagamento(new idUser(Integer.parseInt(reqId)), new idFasciaOraria(Integer.parseInt(progId)));
+		}
 		
 		if(result == StateResult.CREATED) {
 			
