@@ -36,6 +36,7 @@ public StateResult verifyFasciaOrariaIsNotStarted(FasciaOraria fascia) {
 		//Funzione che preleva una fascia oraria
 		ControllerLezioneDB contLezione = new ControllerLezioneDB();
 		if ( contLezione.getFasciaOraria(fascia)==StateResult.VALID) {
+			System.out.println("VALID: getFasciaOraria ");
 			//System.out.println("verifyFasciaOrariaIsInProgress");
 			SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
 			Date date = new Date();
@@ -51,14 +52,21 @@ public StateResult verifyFasciaOrariaIsNotStarted(FasciaOraria fascia) {
 				return StateResult.NOVALID;
 			}
 			
-			
-			if (d1.compareTo(d2)>=0) {
+			if (d1.compareTo(d2)<0) {
+				System.out.println("VALID:d1.compareTo(d2)>0");
+				return StateResult.VALID;
+				
+			}
+			if (d1.compareTo(d2)==0) {
+				System.out.println("La data è maggiore o uguale di zero");
 				//le date sono uguali
-				String orarioFine = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioFine());
+				//String orarioFine = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioFine());
 				String orarioInizio = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioInizio());
 				//System.out.println("orario Inizio "+LocalTime.now().isAfter(LocalTime.parse( orarioInizio))+"\n OrarioFIne"+LocalTime.now().isBefore(LocalTime.parse( orarioFine) ));
-				if(LocalTime.now().isAfter(LocalTime.parse( orarioInizio)) && LocalTime.now().isAfter(LocalTime.parse( orarioFine ))) {
+				if(LocalTime.now().isBefore(LocalTime.parse( orarioInizio))) {
+					System.out.println("l'ora attuale è dopo quella della lezione");
 					return StateResult.VALID;
+					
 				}
 				
 			}

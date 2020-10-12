@@ -449,10 +449,10 @@ function gestisciRispostaProgrammazioni(responseXML) {
 									'</p>'+
 								'  </div>'+
 								'<div class="col-1">'+
-								'<a onclick="creaHandler(false)"  class="btn btn-success btn-sm">Partecipa</a>'+
+								'<a onclick="creaHandler(false,false)"  class="btn btn-success btn-sm">Partecipa</a>'+
 								'  </div>'+
 								'<div class="col">'+
-								'<a onclick="elimina_Call"  class="btn btn-danger btn-sm">Chiudi videocall</a>'+
+								'<a onclick="destroyWithHandler('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-danger btn-sm">Chiudi videocall</a>'+
 								'</div>'+
 								 '</div>'+
 							'</div>'+
@@ -475,6 +475,7 @@ function avviaVideoCall(idprog) {
 	
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
+	localStorage['idprog'] = idprog;
 	var url = "../riservate/docente/avviavideocall";
 	request.open('GET', url+"?"+params, true);
 	
@@ -512,10 +513,10 @@ function gestisciRispostaAvviaVideoCall(responseXML){
 				}
 				tokens[responseXML.getElementsByTagName("tokenUtente")[0].childNodes.length] = tokenDocente;
 				
-				creaHandler(true);
+				creaHandler(true,false);
 				
 			}else{
-				
+				localStorage.deleteItem()
 			}
 			
 
@@ -871,7 +872,7 @@ function gestisciRispostaJoinVideoCall(responseXML){
 				localStorage['tokenUtente'] = tokenUtente;
 				console.log("tokenUtente: "+tokenUtente+", nomeRoom: "+nomeRoom);
 	
-				creaHandler(false);
+				creaHandler(false,false);
 				
 			}else{
 				alert("ERROR");
@@ -886,6 +887,51 @@ function gestisciRispostaJoinVideoCall(responseXML){
 	
 }
 
+function deleteRoom(){
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+localStorage["myId"]+"&idprog="+idRoomToDestroy;
+	var url = "../riservate/docente/avviavideocall";
+	request.open('DELETE', url+"?"+params, true);
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	request.onreadystatechange = function() {
+	    if(request.readyState == 4 && request.status == 200) {
+	    	gestisciRispostaDelete(request.responseXML);
+	    }
+	}
+	request.send(params);
+}
+
+
+
+function gestisciRispostaDelete(responseXML){
+	if(responseXML != null){
+		var risposta = responseXML.getElementsByTagName("risposta")[0];
+		
+		
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+						
+			if(risultato.childNodes[0].nodeValue == "VideoCallEliminata"){
+				
+				
+				
+			}else{
+				
+			}
+			
+
+			
+		}
+		
+	}
+	
+}
+
+function destroyWithHandler(id){
+	
+	idRoomToDestroy = id;
+	creaHandler(true,true);
+}
 
 
 

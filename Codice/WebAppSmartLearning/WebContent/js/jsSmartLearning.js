@@ -44,7 +44,10 @@ function isDocente(){
 function logOut(){
 	
 	localStorage.removeItem('myId');
-	
+	localStorage.removeItem('username');
+	localStorage.removeItem('tokenUtente');
+	localStorage.removeItem('tokenDocente');
+	localStorage.removeItem('nomeRoom');
 	window.location.replace("http://localhost:8080/WebAppSmartLearning");
 	
 	

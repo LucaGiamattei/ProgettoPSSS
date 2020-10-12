@@ -3,6 +3,7 @@ var tokens = [];
 var nomeRoom = null;
 var tokenDocente = null;
 var tokenUtente = null;
+var idRoomToDestroy = null;
 
 //Oggetto Janus per creare una sessione Janus
 var janus = null;
@@ -46,7 +47,7 @@ else
 server = "http://20.49.195.171:8088/janus";
 
 
-function creaHandler(isCreate) {
+function creaHandler(isCreate, isDelete) {
     Janus.init({
         debug: "all",
         callback: function() {
@@ -78,7 +79,10 @@ function creaHandler(isCreate) {
                                 //$('#createRoom').click(newRoom);
                                 
                                 //NON VA BENE QUESTA SOLUZIONE: DA RIVEDERE!
-                                if(isCreate == true){
+                                if(isDelete == true){
+                                	destroyRoom();
+                                }
+                                else if(isCreate == true ){
                                 	newRoom();
                                 }else if(isCreate == false){
                                 	joinToRoom();
@@ -469,8 +473,11 @@ function newRoom(){
 
 
 function destroyRoom(){
-		room = parseInt(nomeRoom);
+		
+		var room = parseInt(localStorage['nomeRoom']);
+		var tokenDocente = localStorage['tokenDocente'];
 		//secret: password required to edit/destroy the room, optional
+		console.log("Richiesta di delete Room a Janus");
 	   create_request= {
 		   request: "destroy",
 		   room: room,
@@ -480,45 +487,12 @@ function destroyRoom(){
 	   
 	   handle_vr.send({ message: create_request ,success: function (msg){
 		   if (msg["videoroom"]==="destroyed"){
-				var request = new XMLHttpRequest();
-				var params = "requesterId="+myId+"&idprog="+idprog;
-				var url = "../riservate/docente/deleteroom";
-				request.open('DELETE', url+"?"+params, true);
-				request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-				request.onreadystatechange = function() {
-				    if(request.readyState == 4 && request.status == 200) {
-				    	gestisciRispostaDelete(request.responseXML);
-				    }
-				}
-				request.send(params);
+			   	deleteRoom();
+				
 		   }
 		  
 	   }});
 
-}
-
-function gestisciRispostaDelete(responseXML){
-	if(responseXML != null){
-		var risposta = responseXML.getElementsByTagName("risposta")[0];
-		
-		
-		if(responseXML.getElementsByTagName("risposta").length > 0) {
-						
-			if(risultato.childNodes[0].nodeValue == "VideoCallEliminata"){
-				
-				
-				
-			}else{
-				
-			}
-			
-
-			
-		}
-		
-	}
-	
 }
 
 function publishOwnFeed(useAudio) {
