@@ -46,7 +46,7 @@ else
 server = "http://20.49.195.171:8088/janus";
 
 
-function creaHandler() {
+function creaHandler(isCreate) {
     Janus.init({
         debug: "all",
         callback: function() {
@@ -78,9 +78,9 @@ function creaHandler() {
                                 //$('#createRoom').click(newRoom);
                                 
                                 //NON VA BENE QUESTA SOLUZIONE: DA RIVEDERE!
-                                if(tokenDocente != null){
+                                if(isCreate == true){
                                 	newRoom();
-                                }else if(tokenUtente != null){
+                                }else if(isCreate == false){
                                 	joinToRoom();
                                 }
                             },
@@ -405,16 +405,26 @@ function creaHandler() {
 }
 
 function joinToRoom(){
-	room = parseInt(nomeRoom);
-  
-	   /*var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
-	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
+	
+	$("#mainPage").addClass("hide");
+	$(".bodyclass").addClass("bd");
+	
+	room = parseInt(localStorage['nomeRoom']);
+	var token;
+	var myusername = localStorage['username']
+	
+	if(localStorage['tokenDocente'] != null){
+		token = localStorage['tokenDocente'];
+	}else{
+		token = localStorage['tokenUtente'];
+		}
+	
 	   var register = {
 		   request: "join",
 		   room: room,
 		   ptype: "publisher",
-		   display: username,
-		   token: tokenUtente
+		   display: myusername,
+		   token: token
 	   };
 	   handle_vr.send({ message: register });
    }
@@ -426,6 +436,9 @@ function newRoom(){
    
 	   /*var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
 	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
+	
+	$("#mainPage").addClass("hide");
+	$(".bodyclass").addClass("bd");
 	
 		room = parseInt(nomeRoom);
 		//secret: password required to edit/destroy the room, optional
@@ -802,16 +815,23 @@ janus.attach(
 
 
 function joinToRoomScreen() {
-	var register = {
-		request: "join",
-		room: room,
-		ptype: "publisher",
-		display: username
-	};
+	room = parseInt(nomeRoom);
+	var token;
+	
+	if(tokenDocente != null){
+		token = tokenDocente;
+	}else{token = tokenUtente}
+
+	   var register = {
+		   request: "join",
+		   room: room,
+		   ptype: "publisher",
+		   display: username,
+		   token: token
+	   };
 	ss_handle_vr.send({ message: register });
-    
-		
 }
+
 function publishOwnScreen(){
 	Janus.log("Negotiating WebRTC stream for our screen (capture " + capture + ")");
     ss_handle_vr.createOffer(

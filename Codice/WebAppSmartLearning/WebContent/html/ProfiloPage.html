@@ -138,6 +138,7 @@ function gestisciRispostaUser(responseXML) {
 			var mediascorelezioni = responseXML.getElementsByTagName("mediascorelezioni")[0].childNodes[0].nodeValue;
 			
 			username = nome+' '+cognome;
+			localStorage['username'] = username;
 			
 			$('.containerProfilo').append(
 					'<div class="jumbotron jumbotron-fluid">'+
@@ -409,33 +410,60 @@ function gestisciRispostaProgrammazioni(responseXML) {
 				return null;
 			}
 			
-			for(i=0; i <risposta.childNodes.length; i++){
-				$('.containerProfilo').append(
-						'<br>'+
-						'<div class="card">'+
-						 '<div class="card-body">'+
-							 '<div class="col">'+
-								'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
-								'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
-								risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
-								'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
-								'</p>'+
-							'  </div>'+
-							'<div class="col-1">'+
-							'<a onclick="eliminaProgrammazione('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-danger btn-sm">X</a>'+
-							'  </div>'+
-							'<div class="col">'+
-							'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
+			if(localStorage['videoCallStarted'] == null){
+							
+				for(i=0; i <risposta.childNodes.length; i++){
+					$('.containerProfilo').append(
+							'<br>'+
+							'<div class="card">'+
+							 '<div class="card-body">'+
+								 '<div class="col">'+
+									'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
+									'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+									risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+									'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+									'</p>'+
+								'  </div>'+
+								'<div class="col-1">'+
+								'<a onclick="eliminaProgrammazione('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-danger btn-sm">X</a>'+
+								'  </div>'+
+								'<div class="col">'+
+								'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
+								'</div>'+
+								 '</div>'+
 							'</div>'+
-							 '</div>'+
-						'</div>'+
-						'<br>'
-				);
-			}
+							'<br>'
+					);
+				}
+			}else if(localStorage['videoCallStarted'] == "true"){
+				for(i=0; i <risposta.childNodes.length; i++){
+					$('.containerProfilo').append(
+							'<br>'+
+							'<div class="card">'+
+							 '<div class="card-body">'+
+								 '<div class="col">'+
+									'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
+									'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+									risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+									'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+									'</p>'+
+								'  </div>'+
+								'<div class="col-1">'+
+								'<a onclick="creaHandler(false)"  class="btn btn-success btn-sm">Partecipa</a>'+
+								'  </div>'+
+								'<div class="col">'+
+								'<a onclick="elimina_Call"  class="btn btn-danger btn-sm">Chiudi videocall</a>'+
+								'</div>'+
+								 '</div>'+
+							'</div>'+
+							'<br>'
+					);
+				}
 			
+			}
 		}
-	}
 	
+	}
 }
 
 function avviaVideoCall(idprog) {
@@ -476,6 +504,7 @@ function gestisciRispostaAvviaVideoCall(responseXML){
 				localStorage['nomeRoom'] = nomeRoom;
 				localStorage['tokenDocente'] = tokenDocente;
 				console.log("tokenDocente: "+tokenDocente+", nomeRoom: "+nomeRoom);
+				localStorage['videoCallStarted'] = "true";
 				
 				for(i=0;i<responseXML.getElementsByTagName("tokenUtente")[0].childNodes.length;i++){
 					tokens[i] = responseXML.getElementsByTagName("tokenUtente")[0].childNodes[i].childNodes[0].nodeValue;
@@ -483,13 +512,7 @@ function gestisciRispostaAvviaVideoCall(responseXML){
 				}
 				tokens[responseXML.getElementsByTagName("tokenUtente")[0].childNodes.length] = tokenDocente;
 				
-				$("#mainPage").addClass("hide");
-				//$("#nav").addClass("hide");
-				//$("#videoCallPage").removeClass("hide");
-				$(".bodyclass").addClass("bd");
-				
-				
-				creaHandler();
+				creaHandler(true);
 				
 			}else{
 				
@@ -690,6 +713,12 @@ function gestisciRispostaSubscribes(responseXML) {
 			
 						
 			if(risultato == "noSubscribes"){
+				
+				$('.containerProfilo').append('<div class="alert alert-warning" role="alert">'+
+						  'Non sono presenti sottoscrizioni, utilizza la funzione di ricerca nella homepage.'+
+						 ' </div>'
+						);
+				
 				return null;
 			}
 			
@@ -841,13 +870,8 @@ function gestisciRispostaJoinVideoCall(responseXML){
 				localStorage['nomeRoom'] = nomeRoom;
 				localStorage['tokenUtente'] = tokenUtente;
 				console.log("tokenUtente: "+tokenUtente+", nomeRoom: "+nomeRoom);
-				
-				$("#mainPage").addClass("hide");
-				//$("#nav").addClass("hide");
-				//$("#videoCallPage").removeClass("hide");
-				$(".bodyclass").addClass("bd");
 	
-				creaHandler();
+				creaHandler(false);
 				
 			}else{
 				alert("ERROR");
