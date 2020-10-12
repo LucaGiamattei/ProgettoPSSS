@@ -410,10 +410,27 @@ function gestisciRispostaProgrammazioni(responseXML) {
 				return null;
 			}
 			
-			if(localStorage['videoCallStarted'] == null){
+			const now = new Date();
 							
 				for(i=0; i <risposta.childNodes.length; i++){
-					$('.containerProfilo').append(
+					var dateProg= risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue;
+					var data = dateProg.split("/");
+					
+					var oraInizio = risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue;
+					var orarioInizio = oraInizio.split(":");
+					var dataProgInizio = new Date(data[1]+"/"+data[0]+"/"+data[2]);
+					dataProgInizio.setHours(orarioInizio[0]);
+					dataProgInizio.setMinutes(orarioInizio[1]);
+	
+					var oraFine = risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue;
+					var orarioFine = oraFine.split(":");
+					var dataProgFine = new Date(data[1]+"/"+data[0]+"/"+data[2]);
+					dataProgFine.setHours(orarioFine[0]);
+					dataProgFine.setMinutes(orarioFine[1]);
+					
+					var elapsedInizio = dataProgInizio.getTime()-Date.now();
+					var elapsedFine = dataProgFine.getTime()-Date.now();
+					var append = 
 							'<br>'+
 							'<div class="card">'+
 							 '<div class="card-body">'+
@@ -423,47 +440,73 @@ function gestisciRispostaProgrammazioni(responseXML) {
 									risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
 									'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
 									'</p>'+
-								'  </div>'+
-								'<div class="col-1">'+
-								'<a onclick="eliminaProgrammazione('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-danger btn-sm">X</a>'+
-								'  </div>'+
-								'<div class="col">'+
-								'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
-								'</div>'+
-								 '</div>'+
-							'</div>'+
-							'<br>'
-					);
-				}
-			}else if(localStorage['videoCallStarted'] == "true"){
-				for(i=0; i <risposta.childNodes.length; i++){
-					$('.containerProfilo').append(
-							'<br>'+
-							'<div class="card">'+
-							 '<div class="card-body">'+
-								 '<div class="col">'+
-									'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
-									'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
-									risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
-									'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
-									'</p>'+
-								'  </div>'+
-								'<div class="col-1">'+
-								'<a onclick="creaHandler(false,false)"  class="btn btn-success btn-sm">Partecipa</a>'+
-								'  </div>'+
-								'<div class="col">'+
-								'<a onclick="destroyWithHandler('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-danger btn-sm">Chiudi videocall</a>'+
-								'</div>'+
-								 '</div>'+
-							'</div>'+
-							'<br>'
-					);
+								'  </div>';
+								if(localStorage['videoCallStarted'] == "true" && localStorage['idprog']==risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue){
+									append= append+
+									'<div class="col-1">'+
+									'<a onclick="creaHandler(false,false)"  class="btn btn-success btn-sm">Partecipa</a>'+
+									'  </div>'+
+									'<div class="col">'+
+									'<a onclick="destroyWithHandler('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-danger btn-sm">Chiudi videocall</a>'+
+									'</div>'+
+									 '</div>'+
+									'</div>'+
+									'<br>'
+								}else{
+									append=append+
+									'<div class="col-1" id = "eliminaProgrammazone'+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">'+
+									'<a onclick="eliminaProgrammazione('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-danger btn-sm">X</a>'+
+									'  </div>';
+									if(elapsedInizio<0 && elapsedFine>0){
+										append=append+
+										'<div class="col" id="avviaVideoCall'+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">'+
+										'<a onclick="avviaVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
+										'</div>';
+									}
+									append=append+
+									 '</div>'+
+									'</div>'+
+									'<br>';
+								}
+								if(elapsedInizio>0){
+									console.log("millisecondi dall'inizio: "+ elapsedInizio);
+									var id = risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue; 
+									window.setTimeout(function(){updateTimeoutAddAvviaVideoCall(id); }, elapsedInizio);
+									
+								}
+								if(elapsedFine>0){
+									console.log("millisecondi dalla fine: "+ elapsedFine);
+									var id = risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue; 
+									window.setTimeout(function(){updateTimeoutRemoveAvviaVideoCall(id); }, elapsedFine);
+								}
+								
+								$('.containerProfilo').append(append);
+								
+					
 				}
 			
-			}
 		}
 	
 	}
+}
+
+function updateTimeoutAddAvviaVideoCall(id){
+	console.log("TIMEOUT AddAvviaVideoCall"+id);
+	if(localStorage['videoCallStarted'] != "true"){
+		$("#eliminaProgrammazone"+id+"").append(
+				'<div class="col" id="avviaVideoCall'+id+'">'+
+				'<a onclick="avviaVideoCall('+id+')"  class="btn btn-success btn-sm">Avvia Videochiamata</a>'+
+				'</div>');
+	}
+	
+}
+
+function updateTimeoutRemoveAvviaVideoCall(id){
+	console.log("TIMEOUT RemoveAvviaVideoCall"+id);
+	
+	$("#avviaVideoCall"+id+"").remove();
+	
+	
 }
 
 function avviaVideoCall(idprog) {
@@ -516,7 +559,7 @@ function gestisciRispostaAvviaVideoCall(responseXML){
 				creaHandler(true,false);
 				
 			}else{
-				localStorage.deleteItem()
+				localStorage.deleteItem("idprog")
 			}
 			
 
