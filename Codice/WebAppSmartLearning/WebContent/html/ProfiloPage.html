@@ -704,7 +704,7 @@ function gestisciRispostaSubscribes(responseXML) {
 					        '</p>'+
 					        '<p>Lezioni programmate: </p>'+
 					        '<div id="fascia" class="fasce'+i+'"></div>'+
-					        '<button type="button" onclick="" class="btn btn-info btn-sm">Vedi le programmazioni</button>'+			
+					        '<button type="button" onclick="programsLezSub('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-info btn-sm">Vedi le programmazioni</button>'+			
 					      '</div>'+
 					    '</div>'+
 					  '</div>');
@@ -725,6 +725,143 @@ function gestisciRispostaSubscribes(responseXML) {
 		window.location.replace("http://localhost:8080/WebAppSmartLearning");
 	}
 }
+
+
+
+function programsLezSub(idlez) {
+	
+	console.log("ProgrammaLezSubFunc");
+	$('.containerProfilo').children().remove();
+	
+	var myId = localStorage['myId'];
+	
+	if(myId == undefined){
+		myId = "";
+	}
+		
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId+"&idlez="+idlez;
+	var url = "../riservate/programs";
+	request.open('GET', url+"?"+params, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaProgrammazioniSub(request.responseXML);
+		}
+	}
+	request.send();	
+	
+}
+
+function gestisciRispostaProgrammazioniSub(responseXML) {
+	
+	if(responseXML != null){
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+			var risposta = responseXML.getElementsByTagName("risposta")[0];
+			
+			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue; 
+			
+			
+			if(risultato == "utenteNonAutorizzato"){
+				
+				return null;
+			}
+			
+			if(risultato == "noFasce"){
+				return null;
+			}
+			
+			for(i=0; i <risposta.childNodes.length; i++){
+				$('.containerProfilo').append(
+						'<br>'+
+						'<div class="card">'+
+						 '<div class="card-body">'+
+							 '<div class="col">'+
+								'<p>Data: '+risposta.childNodes[i].getElementsByTagName("data")[0].childNodes[0].nodeValue+'</p>'+
+								'<p>Orario: '+risposta.childNodes[i].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+								risposta.childNodes[i].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+								'<p>Prezzo: '+risposta.childNodes[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+								'</p>'+
+							'  </div>'+
+							'<div class="col-1">'+
+							'  </div>'+
+							'<div class="col">'+
+							'<a onclick="joinVideoCall('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')"  class="btn btn-success btn-sm">Partecipa</a>'+
+							'</div>'+
+							 '</div>'+
+						'</div>'+
+						'<br>'
+				);
+			}
+			
+		}
+	}
+	
+}
+
+
+function joinVideoCall(idprog) {
+	console.log("joinVideoChiamata");
+	var myId = localStorage['myId'];
+	if(myId == undefined){
+		myId = "";
+	}
+	
+	var request = new XMLHttpRequest();
+	var params = "requesterId="+myId+"&idprog="+idprog;
+	var url = "../riservate/joinvideocall";
+	request.open('GET', url+"?"+params, true);
+	
+	//Send the proper header information along with the request
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	request.onreadystatechange = function() {//Call a function when the state changes.
+		if(request.readyState == 4 && request.status == 200) {
+			   gestisciRispostaJoinVideoCall(request.responseXML);
+		}
+	}
+	
+	request.send();	
+}
+
+function gestisciRispostaJoinVideoCall(responseXML){
+	if(responseXML != null){
+		var risposta = responseXML.getElementsByTagName("risposta")[0];
+		var risultato = responseXML.getElementsByTagName("risultato")[0];
+		
+		if(responseXML.getElementsByTagName("risposta").length > 0) {
+						
+			if(risultato.childNodes[0].nodeValue == "DatiRecuperati"){
+				
+				nomeRoom= risposta.childNodes[1].childNodes[0].nodeValue;
+				tokenUtente  = risposta.childNodes[2].childNodes[0].nodeValue;
+				localStorage['nomeRoom'] = nomeRoom;
+				localStorage['tokenUtente'] = tokenUtente;
+				console.log("tokenUtente: "+tokenUtente+", nomeRoom: "+nomeRoom);
+				
+				$("#mainPage").addClass("hide");
+				//$("#nav").addClass("hide");
+				//$("#videoCallPage").removeClass("hide");
+				$(".bodyclass").addClass("bd");
+	
+				creaHandler();
+				
+			}else{
+				alert("ERROR");
+			}
+			
+
+			
+		}
+		
+	}
+	
+	
+}
+
 
 
 
