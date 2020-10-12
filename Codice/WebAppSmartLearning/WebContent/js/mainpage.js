@@ -2,6 +2,7 @@
 var tokens = [];
 var nomeRoom = null;
 var tokenDocente = null;
+var tokenUtente = null;
 
 //Oggetto Janus per creare una sessione Janus
 var janus = null;
@@ -79,7 +80,9 @@ function creaHandler() {
                                 //NON VA BENE QUESTA SOLUZIONE: DA RIVEDERE!
                                 if(tokenDocente != null){
                                 	newRoom();
-                                }	
+                                }else if(tokenUtente != null){
+                                	joinToRoom();
+                                }
                             },
                             error: function(error) {
                                 Janus.error("  -- Error attaching plugin...", error);
@@ -402,26 +405,20 @@ function creaHandler() {
 }
 
 function joinToRoom(){
-	room = parseInt(prompt("Name of the room to join"));
+	room = parseInt(nomeRoom);
   
-   if( isNaN(room) ||room===null) {
-	   // Create fields to register
-	   bootbox.alert("Please enter an integer value");	
-   } else {
-	   $("#buttonsPage").addClass("hide");
-	   $("#JoinedOrCreatedToRoom").removeClass("hide").show();
 	   /*var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
 	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
 	   var register = {
 		   request: "join",
 		   room: room,
 		   ptype: "publisher",
-		   display: username
+		   display: username,
+		   token: tokenUtente
 	   };
 	   handle_vr.send({ message: register });
    }
 
-}
 
 
 
@@ -1243,7 +1240,6 @@ function unsubscribeFrom(id) {
 
 
 function recalculateLayout() {
-	Janus.log("RECALCUL");
   
   const aspectRatio = 16 / 9;
 
@@ -1251,8 +1247,6 @@ function recalculateLayout() {
   const screenHeight = (document.body.getBoundingClientRect().height);
   const videoCount1 = document.getElementsByClassName("Video-Stream").length;
   const videoCount2 = document.getElementsByClassName("Video-Stream hide").length;
-
-  Janus.log("calcolo",videoCount1-videoCount2);
 
   const videoCount = (videoCount1-videoCount2);
 

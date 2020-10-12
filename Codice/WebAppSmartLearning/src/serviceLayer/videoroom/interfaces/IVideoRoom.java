@@ -53,4 +53,15 @@ public interface IVideoRoom {
 	
 	public StateResult deleteVideoRoom(idFasciaOraria id);
 	
+	
+	/**
+	 * Questa funzione ha lo scopo di recuperare tutti i dati necessari ad un utente per effettuare la join in una videoroom
+	 * I dati necessari sono il nome della room ed il token relativo al pagamento dell'utente.
+	 * @param idFasciaOraria
+	 * @param idUser
+	 * @param tokenUtente
+	 * @param nomeRoom
+	 * @return
+	 */
+	public StateResult getJoinUserData(String idFasciaOraria, String idUtente, String[] tokenUtente, String[] nomeRoom);
 }

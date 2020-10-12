@@ -134,6 +134,31 @@ public class ImplVideoRoom implements IVideoRoom{
 		
 		return StateResult.NOCHANGES;
 	}
+
+	@Override
+	public StateResult getJoinUserData(String idFasciaOraria, String idUtente, String[] tokenUtente, String[] nomeRoom) {
+		// TODO Auto-generated method stub
+		ControllerVideoRoomDB controllerV = new ControllerVideoRoomDB();
+		VideoRoomDB room = new VideoRoomDB();
+		ControllerPagamentoDB controllerP = new ControllerPagamentoDB();
+		PagamentoDB pagam = new PagamentoDB(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), new idUser(Integer.parseInt(idUtente)));
+		StateResult result;
+		
+		result = controllerV.getRoom(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), room);
+		if(result != StateResult.VALID) {
+			return result;
+		}
+		
+		result = controllerP.getTokenByUtente(pagam);
+		if(result != StateResult.VALID) {
+			return result;
+		}
+		
+		nomeRoom[0]  = room.getNomeRoom();
+		tokenUtente[0] = pagam.getToken();
+		
+		return result;
+	}
 	
 	
 }

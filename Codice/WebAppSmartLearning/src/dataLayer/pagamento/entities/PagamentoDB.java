@@ -7,6 +7,8 @@ public class PagamentoDB {
 	idFasciaOraria idFascia;
 	idUser id;
 	String token;
+	
+	
 	public idFasciaOraria getIdFascia() {
 		return idFascia;
 	}
@@ -30,6 +32,12 @@ public class PagamentoDB {
 		this.idFascia = idFascia;
 		this.id = id;
 		this.token = token;
+	}
+	
+	public PagamentoDB(idFasciaOraria idFascia, idUser id) {
+		super();
+		this.idFascia = idFascia;
+		this.id = id;
 	}
 	
 

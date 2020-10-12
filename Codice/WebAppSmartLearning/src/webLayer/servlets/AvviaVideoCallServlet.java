@@ -35,7 +35,7 @@ public class AvviaVideoCallServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet_AVVIAVIDEOCALL");
 		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
-		String[] tokenDocente = new String[1]; ;
+		String[] tokenDocente = new String[1];
 		Vector<String> tokens = new Vector<String>();
 		
 		// TODO Auto-generated method stub
