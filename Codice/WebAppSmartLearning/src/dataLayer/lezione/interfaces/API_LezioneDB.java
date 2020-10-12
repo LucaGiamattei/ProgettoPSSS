@@ -117,7 +117,7 @@ public interface API_LezioneDB {
 	 *- VALID
 	 *- DBPROBLEM
 	 */
-	 StateResult getLessonsbyTopics(idTopic infoTopic, Vector<LezioneDB> lezioni);
+	 public StateResult getLessonsbyTopics(idTopic infoTopic, Vector<LezioneDB> lezioni);
 	
 	/**
 	 *Questa funzione permette di ottenere un vettore di lezioni che riguardano un determinato nome di una lezione
@@ -128,7 +128,7 @@ public interface API_LezioneDB {
 	 *- VALID
 	 *- DBPROBLEM
 	 */
-	 StateResult getLessonsbyTitle(String title, Vector<LezioneDB> lezioni);
+	 public StateResult getLessonsbyTitle(String title, Vector<LezioneDB> lezioni);
 	 /**
 	  * Questa funzione permette di collegare gli slot alle lezioni (ogni lezione deve contenere almeno l'id utente e l'id lezione)
 	  * @param lezioni
@@ -137,7 +137,7 @@ public interface API_LezioneDB {
 	  *- DBPROBLEM
 	  */
 	 
-	 StateResult attachSlotsToLessonsUtente(Vector<LezioneDB> lezioni);
+	 public StateResult attachSlotsToLessonsUtente(Vector<LezioneDB> lezioni);
 	 
 	 /**
 	  * Questa funzione restituisce tutte le lezioni con relative fasce pagate da un utente e ancora non "scadute"
@@ -147,5 +147,12 @@ public interface API_LezioneDB {
 	  *- VALID
 	  *- DBPROBLEM
 	  */
-	 StateResult getLessonsPayedStillUp(idUser idUser, Vector<LezioneDB> lezioni);
+	 public StateResult getLessonsPayedStillUp(idUser idUser, Vector<LezioneDB> lezioni);
+	 
+	 /**
+	  * Questa funzione permette di ottenere una fascia oraria visibile
+	  * @param fascia
+	  * @return
+	  */
+	 public StateResult getFasciaOraria(FasciaOraria fascia);
 }
