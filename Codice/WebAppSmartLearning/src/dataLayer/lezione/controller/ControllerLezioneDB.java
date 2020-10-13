@@ -152,6 +152,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			   }
 			   
 			   lezione.put("NMaxStudenti", ""+infoLezione.getNmax()+"");
+			   
+			   
 			   lezione.put("Utente_idUtente", ""+infoLezione.getIdUtente()+"");
 			    
 			    Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
