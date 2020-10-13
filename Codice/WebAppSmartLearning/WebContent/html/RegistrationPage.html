@@ -106,9 +106,9 @@ function checkData()
 var correct = true 
 	if (document.getElementById("nomeform").value == "") {correct = false; alert("Inserisci il tuo nome !")} 
 	else if (document.getElementById("cognomeform").value == "") {correct = false; alert("Inserisci il tuo cognome !")} 
-	else if (document.getElementById("emailform").value == "") {correct = false; alert("Inserisci il tuo indirizzo di e-mail !")} 
+	else if (document.getElementById("emailform").value == "") {correct = false; alert("Inserisci il tuo indirizzo e-mail !")} 
 	//else if ((document.MyForm.email.value.indexOf("@") == -1 ) && (document.MyForm.email.value !== "")) {correct = false; alert(" e-mail non valido !")}
-	else if (!validateEmail(document.getElementById("emailform").value)){correct = false; alert(" e-mail non valido !")}
+	else if (!validateEmail(document.getElementById("emailform").value)){correct = false; alert(" e-mail non valida !")}
 return correct 
 }
 
