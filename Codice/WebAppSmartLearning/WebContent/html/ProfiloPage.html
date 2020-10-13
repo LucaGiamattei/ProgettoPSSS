@@ -681,7 +681,7 @@ function creaFormProgrammazione(idlez) {
 }
 
 
-function checkData() 
+function checkData1() 
 { 
 var correct = true 
 	if (document.getElementById("datalez").value == "") {correct = false; alert("Inserisci una data !")} 
@@ -694,7 +694,7 @@ return correct
 
 function programmaLezione(idlez) {
 	
-	if(checkData()){
+	if(checkData1()){
 	var request = new XMLHttpRequest();
 	
 	var data = document.getElementById("datalez").value;
