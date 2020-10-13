@@ -4,6 +4,8 @@ var nomeRoom = null;
 var tokenDocente = null;
 var tokenUtente = null;
 var idRoomToDestroy = null;
+var timeout1 = {};
+var timeout2 = {};
 
 //Oggetto Janus per creare una sessione Janus
 var janus = null;

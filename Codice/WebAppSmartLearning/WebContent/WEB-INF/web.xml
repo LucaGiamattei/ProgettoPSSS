@@ -186,8 +186,17 @@
   <url-pattern>/riservate/joinvideocall</url-pattern>
   </servlet-mapping>
   
-
+  <servlet>
+  <description></description>
+  <display-name>ProgramsSubServlet</display-name>
+  <servlet-name>ProgramsSubServlet</servlet-name>
+  <servlet-class>webLayer.servlets.ProgramsSubServlet</servlet-class>
+  </servlet>
   
+  <servlet-mapping>
+  <servlet-name>ProgramsSubServlet</servlet-name>
+  <url-pattern>/riservate/programssub</url-pattern>
+  </servlet-mapping>
   
   
   <filter>

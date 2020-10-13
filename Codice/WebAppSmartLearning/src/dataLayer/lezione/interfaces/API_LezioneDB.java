@@ -155,4 +155,21 @@ public interface API_LezioneDB {
 	  * @return
 	  */
 	 public StateResult getFasciaOraria(FasciaOraria fascia);
+	 
+	 /**
+	  * Questa funzione permette di ottenere una fascia oraria in base ad un utente, anche se scaduta
+	  * @param id
+	  * @param fascia
+	  * @return
+	  */
+	 public StateResult getFasciaOrariaNoCatalogo(idUser id, FasciaOraria fascia);
+	 
+	 /**
+	  * Questa funzione permette di ottenere una le fasce orarie relative ad una lezione pagate da un utente
+	  * @param id
+	  * @param idlezione
+	  * @param fasce
+	  * @return
+	  */
+	 public StateResult getFascePayedStillUpByLesson(idUser idUser, idLesson idlez, Vector<FasciaOraria> fasce);
 }
