@@ -190,7 +190,6 @@ function gestisciRispostaLessons(responseXML) {
 			var risposta = responseXML.getElementsByTagName("risposta")[0];
 			var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
 			
-			
 			if(risultato == "utenteNonAutorizzato"){
 				
 				$('.containerProfilo').append('<div class="alert alert-danger" role="alert">'+
@@ -201,9 +200,13 @@ function gestisciRispostaLessons(responseXML) {
 				return null;
 			}
 			
-			$('.containerProfilo').append('<button type="button" onclick="creaLezioneFunc()"class="btn btn-warning">Crea una lezione</button>');
-			
 			if(risultato == "noLessons"){
+				
+				$('.containerProfilo').append('<div class="alert alert-warning" role="alert">'+
+						  'Non sono presenti lezioni create, crea una lezione.'+
+						 ' </div>'
+						);
+				$('.containerProfilo').append('<button type="button" onclick="creaLezioneFunc()"class="btn btn-warning">Crea una lezione</button>');
 				return null;
 			}
 			

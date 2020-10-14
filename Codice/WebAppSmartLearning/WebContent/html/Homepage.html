@@ -120,38 +120,47 @@ function gestisciRisposta(responseXML) {
 		if(responseXML.getElementsByTagName("risposta").length > 0) {
 			var risposta = responseXML.getElementsByTagName("risposta")[0];
 			
-			for (i = 0; i < risposta.childNodes.length; i++){
-				$('.lista').append('<div class="col-sm-6 scheda">'+
-					    '<div class="card">'+
-					      '<div class="card-body">'+
-					        '<h2 class="card-title">'+risposta.childNodes[i].getElementsByTagName("nome")[0].childNodes[0].nodeValue+'</h2>'+
-					        '<p class="card-text">'+
-					        '<p>Docente: '+risposta.childNodes[i].getElementsByTagName("cognomedoc")[0].childNodes[0].nodeValue+ ' '+
-					        risposta.childNodes[i].getElementsByTagName("nomedoc")[0].childNodes[0].nodeValue+ '</p>'+
-					        '<p>Topic: '+risposta.childNodes[i].getElementsByTagName("topic")[0].childNodes[0].nodeValue+
-					        '</p>'+
-					        '<p>Score lezione: '+risposta.childNodes[i].getElementsByTagName("score")[0].childNodes[0].nodeValue+ '  |  '+
-					        ' Numero massimo studenti: '+risposta.childNodes[i].getElementsByTagName("nstudenti")[0].childNodes[0].nodeValue+ '</p>'+
-					        '</p>'+
-					        '<p>Lezioni programmate: </p>'+
-					        '<div class="fasce'+i+'"></div>'+
-					        '<a onclick="retrievePrograms('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-success">Prenota ora</a>'+
-					      '</div>'+
-					    '</div>'+
-					  '</div>');
+			if (risposta.childNodes[0].nodeValue == "noLezioni"){
+				$('.lista').append('<div class="alert alert-info" role="alert">'+
+						  'Non ci sono lezioni per questa ricerca'+
+						 ' </div>'
+						);
+						
 				
-				for(j=0; j < risposta.childNodes[i].getElementsByTagName("fascia").length; j++){
-					$('.fasce'+i).append(
-						'<p>Data: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("data")[0].childNodes[0].nodeValue+
-						'  |  Orario: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
-						risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
-						'  |  Prezzo: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
-						'</p>'					
-					);
+			}else{
+			
+				for (i = 0; i < risposta.childNodes.length; i++){
+					$('.lista').append('<div class="col-sm-6 scheda">'+
+						    '<div class="card">'+
+						      '<div class="card-body">'+
+						        '<h2 class="card-title">'+risposta.childNodes[i].getElementsByTagName("nome")[0].childNodes[0].nodeValue+'</h2>'+
+						        '<p class="card-text">'+
+						        '<p>Docente: '+risposta.childNodes[i].getElementsByTagName("cognomedoc")[0].childNodes[0].nodeValue+ ' '+
+						        risposta.childNodes[i].getElementsByTagName("nomedoc")[0].childNodes[0].nodeValue+ '</p>'+
+						        '<p>Topic: '+risposta.childNodes[i].getElementsByTagName("topic")[0].childNodes[0].nodeValue+
+						        '</p>'+
+						        '<p>Score lezione: '+risposta.childNodes[i].getElementsByTagName("score")[0].childNodes[0].nodeValue+ '  |  '+
+						        ' Numero massimo studenti: '+risposta.childNodes[i].getElementsByTagName("nstudenti")[0].childNodes[0].nodeValue+ '</p>'+
+						        '</p>'+
+						        '<p>Lezioni programmate: </p>'+
+						        '<div class="fasce'+i+'"></div>'+
+						        '<a onclick="retrievePrograms('+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+')" class="btn btn-success">Prenota ora</a>'+
+						      '</div>'+
+						    '</div>'+
+						  '</div>');
 					
+					for(j=0; j < risposta.childNodes[i].getElementsByTagName("fascia").length; j++){
+						$('.fasce'+i).append(
+							'<p>Data: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("data")[0].childNodes[0].nodeValue+
+							'  |  Orario: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orarioinizio")[0].childNodes[0].nodeValue+' - '+
+							risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("orariofine")[0].childNodes[0].nodeValue+
+							'  |  Prezzo: '+risposta.childNodes[i].getElementsByTagName("fascia")[j].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue+' €'+
+							'</p>'					
+						);
+						
+					}
 				}
 			}
-			
 			
 		}
 	}else{
@@ -222,6 +231,8 @@ function gestisciRispostaProgrammazioni(responseXML) {
 				);
 			}
 		}
+	}else{
+		window.location.replace("http://localhost:8080/WebAppSmartLearning");
 	}
 }
 
@@ -263,9 +274,10 @@ function gestisciRispostaSubProgram(responseXML) {
 				alert("ops.. qualcosa e' andato storto, riprova!");
 			}
 		}
+	}else{
+		window.location.replace("http://localhost:8080/WebAppSmartLearning");
 	}
-	
-	
+
 }
 
 function back(){
