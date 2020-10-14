@@ -97,6 +97,7 @@
 	
 function aggiorna(){
 	
+	if(checkData()){
 	var myId = localStorage['myId'];
 
 	if(myId == undefined){
@@ -123,8 +124,8 @@ function aggiorna(){
 	    }
 	}
 	request.send(params);
+	}
 }
-
 function gestisciRisposta(responseXML) {
 	if(responseXML.getElementsByTagName("risposta").length > 0) {
 		var risultato = responseXML.getElementsByTagName("risposta")[0].childNodes[0].nodeValue;
@@ -140,4 +141,16 @@ function gestisciRisposta(responseXML) {
 	}
 }
 	
+function checkData() 
+{ 
+var correct = true 
+	if (!validateEmail(document.getElementById("paypalform").value)){correct = false; alert(" e-mail non valida !")}
+	else if (document.getElementById("curriculumform").value == "") {correct = false; alert("Inserisci il tuo curriculum !")} 
+return correct 
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 </script>

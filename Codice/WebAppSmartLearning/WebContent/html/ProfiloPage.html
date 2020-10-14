@@ -306,9 +306,11 @@ function creaLezioneFunc() {
 	request.send();
 }
 
+
+
 function CreateFunction(){
 	
-	
+	if(checkData()){
 	var request = new XMLHttpRequest();
 	
 	var nome = document.getElementById("nomeform").value;
@@ -339,7 +341,7 @@ function CreateFunction(){
 	}
 	request.send(params);
 	}
-
+}
 
 function gestisciRispostaCreate(responseXML) {
 	if(responseXML != null){
@@ -355,6 +357,14 @@ function gestisciRispostaCreate(responseXML) {
 			}
 		}
 	}
+}
+
+function checkData() 
+{ 
+var correct = true 
+	if (document.getElementById("nomeform").value == "") {correct = false; alert("Inserisci il nome della lezione !")} 
+	else if (document.getElementById("maxstud").value == "") {correct = false; alert("Inserisci il numero massimo di studenti !")} 
+return correct 
 }
 
 
@@ -671,9 +681,20 @@ function creaFormProgrammazione(idlez) {
 }
 
 
+function checkData1() 
+{ 
+var correct = true 
+	if (document.getElementById("datalez").value == "") {correct = false; alert("Inserisci una data !")} 
+	else if (document.getElementById("orainizio").value == "") {correct = false; alert("Inserisci l'orario d'inizio !")} 
+	else if (document.getElementById("orafine").value == "") {correct = false; alert("Inserisci l'orario di fine !")} 
+	//else if ((document.MyForm.email.value.indexOf("@") == -1 ) && (document.MyForm.email.value !== "")) {correct = false; alert(" e-mail non valido !")}
+	else if (document.getElementById("prezzo").value == "") {correct = false; alert("Inserisci il prezzo !")} 
+return correct 
+}
 
 function programmaLezione(idlez) {
 	
+	if(checkData1()){
 	var request = new XMLHttpRequest();
 	
 	var data = document.getElementById("datalez").value;
@@ -703,6 +724,7 @@ function programmaLezione(idlez) {
 	    }
 	}
 	request.send(params);
+	}
 }
 
 function gestisciRispostaProgrammazione(responseXML) {
