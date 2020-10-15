@@ -51,13 +51,25 @@ public class AuthFilter implements Filter {
 		System.out.println("FILTRO AUTH! ID:"+myId);
 		
 		if(myId == "" || myId == null) {
-
+			System.out.println("errore AuthFilter");
+			StringBuffer xmlReply = new StringBuffer();
+			xmlReply.append("<risposta>errore</risposta>");
+			response.setContentType("text/xml");
+			response.getWriter().write(xmlReply.toString());
+			
 		}else {
 			StateResult valid = user.validateUser(new idUser(Integer.parseInt(myId)));
 			
 			if(valid == StateResult.VALID) {
 				// pass the request along the filter chain
 				chain.doFilter(request, response);
+			}else {
+				System.out.println("Utente Non Loggato");
+				StringBuffer xmlReply = new StringBuffer();
+				
+				xmlReply.append("<risposta>utenteNonLoggato</risposta>");
+				response.setContentType("text/xml");
+				response.getWriter().write(xmlReply.toString());
 			}
 		
 		}

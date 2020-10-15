@@ -50,7 +50,7 @@ function logOut(){
 	localStorage.removeItem('nomeRoom');
 	localStorage.removeItem('idprog');
 	localStorage.removeItem('videoCallStarted');
-	window.location.replace("http://localhost:8080/WebAppSmartLearning");
+	window.location.replace("../");
 	
 	
 }

@@ -21,13 +21,22 @@ public class DBConnectionManager
 	public static String driver = "com.mysql.jdbc.Driver";
 	public static String userName = "giorgio@dbpsss"; 
 	public static String password = "Applicazionitelematiche1996";
-
-	public static Connection getConnection() throws Exception
+	private static Connection conn = null;
+	
+	public static Connection getConnection()
 	{
-	  Connection conn = null;
-	  
-	  Class.forName(driver);
-	  conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
+	  if (conn == null) {
+		  try {
+			Class.forName(driver);
+			 conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 return getConnection();
+			
+		}
+		 
+	  }
 	  
 	  return conn;
 	}
@@ -53,7 +62,7 @@ public class DBConnectionManager
 		Connection conn = getConnection();
 		Statement statement = conn.createStatement();
 		int ret = statement.executeUpdate(query);
-		conn.close();
+		//conn.close();
 		return ret;
 	}
 	
@@ -71,7 +80,7 @@ public class DBConnectionManager
 		    ret = rs.getInt(1);
 		}
 		
-		conn.close();
+		//conn.close();
 		
 		return ret;
 	}

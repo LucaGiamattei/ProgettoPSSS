@@ -201,7 +201,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				int outputValue = stmt.getInt(5);
 	
 				conn.commit();
-				conn.close();
+				//conn.close();
 				
 				if(outputValue == 0) {
 					return StateResult.UPDATED;
@@ -242,7 +242,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				int retId = stmt.getInt(5);
 				
 				conn.commit();
-				conn.close();
+				//conn.close();
 				
 				if(retId > 0) {
 					orari.setId(new idFasciaOraria(retId));
