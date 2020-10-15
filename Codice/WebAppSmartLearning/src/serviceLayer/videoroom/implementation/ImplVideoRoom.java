@@ -34,7 +34,7 @@ public class ImplVideoRoom implements IVideoRoom{
 	public StateResult verifyDocenteHasFasciaOraria(String idUtente, FasciaOraria fascia) {
 
 		ControllerLezioneDB controllerLezione = new ControllerLezioneDB();
-		if (controllerLezione.getFasciaOraria(new idUser(Integer.parseInt(idUtente)), fascia)==StateResult.VALID) {
+		if (controllerLezione.getFasciaOrariaNoCatalogo(new idUser(Integer.parseInt(idUtente)), fascia)==StateResult.VALID) {
 			
 			return StateResult.VALID;
 		}else {

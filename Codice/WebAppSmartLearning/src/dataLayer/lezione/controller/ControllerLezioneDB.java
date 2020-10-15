@@ -102,6 +102,43 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			
 		}
 		
+		public StateResult getFasciaOrariaNoCatalogo(idUser id, FasciaOraria fascia) {
+			
+			// TODO Auto-generated method stub
+			String [] fieldsToSelect = {"*"};
+			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			conditionsFildsToValues.put("idFasciaOraria", fascia.getId().toString());
+			conditionsFildsToValues.put("Lezione_Utente_idUtente", id.toString());
+						ResultSet result;
+						try {
+							result = DBConnectionManager.SelectEntryDB("fasciaoraria", fieldsToSelect, conditionsFildsToValues);
+							
+							int numOfRows = 0;
+							
+							while (result.next()) {
+								numOfRows++;
+								fascia.setVisible(result.getInt("visibile"));
+								fascia.setOrarioInizioLezione(result.getTime("OrarioInizioLezione"));
+								fascia.setOrarioFineLezione(result.getTime("OrarioFineLezione"));
+								fascia.setPrezzo(result.getFloat("prezzo"));
+								fascia.setDataLezione(result.getDate("DataLezione"));
+								
+							}
+							switch(numOfRows) {
+						      case 1:
+						    	  return StateResult.VALID;
+						      default:
+						    	  return StateResult.NOVALID;
+							}
+							
+						
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							return StateResult.DBPROBLEM;
+						}
+			
+		}
 		
 		@Override
 		public StateResult createLesson(LezioneDB infoLezione, String nomeTopic) {
@@ -586,6 +623,62 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 					
 				
 					if(lezioni.size() > 0) {
+						return StateResult.VALID;
+					}else {
+						return StateResult.NOVALID;
+					}
+				}else {return StateResult.NOVALID;}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return StateResult.DBPROBLEM;
+			}
+	
+		}
+		
+		
+		
+		@Override
+		public StateResult getFascePayedStillUpByLesson(idUser idUser, idLesson idlez, Vector<FasciaOraria> fasce) {
+			// TODO Auto-generated method stub
+			
+			String [] fieldsToSelect = {"FasciaOraria_idFasciaOraria"};
+			Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+			Hashtable<String,List<String>> conditionsFildsToValuesList = new Hashtable<String, List<String>>();
+			conditionsFildsToValues.put("Utente_idUtente", idUser.toString());
+			
+			
+			ResultSet result;
+			try {
+						
+				result = DBConnectionManager.SelectEntryDB("pagamento",fieldsToSelect,conditionsFildsToValues);
+				
+				if (result.next()) {
+					
+					List<String> list = new ArrayList<>();
+					String [] fieldsToSelectlist = {"*"};
+					
+					result.beforeFirst();
+					while(result.next()) {
+						list.add(Integer.toString(result.getInt("FasciaOraria_idFasciaOraria")));
+					}
+					
+					conditionsFildsToValuesList.put("idFasciaOraria",list);
+					
+					result = DBConnectionManager.SelectEntryORDB("catalogolezioni",fieldsToSelectlist,conditionsFildsToValuesList);
+					
+
+					while(result.next()) {
+						if(result.getInt("idLezione") == idlez.getId()) {
+							FasciaOraria fascia = new FasciaOraria(new idFasciaOraria(result.getInt("idFasciaOraria")),result.getInt("visibile"), result.getTime("OrarioInizioLezione"),result.getTime("OrarioFineLezione"), result.getDate("DataLezione"), result.getFloat("prezzo"));
+							fasce.add(fascia);
+						}
+					}
+
+					
+				
+					if(fasce.size() > 0) {
 						return StateResult.VALID;
 					}else {
 						return StateResult.NOVALID;

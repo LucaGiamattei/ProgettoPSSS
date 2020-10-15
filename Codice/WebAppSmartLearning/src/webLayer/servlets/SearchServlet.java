@@ -104,49 +104,26 @@ public class SearchServlet extends HttpServlet {
 			}
 		}
 		
-		
-		
+		if(result == StateResult.NOVALID){
+			xmlReply.append("noLezioni");
+		}
 		xmlReply.append("</risposta>");
 		
 		if(result == StateResult.VALID) {
 			System.out.println(xmlReply.toString());
 			response.setContentType("text/xml"); 
 			response.getWriter().write(xmlReply.toString()); 			
-		} else {
+		} else if(result == StateResult.NOVALID){
+			response.setContentType("text/xml"); 
+			response.getWriter().write(xmlReply.toString());
+			System.out.println(xmlReply.toString());
+		}else {
 			response.sendError(HttpServletResponse.SC_NO_CONTENT);
 		}
 
 	}
-	
-	
-
 }
 
-
-/*
- * <risposta>
- * 	<lezione>
- * 		<nome></nome>
- * 		<nstudenti></nstudenti>
- * 		<prezzo></prezzo>						!!!DA TOGLIERE QUI E AGGIUNGERE A FASCIA ORARIA
- * 		<descrizione></descrizione>
- * 		<score></score>
- * 		
- * 		<fascia>
- * 			<data></data>
- * 			<orarioinizio></orarioinizio>
- * 			<orariofine></orariofine>
- * 		</fascia>
- * 		...
- * 
- * 		<cognomedoc></cognomedoc>
- * 		<nomedoc></nomedoc>
- * 		<topic></topic>						
- *	</lezione>
- * 	...
- * 
- * </risposta>
- * */
 
 
 
