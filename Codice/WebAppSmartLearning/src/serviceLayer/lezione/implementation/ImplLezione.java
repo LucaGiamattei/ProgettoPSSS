@@ -66,6 +66,7 @@ public class ImplLezione implements ILezione {
 			return StateResult.NOVALID;
 		}
 	}
+	
 
 	@Override
 	public StateResult removeFasciaById(idFasciaOraria id) {
@@ -94,6 +95,18 @@ public class ImplLezione implements ILezione {
 			topics.add(topicvar.getNome());
 		}
 		
+		return result;
+	}
+	
+	@Override
+	public StateResult getPayedFasceByLesson(idUser iduser, idLesson idlez, Vector<FasciaOraria> fasce) {
+		// TODO Auto-generated method stub
+		
+		ControllerLezioneDB controller = new ControllerLezioneDB();
+		
+		StateResult result = controller.getFascePayedStillUpByLesson(iduser, idlez, fasce);
+		
+
 		return result;
 	}
 

@@ -16,18 +16,18 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class DBConnectionManager
 {
-	public static String url = "jdbc:mysql://localhost:3306/";
+	public static String url = "jdbc:mysql://dbpsss.mysql.database.azure.com:3306/";
 	public static String dbName = "Prova2";
 	public static String driver = "com.mysql.jdbc.Driver";
-	public static String userName = "root"; 
-	public static String password = "giorgio1996";
+	public static String userName = "giorgio@dbpsss"; 
+	public static String password = "Applicazionitelematiche1996";
 
 	public static Connection getConnection() throws Exception
 	{
 	  Connection conn = null;
 	  
 	  Class.forName(driver);
-	  conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=false",userName,password);
+	  conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
 	  
 	  return conn;
 	}
@@ -405,7 +405,7 @@ public static ResultSet countEntryDB(String nomeTabella, String selectValue, Str
 
 
 /**
- * Con questa funzione è possibile effettuare una doppia query innestata
+ * Con questa funzione ï¿½ possibile effettuare una doppia query innestata
  * 
  * @param nomeTabella1
  * @param fieldsToSelect1
@@ -501,7 +501,7 @@ public static Integer createNewEntryDBInSelect(String nomeTabella, Hashtable<Str
 	 }
 
 /**
- * Con questa funzione è possibile selezionare tutte le tuple di una tabella
+ * Con questa funzione ï¿½ possibile selezionare tutte le tuple di una tabella
  * @param nomeTabella Nome della tabella della base di dati persistente
  * @param fieldsToSelect Colonne della tabella da restituire nella select
  * @return SelectAll Restituisce le tuple selezionate dalla query

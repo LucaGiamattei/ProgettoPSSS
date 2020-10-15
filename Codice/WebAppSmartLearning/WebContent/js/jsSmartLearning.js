@@ -48,7 +48,27 @@ function logOut(){
 	localStorage.removeItem('tokenUtente');
 	localStorage.removeItem('tokenDocente');
 	localStorage.removeItem('nomeRoom');
+	localStorage.removeItem('idprog');
+	localStorage.removeItem('videoCallStarted');
 	window.location.replace("http://localhost:8080/WebAppSmartLearning");
 	
 	
+}
+function clearTimeouts(){
+	
+	var keys1 = Object.keys(timeout1);
+	
+	for (var i = 0; i < keys1.length; i++) {
+	    var val = timeout1[keys1[i]];
+	    	clearTimeout(val);
+	}
+	
+	var keys2 = Object.keys(timeout2);
+	
+	for (var i = 0; i < keys2.length; i++) {
+	    var val = timeout2[keys2[i]];
+	    	clearTimeout(val);
+	}
+
+
 }

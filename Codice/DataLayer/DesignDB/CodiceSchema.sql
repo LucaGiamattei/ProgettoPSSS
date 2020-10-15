@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `prova2`.`catalogolezioni` (`idLezione` INT, `NomeLez
 
 DELIMITER $$
 USE `prova2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `genTokens`(IN idFasciaOraria int )
+CREATE  PROCEDURE `genTokens`(IN idFasciaOraria int )
 BEGIN
 
  UPDATE prova2.pagamento SET `TOKEN`=  LEFT(MD5(RAND()),8) WHERE  FasciaOraria_idFasciaOraria = idFasciaOraria ;
@@ -217,7 +217,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `prova2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `inserisciCond`(IN myDataLezione DATE, IN myOrarioInizio TIME, IN myOrarioFine TIME,IN prezzo float, IN myidLezione int, IN myidUtente int, OUT idFascia INT)
+CREATE  PROCEDURE `inserisciCond`(IN myDataLezione DATE, IN myOrarioInizio TIME, IN myOrarioFine TIME,IN prezzo float, IN myidLezione int, IN myidUtente int, OUT idFascia INT)
 BEGIN
 DECLARE COND INT DEFAULT 0;
 
@@ -246,7 +246,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `prova2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `inserisciVideocall`(IN idFasciaOraria INT, IN nomeRoom VARCHAR(45), OUT passw VARCHAR(45))
+CREATE PROCEDURE `inserisciVideocall`(IN idFasciaOraria INT, IN nomeRoom VARCHAR(45), OUT passw VARCHAR(45))
 BEGIN
     SET passw = LEFT(MD5(RAND()),8);
     
@@ -262,7 +262,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `prova2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateCond`(IN myDataLezione DATE, IN myOrarioInizio TIME, IN myOrarioFine TIME,IN prezzo float, IN myidFasciaOraria int, IN myidUtente int, OUT result INT)
+CREATE PROCEDURE `updateCond`(IN myDataLezione DATE, IN myOrarioInizio TIME, IN myOrarioFine TIME,IN prezzo float, IN myidFasciaOraria int, IN myidUtente int, OUT result INT)
 BEGIN
 DECLARE COND INT DEFAULT 0;
 
@@ -288,7 +288,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `prova2`.`catalogolezioni`;
 USE `prova2`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `prova2`.`catalogolezioni` AS select `prova2`.`lezione`.`idLezione` AS `idLezione`,`prova2`.`lezione`.`NomeLezione` AS `NomeLezione`,`prova2`.`lezione`.`MediaScoreLezione` AS `MediaScoreLezione`,`prova2`.`lezione`.`NMaxStudenti` AS `NMaxStudenti`,`prova2`.`fasciaoraria`.`DataLezione` AS `DataLezione`,`prova2`.`fasciaoraria`.`OrarioInizioLezione` AS `OrarioInizioLezione`,`prova2`.`fasciaoraria`.`OrarioFineLezione` AS `OrarioFineLezione`,`prova2`.`fasciaoraria`.`prezzo` AS `prezzo`,`prova2`.`fasciaoraria`.`Visibile` AS `visibile`,`prova2`.`lezione`.`Utente_idUtente` AS `Utente_idUtente`,`prova2`.`lezione`.`Topic_idTopic` AS `Topic_idTopic`,`prova2`.`fasciaoraria`.`idFasciaOraria` AS `idFasciaOraria`,`prova2`.`lezione`.`DescrizioneLezione` AS `DescrizioneLezione` from (`prova2`.`lezione` join `prova2`.`fasciaoraria` on(((`prova2`.`lezione`.`idLezione` = `prova2`.`fasciaoraria`.`Lezione_idLezione`) and (`prova2`.`lezione`.`Utente_idUtente` = `prova2`.`fasciaoraria`.`Lezione_Utente_idUtente`)))) where ((`prova2`.`fasciaoraria`.`DataLezione` > curdate()) or ((`prova2`.`fasciaoraria`.`DataLezione` = curdate()) and (`prova2`.`fasciaoraria`.`OrarioFineLezione` <= now())));
+CREATE  OR REPLACE ALGORITHM=UNDEFINED VIEW `prova2`.`catalogolezioni` AS select `prova2`.`lezione`.`idLezione` AS `idLezione`,`prova2`.`lezione`.`NomeLezione` AS `NomeLezione`,`prova2`.`lezione`.`MediaScoreLezione` AS `MediaScoreLezione`,`prova2`.`lezione`.`NMaxStudenti` AS `NMaxStudenti`,`prova2`.`fasciaoraria`.`DataLezione` AS `DataLezione`,`prova2`.`fasciaoraria`.`OrarioInizioLezione` AS `OrarioInizioLezione`,`prova2`.`fasciaoraria`.`OrarioFineLezione` AS `OrarioFineLezione`,`prova2`.`fasciaoraria`.`prezzo` AS `prezzo`,`prova2`.`fasciaoraria`.`Visibile` AS `visibile`,`prova2`.`lezione`.`Utente_idUtente` AS `Utente_idUtente`,`prova2`.`lezione`.`Topic_idTopic` AS `Topic_idTopic`,`prova2`.`fasciaoraria`.`idFasciaOraria` AS `idFasciaOraria`,`prova2`.`lezione`.`DescrizioneLezione` AS `DescrizioneLezione` from (`prova2`.`lezione` join `prova2`.`fasciaoraria` on(((`prova2`.`lezione`.`idLezione` = `prova2`.`fasciaoraria`.`Lezione_idLezione`) and (`prova2`.`lezione`.`Utente_idUtente` = `prova2`.`fasciaoraria`.`Lezione_Utente_idUtente`)))) where ((`prova2`.`fasciaoraria`.`DataLezione` > curdate()) or ((`prova2`.`fasciaoraria`.`DataLezione` = curdate()) and (`prova2`.`fasciaoraria`.`OrarioFineLezione` <= now())));
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

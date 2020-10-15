@@ -105,6 +105,8 @@ function retrieveUserData(){
 	console.log("retrieveUserData");
 	$('.containerProfilo').children().remove();
 	
+	clearTimeouts();
+	
 	var myId = localStorage['myId'];
 
 	if(myId == undefined){
@@ -167,6 +169,8 @@ function myLessonFunc(){
 	if(myId == undefined){
 		myId = "";
 	}
+	
+	clearTimeouts();
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
@@ -397,7 +401,7 @@ function programmaLez(idlez) {
 	}
 	request.send();	
 	
-	$('.containerProfilo').append('<button type="button" class="btn btn-success" onclick="creaFormProgrammazione('+idlez+')">+</button><br>');
+	$('.containerProfilo').append('<button type="button" class="btn btn-info btn-sm" onclick="creaFormProgrammazione('+idlez+')">Aggiungi una programmazione</button><br>');
 }
 
 function gestisciRispostaProgrammazioni(responseXML) {
@@ -481,16 +485,19 @@ function gestisciRispostaProgrammazioni(responseXML) {
 									'</div>'+
 									'<br>';
 								}
-								if(elapsedInizio>0){
-									console.log("millisecondi dall'inizio: "+ elapsedInizio);
+								if(elapsedInizio>0 && elapsedInizio<3600000){
 									var id = risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue; 
-									window.setTimeout(function(){updateTimeoutAddAvviaVideoCall(id); }, elapsedInizio);
-									
+									console.log("millisecondi dall'inizio per programmazione["+id+"]: "+ elapsedInizio);
+									if(timeout1 [id] == null){
+										timeout1 [id] = window.setTimeout(function(){updateTimeoutAddAvviaVideoCall(id); }, elapsedInizio);
+									}
 								}
-								if(elapsedFine>0){
-									console.log("millisecondi dalla fine: "+ elapsedFine);
-									var id = risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue; 
-									window.setTimeout(function(){updateTimeoutRemoveAvviaVideoCall(id); }, elapsedFine);
+								if(elapsedFine>0 && elapsedFine<(3600000+(elapsedFine-elapsedInizio))){
+									var id = risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+									console.log("millisecondi dalla fineper programmazione["+id+"]: "+ elapsedFine);
+									if(timeout2 [id] == null){
+										timeout2 [id] = window.setTimeout(function(){updateTimeoutRemoveAvviaVideoCall(id); }, elapsedFine);
+									}
 								}
 								
 								$('.containerProfilo').append(append);
@@ -504,7 +511,7 @@ function gestisciRispostaProgrammazioni(responseXML) {
 }
 
 function updateTimeoutAddAvviaVideoCall(id){
-	console.log("TIMEOUT AddAvviaVideoCall"+id);
+	console.log("TIMEOUT AddAvviaVideoCall prog: "+id);
 	if(localStorage['videoCallStarted'] != "true"){
 		$("#eliminaProgrammazone"+id+"").append(
 				'<div class="col" id="avviaVideoCall'+id+'">'+
@@ -515,11 +522,10 @@ function updateTimeoutAddAvviaVideoCall(id){
 }
 
 function updateTimeoutRemoveAvviaVideoCall(id){
-	console.log("TIMEOUT RemoveAvviaVideoCall"+id);
-	
+	console.log("TIMEOUT RemoveAvviaVideoCall prog: "+id);
+	destroyWithHandler(id);
 	$("#avviaVideoCall"+id+"").remove();
-	
-	
+
 }
 
 function avviaVideoCall(idprog) {
@@ -572,7 +578,7 @@ function gestisciRispostaAvviaVideoCall(responseXML){
 				creaHandler(true,false);
 				
 			}else{
-				localStorage.deleteItem("idprog")
+				localStorage.removeItem("idprog")
 			}
 			
 
@@ -757,7 +763,9 @@ function mysubscribesFunc(){
 	if(myId == undefined){
 		myId = "";
 	}
-		
+	
+	clearTimeouts();
+	
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
 	var url = "../riservate/retrievemysubscribes";
@@ -839,7 +847,7 @@ function programsLezSub(idlez) {
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idlez="+idlez;
-	var url = "../riservate/programs";
+	var url = "../riservate/programssub";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -975,16 +983,23 @@ function deleteRoom(){
 function gestisciRispostaDelete(responseXML){
 	if(responseXML != null){
 		var risposta = responseXML.getElementsByTagName("risposta")[0];
+		var risultato = responseXML.getElementsByTagName("risultato")[0];
 		
 		
 		if(responseXML.getElementsByTagName("risposta").length > 0) {
 						
 			if(risultato.childNodes[0].nodeValue == "VideoCallEliminata"){
 				
+				localStorage.removeItem('tokenUtente');
+				localStorage.removeItem('tokenDocente');
+				localStorage.removeItem('nomeRoom');
+				localStorage.removeItem('idprog');
+				localStorage.removeItem('videoCallStarted');
 				
-				
+				myLessonFunc();
+
 			}else{
-				
+				alert("ERROR");
 			}
 			
 
