@@ -23,13 +23,13 @@ import serviceLayer.user.implementation.ImplUtente;
  * Servlet implementation class SearchServlet
  */
 
-public class SearchServlet extends HttpServlet {
+public class LezioniUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchServlet() {
+    public LezioniUtenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

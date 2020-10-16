@@ -116,7 +116,7 @@ function retrieveUserData(){
 	
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
-	var url = "../riservate/GetUser";
+	var url = "../riservate/utente";
 	request.open('GET', url+"?"+params, true);
 
 	//Send the proper header information along with the request
@@ -174,7 +174,7 @@ function myLessonFunc(){
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
-	var url = "../riservate/docente/retrievemylessons";
+	var url = "../riservate/docente/lezionidocente";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -213,6 +213,8 @@ function gestisciRispostaLessons(responseXML) {
 				$('.containerProfilo').append('<button type="button" onclick="creaLezioneFunc()"class="btn btn-warning">Crea una lezione</button>');
 				return null;
 			}
+			
+			$('.containerProfilo').append('<button type="button" onclick="creaLezioneFunc()"class="btn btn-warning">Crea una lezione</button>');
 			
 			for (i = 0; i < risposta.childNodes.length; i++){
 				$('.containerProfilo').append('<div class="col-sm-5 scheda'+risposta.childNodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+'">'+
@@ -295,7 +297,7 @@ function creaLezioneFunc() {
 		'</div>'
 	);
 	var request = new XMLHttpRequest();
-	var url = "../RetrieveTopics";
+	var url = "../topics";
 	request.open('GET', url, true);
 	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	request.onreadystatechange = function() {//Call a function when the state changes.
@@ -334,7 +336,7 @@ function CreateFunction(){
 	
 	console.log("createFunction "+ nome +" "+ descrizione +" "+ topic+" "+ maxstud);
 	
-	var url = "../riservate/docente/CreateLesson";
+	var url = "../riservate/docente/lezionedocente";
 	var params = "descrizione="+descrizione+"&nome="+nome+"&topic="+topic+"&maxstud="+maxstud+"&requesterId="+myId;
 	request.open('POST', url, true);
 
@@ -388,7 +390,7 @@ function programmaLez(idlez) {
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idlez="+idlez;
-	var url = "../riservate/programs";
+	var url = "../riservate/programmazioni";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -538,7 +540,7 @@ function avviaVideoCall(idprog) {
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
 	localStorage['idprog'] = idprog;
-	var url = "../riservate/docente/avviavideocall";
+	var url = "../riservate/docente/videocalldocente";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -602,7 +604,7 @@ function eliminaProgrammazione(idprog) {
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
-	var url = "../riservate/docente/ProgramLesson";
+	var url = "../riservate/docente/programmazionedocente";
 	request.open('DELETE', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -720,7 +722,7 @@ function programmaLezione(idlez) {
 	
 	console.log("programmaLezione "+ data +" "+ orainizio +" "+ orafine+" "+ prezzo);
 	
-	var url = "../riservate/docente/ProgramLesson";
+	var url = "../riservate/docente/programmazionedocente";
 	var params = "idlez="+idlez+"&data="+data+"&orainizio="+orainizio+"&orafine="+orafine+"&prezzo="+prezzo+"&requesterId="+myId;
 	request.open('POST', url, true);
 
@@ -768,7 +770,7 @@ function mysubscribesFunc(){
 	
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
-	var url = "../riservate/retrievemysubscribes";
+	var url = "../riservate/lezioniprenotate";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -847,7 +849,7 @@ function programsLezSub(idlez) {
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idlez="+idlez;
-	var url = "../riservate/programssub";
+	var url = "../riservate/prenotazioni";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -918,7 +920,7 @@ function joinVideoCall(idprog) {
 	
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
-	var url = "../riservate/joinvideocall";
+	var url = "../riservate/videocallutente";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -966,7 +968,7 @@ function gestisciRispostaJoinVideoCall(responseXML){
 function deleteRoom(){
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+localStorage["myId"]+"&idprog="+idRoomToDestroy;
-	var url = "../riservate/docente/avviavideocall";
+	var url = "../riservate/docente/videocalldocente";
 	request.open('DELETE', url+"?"+params, true);
 	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 

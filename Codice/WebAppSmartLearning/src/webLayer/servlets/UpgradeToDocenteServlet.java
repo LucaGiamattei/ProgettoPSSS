@@ -1,31 +1,30 @@
 package webLayer.servlets;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataLayer.lezione.entities.FasciaOraria;
+import dataLayer.lezione.entities.LezioneDB;
+import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idUser;
-import serviceLayer.lezione.implementation.ImplLezione;
-import serviceLayer.pagamento.implementation.ImplPagamento;
-
-/**
- * Servlet implementation class SubscribeServlet
- */
+import serviceLayer.registration.implementation.ImplRegistrazione;
+import serviceLayer.user.implementation.ImplUtente;
 
 
-public class SubscribeServlet extends HttpServlet {
+public class UpgradeToDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SubscribeServlet() {
+    public UpgradeToDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +34,7 @@ public class SubscribeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -44,31 +43,32 @@ public class SubscribeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("doGET_subscribeServlet");
-		String reqId = request.getParameter("requesterId");
-		String progId = request.getParameter("idprog");
-		System.out.println("requesterId="+reqId+"&idprog="+progId+"\n");
+
+		
+		
+		UtenteDB utente = new UtenteDB();
+		ImplUtente iutente = new ImplUtente();
+		utente.setId(new idUser(Integer.parseInt(request.getParameter("requesterId"))));
+		utente.setContoPaypal(request.getParameter("email"));
+		
+		File file = new File(request.getParameter("curriculum"));
+		  utente.setCurriculum(file);
+
+		StateResult result = iutente.upgradeDocente(utente);
+		
 		StringBuffer xmlReply = new StringBuffer();
-		StateResult result = StateResult.NOCHANGES;
-		ImplPagamento implp = new ImplPagamento();
-		FasciaOraria fascia = new FasciaOraria();
-		fascia.setId(new idFasciaOraria(Integer.parseInt(progId)));
 		
-		
-		
-		if (implp.verifyFasciaOrariaIsNotStarted(fascia ) == StateResult.VALID){
-			result = implp.effettuaPagamento(new idUser(Integer.parseInt(reqId)), new idFasciaOraria(Integer.parseInt(progId)));
-		}
+		System.out.println(result.toString());
 		
 		if(result == StateResult.CREATED) {
 			
-			xmlReply.append("<risposta>subscribeOK</risposta>");
+			xmlReply.append("<risposta>utenteAggiornato</risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 			
 		}else if (result == StateResult.NOCHANGES) {
 			
-			xmlReply.append("<risposta>subscribeERROR</risposta>");
+			xmlReply.append("<risposta>utenteNonAggiornato</risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
 			

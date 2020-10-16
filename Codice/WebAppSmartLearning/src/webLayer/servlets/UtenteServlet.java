@@ -16,13 +16,13 @@ import serviceLayer.user.implementation.ImplUtente;
  * Servlet implementation class UserServlet
  */
 
-public class UserServlet extends HttpServlet {
+public class UtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserServlet() {
+    public UtenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -62,7 +62,13 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		System.out.println("doGet_TESTDOCENTE");
 		
+		StringBuffer xmlReply = new StringBuffer();
+		
+		xmlReply.append("<risposta>utenteAutorizzato</risposta>");
+		response.setContentType("text/xml");
+		response.getWriter().write(xmlReply.toString());
 		
 	}
 

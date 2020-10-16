@@ -20,13 +20,13 @@ import serviceLayer.user.implementation.ImplUtente;
  * Servlet implementation class retrieveMyLessons
  */
 
-public class RetrieveMyLessonsServlet extends HttpServlet {
+public class LezioniDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RetrieveMyLessonsServlet() {
+    public LezioniDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

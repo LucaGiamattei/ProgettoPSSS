@@ -15,14 +15,14 @@ import serviceLayer.registration.implementation.ImplRegistrazione;
 /**
  * Servlet implementation class RegistrationServlet
  */
-@WebServlet("/RegistrationServlet")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet("/RegistrazioneServlet")
+public class RegistrazioneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegistrationServlet() {
+    public RegistrazioneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

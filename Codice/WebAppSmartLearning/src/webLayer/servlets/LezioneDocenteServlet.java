@@ -14,13 +14,13 @@ import serviceLayer.lezione.implementation.ImplLezione;
 /**
  * Servlet implementation class LessonServlet
  */
-public class LessonServlet extends HttpServlet {
+public class LezioneDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LessonServlet() {
+    public LezioneDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

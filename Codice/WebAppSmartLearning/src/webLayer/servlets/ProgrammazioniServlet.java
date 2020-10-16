@@ -12,22 +12,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.FasciaOraria;
+import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.utilities.StateResult;
+import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 import serviceLayer.lezione.implementation.ImplLezione;
+import serviceLayer.user.implementation.ImplUtente;
 
 /**
- * Servlet implementation class ProgramsSubServlet
+ * Servlet implementation class RetrieveMyProgServlet
  */
 
-public class ProgramsSubServlet extends HttpServlet {
+public class ProgrammazioniServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProgramsSubServlet() {
+    public ProgrammazioniServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,10 +40,10 @@ public class ProgramsSubServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("doGet_ProgramsSubServlet");
+		
+		System.out.println("ProgramsLessonServlet");
 		
 		String idlez = request.getParameter("idlez");
-		String idutente = request.getParameter("requesterId");
 		
 		ImplLezione ilez = new ImplLezione();
 		Vector<FasciaOraria> fasce = new Vector<FasciaOraria>();
@@ -48,7 +51,7 @@ public class ProgramsSubServlet extends HttpServlet {
 		System.out.println("idlez="+idlez);
 		 
 		
-		StateResult result = ilez.getPayedFasceByLesson(new idUser(Integer.parseInt(idutente)),new idLesson(Integer.parseInt(idlez)), fasce);
+		StateResult result = ilez.getFasceOrarie(new idLesson(Integer.parseInt(idlez)), fasce);
 
 		StringBuffer xmlReply = new StringBuffer();
 		
@@ -81,6 +84,9 @@ public class ProgramsSubServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		
+		
 	}
+
 
 }

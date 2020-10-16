@@ -18,13 +18,13 @@ import serviceLayer.videoroom.implementation.ImplVideoRoom;
  * Servlet implementation class AvviaVideoCallServlet
  */
 @WebServlet("/AvviaVideoCallServlet")
-public class AvviaVideoCallServlet extends HttpServlet {
+public class VideoCallDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AvviaVideoCallServlet() {
+    public VideoCallDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

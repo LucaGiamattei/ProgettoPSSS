@@ -20,13 +20,13 @@ import serviceLayer.lezione.implementation.ImplLezione;
  * Servlet implementation class SubscribesServlet
  */
 
-public class SubscribesServlet extends HttpServlet {
+public class LezioniPrenotateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SubscribesServlet() {
+    public LezioniPrenotateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

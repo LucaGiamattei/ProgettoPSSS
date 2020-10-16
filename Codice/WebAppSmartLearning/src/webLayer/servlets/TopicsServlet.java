@@ -16,13 +16,13 @@ import serviceLayer.topic.implementation.ImplTopic;
  * Servlet implementation class RetrieveTopicsServlet
  */
 @WebServlet("/RetrieveTopicsServlet")
-public class RetrieveTopicsServlet extends HttpServlet {
+public class TopicsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RetrieveTopicsServlet() {
+    public TopicsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -13,13 +13,13 @@ import serviceLayer.videoroom.implementation.ImplVideoRoom;
 /**
  * Servlet implementation class JoinVideoCallServlet
  */
-public class JoinVideoCallServlet extends HttpServlet {
+public class VideoCallUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JoinVideoCallServlet() {
+    public VideoCallUtenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
