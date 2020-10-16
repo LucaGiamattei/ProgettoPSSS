@@ -1,6 +1,7 @@
 package dataLayer.user.controller;
 
 import java.io.File;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -31,13 +32,16 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		
 		ResultSet result;
 		try {
-			result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues);
+			Connection conn = null;
+			result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues, conn);
 			int numOfRows = 0;
 			
 			while (result.next()) {
 				numOfRows++;
 				
 			}
+			//if(conn!=null) {conn.close();}
+			
 			switch(numOfRows) {
 		      case 1:
 		    	  return StateResult.VALID;
@@ -63,13 +67,15 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		   
 		   ResultSet result;
 		   try {
-		    result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues);
+			   Connection conn = null;
+		    result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues, conn);
 		    int numOfRows = 0;
 		    
 		    while (result.next()) {
 		     numOfRows++;
 		     
 		    }
+		    //if(conn!=null) {conn.close();}
 		    switch(numOfRows) {
 		         case 1:
 		          return StateResult.VALID;
@@ -131,7 +137,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 				
 		ResultSet result;
 		try {
-			result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues);
+			Connection conn = null;
+			result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues, conn);
 			
 			
 			int numOfRows = 0;
@@ -146,6 +153,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 						
 					}
 			}
+			//if(conn!=null) {conn.close();}
 			
 			if(numOfRows ==1) {
 				return StateResult.VALID;
@@ -173,7 +181,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 				
 				ResultSet result;
 				try {
-					result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues);
+					Connection conn = null;
+					result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues, conn);
 					int numOfRows = 0;
 					
 					while (result.next()) {
@@ -185,6 +194,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 							}
 						}
 					}
+					//if(conn!=null) {conn.close();}
 					return StateResult.NOVALID;
 					
 				
@@ -203,7 +213,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 				
 				ResultSet result;
 				try {
-					result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues);
+					Connection conn = null;
+					result = DBConnectionManager.SelectEntryDB("Utente", fieldsToSelect, conditionsFildsToValues, conn);
 					int numOfRows = 0;
 					
 					result.last();
@@ -224,6 +235,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 							}
 						}
 					}
+					//if(conn!=null) {conn.close();}
 					
 					return StateResult.NOVALID;
 				
@@ -243,7 +255,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 						
 				ResultSet result;
 				try {
-					result = DBConnectionManager.SelectEntryInSelectDB("Utente", fieldsToSelect, "idUtente", "Lezione", "Utente_idUtente", conditionsFildsToValues);
+					Connection conn = null;
+					result = DBConnectionManager.SelectEntryInSelectDB("Utente", fieldsToSelect, "idUtente", "Lezione", "Utente_idUtente", conditionsFildsToValues, conn);
 					
 					
 					int numOfRows = 0;
@@ -262,7 +275,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 								
 							}
 					}
-					
+					//if(conn!=null) {conn.close();}
 					switch(numOfRows) {
 						    case 0:
 						    	return StateResult.NOVALID;
@@ -353,8 +366,8 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		      
 		    ResultSet result;
 		    try {
-		    	
-		    	result = DBConnectionManager.SelectEntryDB("utente", fieldsToSelect, conditionsFildsToValues);
+		    	Connection conn = null;
+		    	result = DBConnectionManager.SelectEntryDB("utente", fieldsToSelect, conditionsFildsToValues, conn);
 		    	if(result.next()) {
 		    	int idUtente = result.getInt("idUtente");
 		    	
@@ -369,7 +382,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 		    			i++;
 		    		}
 		    	}
-		    	
+		    	//if(conn!=null) {conn.close();}
 			     if(lezioni.size()>0) {
 			      return StateResult.VALID;
 			     }else {

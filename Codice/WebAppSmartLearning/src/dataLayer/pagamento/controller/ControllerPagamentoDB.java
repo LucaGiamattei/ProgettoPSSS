@@ -8,7 +8,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import com.mysql.jdbc.CallableStatement;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.pagamento.entities.PagamentoDB;
@@ -28,7 +28,8 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 		conditionsFildsToValues.put("FasciaOraria_idFasciaOraria", pagamentoUtente.getIdFascia().toString());
 		ResultSet result;
 		try {
-			result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues);
+			Connection conn = null;
+			result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues, conn);
 			int numOfRows = 0;
 			
 			while (result.next()) {
@@ -38,6 +39,7 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 				}
 				
 			}
+			//if(conn!=null) {conn.close();}
 			switch(numOfRows) {      
 		      case 1:
 		    	  return StateResult.VALID; 
@@ -76,7 +78,7 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 			}
 			
 			conn.commit();
-			conn.close();
+			//if(conn!=null) {conn.close();}
 			
 			if(cont>0) {
 				
@@ -132,12 +134,14 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 				conditionsFildsToValues.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
 				ResultSet result;
 				try {
-					result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues);
+					Connection conn = null;
+					result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues, conn);
 					int numOfRows = 0;
 					
 					while (result.next()) {
 						numOfRows++;
 					}
+					//if(conn!=null) {conn.close();}
 					switch(numOfRows) {      
 				      case 1:
 				    	  return StateResult.VALID; 
@@ -161,7 +165,8 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 		 conditionsFildsToValues.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
 		  ResultSet result;
 		  try {
-			  result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues);
+			  Connection conn = null;
+			  result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues, conn);
 			  int numOfRows = 0;
 		   
 			  while (result.next()) {
@@ -170,6 +175,7 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 			    users.add(new idUser(result.getInt("Utente_idUtente")));
 			    
 			  }
+			  //if(conn!=null) {conn.close();}
 			   if(numOfRows>0) {
 				   return StateResult.VALID;
 			   }else {
@@ -191,13 +197,17 @@ public class ControllerPagamentoDB implements API_PagamentoDB{
 		 conditionsFildsToValues.put("FasciaOraria_idFasciaOraria", idFasciaOraria.toString());
 		  ResultSet result;
 		  try {
-			  result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues);
+			  Connection conn = null;
+			  result = DBConnectionManager.SelectEntryDB("Pagamento", fieldsToSelect, conditionsFildsToValues, conn);
+			  
 			  int numOfRows = 0;
 		   
 			  while (result.next()) {
 			    numOfRows++;    
 			  }
+			  //if(conn!=null) {conn.close();}
 			   if(numOfRows>0) {
+				   System.out.println("thereAreUsersPayedLesson:StateResult.VALID");
 				   return StateResult.VALID;
 			   }else {
 				   return StateResult.NOVALID;

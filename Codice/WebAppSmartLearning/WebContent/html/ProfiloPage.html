@@ -567,7 +567,8 @@ function gestisciRispostaAvviaVideoCall(responseXML){
 				nomeRoom= risposta.childNodes[1].childNodes[0].nodeValue;
 				tokenDocente  = risposta.childNodes[2].childNodes[0].nodeValue;
 				localStorage['nomeRoom'] = nomeRoom;
-				localStorage['tokenDocente'] = tokenDocente;
+				//ricorda
+				localStorage['tokenUtente'] = tokenDocente;
 				console.log("tokenDocente: "+tokenDocente+", nomeRoom: "+nomeRoom);
 				localStorage['videoCallStarted'] = "true";
 				
@@ -993,7 +994,7 @@ function gestisciRispostaDelete(responseXML){
 			if(risultato.childNodes[0].nodeValue == "VideoCallEliminata"){
 				
 				localStorage.removeItem('tokenUtente');
-				localStorage.removeItem('tokenDocente');
+				//ricorda localStorage.removeItem('tokenDocente');
 				localStorage.removeItem('nomeRoom');
 				localStorage.removeItem('idprog');
 				localStorage.removeItem('videoCallStarted');

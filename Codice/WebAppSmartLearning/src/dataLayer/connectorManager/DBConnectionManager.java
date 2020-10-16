@@ -2,6 +2,7 @@ package dataLayer.connectorManager;
 
 
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,55 +12,147 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.mysql.jdbc.Connection;
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.ConnectionFactory;
+import org.apache.commons.dbcp2.PoolableConnection;
+import org.apache.commons.dbcp2.PoolableConnectionFactory;
+import org.apache.commons.dbcp2.PoolingDataSource;
+import org.apache.commons.pool2.ObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+
 import com.mysql.jdbc.PreparedStatement;
+
+import  org.apache.commons.dbcp2.DriverManagerConnectionFactory;
+
+
+
+
 
 public class DBConnectionManager
 {
+	/*
+	static private DataSource ds = setupDataSource("dbpsss.mysql.database.azure.com:3306/Prova2?autoReconnect=true&useSSL=true",  "giorgio@dbpsss", "Applicazionitelematiche1996");
+	
+	public static DataSource setupDataSource(String connectURI, String username, String password) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(connectURI,  username,  password);
+			PoolableConnectionFactory poolableConnectionFactory = new PoolableConnectionFactory(connectionFactory, null);
+			ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolableConnectionFactory);
+			//((GenericObjectPool) connectionPool).setMaxIdle(10);
+			
+			poolableConnectionFactory.setPool(connectionPool);
+			
+			PoolingDataSource<PoolableConnection> dataSource = new PoolingDataSource<>(connectionPool);
+			return dataSource;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	
+	public static Connection getConnection() throws SQLException {
+	
+
+			 return ds.getConnection();
+		
+		 
+	 } 
+	*/
+	
+	/*
+	private static BasicDataSource basicDS = new BasicDataSource();
+	  static {
+		      basicDS.setDriverClassName("com.mysql.jdbc.Driver"); //loads the jdbc driver            
+		      basicDS.setUrl("jdbc:mysql://dbpsss.mysql.database.azure.com:3306/Prova2?autoReconnect=true&useSSL=true");
+		      basicDS.setUsername("giorgio@dbpsss");                                  
+		      basicDS.setPassword("Applicazionitelematiche1996");  
+		      // Parameters for connection pooling
+		      basicDS.setInitialSize(10);
+		      basicDS.setMaxTotal(10);	  
+	  }
+	 public static Connection getConnection() throws SQLException {
+		 return basicDS.getConnection();
+		 
+	 }
+	
+		*/
 	public static String url = "jdbc:mysql://dbpsss.mysql.database.azure.com:3306/";
 	public static String dbName = "Prova2";
 	public static String driver = "com.mysql.jdbc.Driver";
 	public static String userName = "giorgio@dbpsss"; 
 	public static String password = "Applicazionitelematiche1996";
-	private static Connection conn = null;
+
 	
-	public static Connection getConnection()
-	{
-	  if (conn == null) {
-		  try {
-			Class.forName(driver);
-			 conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			 return getConnection();
-			
-		}
-		 
-	  }
+	
+	 private static Connection conn = null;
 	  
-	  return conn;
-	}
+	  public static Connection getConnection()
+	  {
+		 try {
+		    if (conn == null || conn.isClosed()) {
+		      
+		      Class.forName(driver);
+		       conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
+		    }
+	    } catch (Exception e) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	       return getConnection();
+	      
+	    }
+	     
+	    
+	    
+	    return conn;
+	  }
+
+	  
 	
+	/*
+	 public static Connection getConnection() throws ClassNotFoundException, SQLException
+	  {
+	   
+	      Class.forName(driver);
+	      return (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
+	    
+	  }
 	
+	*/
 	
 	public static void closeConnection(Connection c) throws Exception
 	{
 		c.close();
 	}
 	
-	public static ResultSet selectQuery(String query) throws Exception
+	/**
+	 * 
+	 * @param query
+	 * @param conn SOLO DI USCITA
+	 * @return
+	 * @throws Exception
+	 */
+	public static ResultSet selectQuery(String query, Connection conn ) throws Exception
 	{
-		Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        ResultSet ret = statement.executeQuery(query);
+		
+		conn = DBConnectionManager.getConnection();
+		
+        java.sql.PreparedStatement statement = conn.prepareStatement(query);
+        ResultSet ret = statement.executeQuery();
+        ResultSet rs;
         //conn.close();
+       
         return ret;
 	}
 
 	public static int updateQuery(String query) throws Exception
 	{
-		Connection conn = getConnection();
+		Connection conn = DBConnectionManager.getConnection();
 		Statement statement = conn.createStatement();
 		int ret = statement.executeUpdate(query);
 		//conn.close();
@@ -71,7 +164,7 @@ public class DBConnectionManager
 	{
 		Integer ret = null;
 		
-		Connection conn = getConnection();
+		Connection conn = DBConnectionManager.getConnection();
 		Statement statement = conn.createStatement();
 		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		
@@ -269,7 +362,7 @@ public static Integer UpdateEntryDB(String nomeTabella,Hashtable<String, String>
  * @throws Exception
  */
 
-public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelect, Hashtable<String, String> conditionsFildsToValues ) throws Exception {
+public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelect, Hashtable<String, String> conditionsFildsToValues, Connection conn) throws Exception {
 	
 	String  mappingFieldValue = "";
 	
@@ -301,7 +394,8 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
     
 	String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella+"` WHERE "+mappingFieldValue+" ;";
 	System.out.println(query);
-	return selectQuery(query);
+	conn = null;
+	return selectQuery(query, conn);
 	
 	}
 
@@ -320,7 +414,7 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
  * @throws Exception
  */
 
-public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldToSelect2, Hashtable<String, String> conditionsFildsToValues2 ) throws Exception {
+public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldToSelect2, Hashtable<String, String> conditionsFildsToValues2, Connection conn ) throws Exception {
 	
 	String  mappingFieldValue = "";
 	
@@ -352,7 +446,7 @@ public static ResultSet SelectEntryInSelectDB(String nomeTabella1 ,String [] fie
     
 	String query = "SELECT"+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+mappingFieldValue+") ;";
 	System.out.println(query);
-	return selectQuery(query);
+	return selectQuery(query, conn);
 	
 	}
 
@@ -402,12 +496,12 @@ String  mappingFieldValue = "";
  * @throws Exception
  * 
  */
-public static ResultSet countEntryDB(String nomeTabella, String selectValue, String fieldToCount ) throws Exception {
+public static ResultSet countEntryDB(String nomeTabella, String selectValue, String fieldToCount, Connection conn ) throws Exception {
 
     
 	String query = "SELECT COUNT("+fieldToCount+") AS NumeroOccorrenze, "+selectValue+" FROM `"+dbName+"`.`"+nomeTabella+"` GROUP BY `"+selectValue+"` ORDER BY COUNT("+fieldToCount+") DESC ;";
 	System.out.println(query);
-	return selectQuery(query);
+	return selectQuery(query, conn);
 	
 	}
 
@@ -425,7 +519,7 @@ public static ResultSet countEntryDB(String nomeTabella, String selectValue, Str
  * @return
  * @throws Exception
  */
-public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldsToSelect2, String fieldCondition2, String nomeTabella3, String fieldsToSelect3, Hashtable<String, String> conditionsFildsToValues2 ) throws Exception {
+public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldsToSelect2, String fieldCondition2, String nomeTabella3, String fieldsToSelect3, Hashtable<String, String> conditionsFildsToValues2, Connection conn ) throws Exception {
  
  String  mappingFieldValue = "";
  
@@ -458,7 +552,7 @@ public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fi
  
    String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldsToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+fieldCondition2+" IN(SELECT "+fieldsToSelect3+" FROM `"+dbName+"`.`"+nomeTabella3+"` WHERE "+mappingFieldValue+")) ;"; 
    System.out.println(query);
- return selectQuery(query);
+ return selectQuery(query, conn);
  
  }
 
@@ -517,7 +611,7 @@ public static Integer createNewEntryDBInSelect(String nomeTabella, Hashtable<Str
  * @throws Exception
  */
 
-public static ResultSet SelectAll(String nomeTabella,String [] fieldsToSelect ) throws Exception {
+public static ResultSet SelectAll(String nomeTabella,String [] fieldsToSelect, Connection conn ) throws Exception {
  
     String fields ="";
     if (fieldsToSelect.length>0) {
@@ -530,7 +624,7 @@ public static ResultSet SelectAll(String nomeTabella,String [] fieldsToSelect ) 
     
  String query = "SELECT "+fields+" FROM "+dbName+"."+nomeTabella+";";
  System.out.println(query);
- return selectQuery(query);
+ return selectQuery(query, conn);
  
  }
 
@@ -620,7 +714,7 @@ public static ResultSet queryRetrieveFascebyLezionePayedStillUp(String idlezione
 	 
 }*/
 
-public static ResultSet SelectFromFasciaOrariaDB(String [] fieldsToSelect, Hashtable<String, String> conditionsFildsToValues ) throws Exception {
+public static ResultSet SelectFromFasciaOrariaDB(String [] fieldsToSelect, Hashtable<String, String> conditionsFildsToValues, Connection conn ) throws Exception {
 	
 	String  mappingFieldValue = "";
 	
@@ -652,7 +746,7 @@ public static ResultSet SelectFromFasciaOrariaDB(String [] fieldsToSelect, Hasht
     
 	String query = "SELECT "+fields+" FROM `"+dbName+"`.`fasciaoraria` WHERE (DataLezione > CURDATE()  || (DataLezione = CURDATE() && OrarioInizioLezione > CURTIME())) &&"+mappingFieldValue+" ;";
 	System.out.println(query);
-	return selectQuery(query);
+	return selectQuery(query, conn);
 	
 	}
 
@@ -665,7 +759,7 @@ public static ResultSet SelectFromFasciaOrariaDB(String [] fieldsToSelect, Hasht
  * @throws Exception
  */
 
-public static ResultSet SelectEntryORDB(String nomeTabella,String [] fieldsToSelect, Hashtable<String, List<String>> conditionsFildsToValues ) throws Exception {
+public static ResultSet SelectEntryORDB(String nomeTabella,String [] fieldsToSelect, Hashtable<String, List<String>> conditionsFildsToValues , Connection conn) throws Exception {
 	
 	String  mappingFieldValue = "";
 	
@@ -703,7 +797,7 @@ public static ResultSet SelectEntryORDB(String nomeTabella,String [] fieldsToSel
     
 	String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella+"` WHERE "+mappingFieldValue+" ;";
 	System.out.println(query);
-	return selectQuery(query);
+	return selectQuery(query, conn);
 	
 	}
 

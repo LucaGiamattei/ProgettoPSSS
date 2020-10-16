@@ -14,7 +14,7 @@ public interface API_LezioneDB {
 	/**
 	 *Questa funzione permette di validare l'id di una lezione
 	 *
-	 *@param idLesson
+	 *@param idLesson 
 	 *@return StateResult Rappresenta lo stato dell'operazione:
 	 *- NOVALID
 	 *- VALID
@@ -28,8 +28,9 @@ public interface API_LezioneDB {
 	 *Questa funzione permette di creare una lezione 
 	 *@warning La lezione è intesa in senso lato, ovvero senza alcuna specializzazione in fascia oraria
 	 *
-	 *@param infoLezione
-	 *@param nomeTopic
+	 *@param infoLezione (I/O) fornisce le informazioni riguardo la lezione da creare; 
+	 *terminata la funzione, l'id dell'oggetto infoLezione è settato all'id della lezione creata se la creazione è andata a buon fine
+	 *@param nomeTopic nome del topic della lezione da creare
 	 *@return StateResult Rappresenta lo stato dell'operazione:
 	 *- NOCHANGES
 	 *- DBPROBLEM
@@ -53,7 +54,7 @@ public interface API_LezioneDB {
 	 * Questa funzione permette di selezionare tutte le lezioni di un docente (senza controllo su visibile in fasce orarie)
 	 * 
 	 * @param idOwnerUser 
-	 * @param lezioni vettore di lezioni dell'utente
+	 * @param lezioni (parametro di uscita ) vettore di lezioni dell'utente
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- VALID
 	 *- DBPROBLEM

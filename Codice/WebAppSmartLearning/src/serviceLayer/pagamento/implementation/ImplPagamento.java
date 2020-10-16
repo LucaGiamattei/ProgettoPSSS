@@ -3,8 +3,10 @@ package serviceLayer.pagamento.implementation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import dataLayer.lezione.controller.ControllerLezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
@@ -39,6 +41,7 @@ public StateResult verifyFasciaOrariaIsNotStarted(FasciaOraria fascia) {
 			System.out.println("VALID: getFasciaOraria ");
 			//System.out.println("verifyFasciaOrariaIsInProgress");
 			SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
+			sdformat.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
 			Date date = new Date();
 			//System.out.println("verifyFasciaOrariaIsInProgress1");
 			Date d1;
@@ -59,11 +62,10 @@ public StateResult verifyFasciaOrariaIsNotStarted(FasciaOraria fascia) {
 			}
 			if (d1.compareTo(d2)==0) {
 				System.out.println("La data è maggiore o uguale di zero");
-				//le date sono uguali
-				//String orarioFine = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioFine());
+				
 				String orarioInizio = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioInizio());
-				//System.out.println("orario Inizio "+LocalTime.now().isAfter(LocalTime.parse( orarioInizio))+"\n OrarioFIne"+LocalTime.now().isBefore(LocalTime.parse( orarioFine) ));
-				if(LocalTime.now().isBefore(LocalTime.parse( orarioInizio))) {
+				LocalTime now = LocalTime.now(ZoneId.of("Europe/Rome"));
+				if(now.isBefore(LocalTime.parse( orarioInizio))) {
 					System.out.println("l'ora attuale è dopo quella della lezione");
 					return StateResult.VALID;
 					

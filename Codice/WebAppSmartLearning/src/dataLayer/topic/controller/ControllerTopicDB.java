@@ -14,6 +14,7 @@ import dataLayer.utilities.idTopic;
 import dataLayer.utilities.idUser;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idSubscription;
+import java.sql.Connection;
 
 public class ControllerTopicDB implements API_TopicDB{
 	
@@ -48,13 +49,15 @@ public class ControllerTopicDB implements API_TopicDB{
 		
 		ResultSet result;
 		try {
-			result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues);
+			Connection conn = null;
+			result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues, conn);
 			int numOfRows = 0;
 			
 			while (result.next()) {
 				numOfRows++;
 				
 			}
+			//if(conn!=null) {conn.close();}
 			switch(numOfRows) {      
 		      case 1:
 		    	  return StateResult.VALID; 
@@ -124,7 +127,8 @@ public class ControllerTopicDB implements API_TopicDB{
 
 		ResultSet result;
 		try {
-			result = DBConnectionManager.countEntryDB("SubscriptionUtenteTopic", selectField, selectField);
+			Connection conn = null;
+			result = DBConnectionManager.countEntryDB("SubscriptionUtenteTopic", selectField, selectField, conn);
 			int numOfRows = 0;
 			int NumeroOccorrenze = 0;
 			
@@ -143,6 +147,7 @@ public class ControllerTopicDB implements API_TopicDB{
 				
 				
 			}
+			//if(conn!=null) {conn.close();}
 			if(numOfRows > 0) {
 				return StateResult.VALID;
 			} else {
@@ -163,7 +168,8 @@ public class ControllerTopicDB implements API_TopicDB{
 				
 		ResultSet result;
 		try {
-			result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues);
+			Connection conn = null;
+			result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues, conn);
 			int numOfRows = 0;
 					
 			while (result.next()) {
@@ -173,6 +179,7 @@ public class ControllerTopicDB implements API_TopicDB{
 				}
 						
 			}
+			//if(conn!=null) {conn.close();}
 			switch(numOfRows) {
 				case 1:
 					return StateResult.VALID;
@@ -199,7 +206,8 @@ public class ControllerTopicDB implements API_TopicDB{
 		   ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 		   
 		   try {
-		    ResultSet result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues);
+			   Connection conn = null;
+		    ResultSet result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues, conn);
 		    if(result.next()) {
 			    controllerlez.getLessonsbyTopics(new idTopic(result.getInt("idTopic")), lezioni);
 		    	
@@ -212,13 +220,14 @@ public class ControllerTopicDB implements API_TopicDB{
 		    			i++;
 		    		}
 		    	}
-	    	
+		    	//if(conn!=null) {conn.close();}
 			     if(lezioni.size()>0) {
 			     return StateResult.VALID;
 			    }else {
 			     return StateResult.NOVALID;
 			    }
 		    }else {
+		    	//if(conn!=null) {conn.close();}
 		    	return StateResult.NOVALID;
 		    } 
 		   } catch (Exception e) {
@@ -237,7 +246,8 @@ public class ControllerTopicDB implements API_TopicDB{
 		  
 		  ResultSet result;
 		  try {
-		   result = DBConnectionManager.SelectAll("Topic", fieldsToSelect);
+			  Connection conn = null;
+		   result = DBConnectionManager.SelectAll("Topic", fieldsToSelect, conn);
 		   int numOfRows = 0;
 		   
 		   while (result.next()) {
@@ -246,6 +256,7 @@ public class ControllerTopicDB implements API_TopicDB{
 		    topics.add(result.getString("Name"));
 		    
 		   }
+		   //if(conn!=null) {conn.close();}
 		   if(numOfRows>0) {
 			   return StateResult.VALID;
 		   }else {

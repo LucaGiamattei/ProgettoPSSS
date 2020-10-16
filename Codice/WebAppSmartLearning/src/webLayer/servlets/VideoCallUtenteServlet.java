@@ -41,7 +41,7 @@ public class VideoCallUtenteServlet extends HttpServlet {
 		System.out.println("idFasciaOraria="+idFasciaOraria+"&idDocente="+idUtente+"\n");
 		
 		StateResult result = implVR.getJoinUserData(idFasciaOraria, idUtente, tokenUtente, nomeRoom);
-		
+		System.out.println("Nome room: "+nomeRoom[0]);
 		StringBuffer xmlReply = new StringBuffer();
 		
 		if(result == StateResult.VALID) {
