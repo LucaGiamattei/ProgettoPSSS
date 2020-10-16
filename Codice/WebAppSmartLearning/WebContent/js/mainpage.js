@@ -416,23 +416,23 @@ function joinToRoom(){
 	$(".bodyclass").addClass("bd");
 	
 	room = parseInt(localStorage['nomeRoom']);
-	var token;
+	
 	var myusername = localStorage['username']
 	
-	if(localStorage['tokenDocente'] != null){
-		token = localStorage['tokenDocente'];
-	}else{
-		token = localStorage['tokenUtente'];
-		}
 	
-	   var register = {
-		   request: "join",
-		   room: room,
-		   ptype: "publisher",
-		   display: myusername,
-		   token: token
-	   };
-	   handle_vr.send({ message: register });
+	var token = localStorage['tokenUtente'];
+	
+	if(token!= null){
+		var register = {
+			   request: "join",
+			   room: room,
+			   ptype: "publisher",
+			   display: myusername,
+			   token: token
+		 };
+		handle_vr.send({ message: register });
+		
+	}
    }
 
 
@@ -477,23 +477,27 @@ function newRoom(){
 function destroyRoom(){
 		
 		var room = parseInt(localStorage['nomeRoom']);
-		var tokenDocente = localStorage['tokenDocente'];
-		//secret: password required to edit/destroy the room, optional
-		console.log("Richiesta di delete Room a Janus");
-	   create_request= {
-		   request: "destroy",
-		   room: room,
-		   secret: tokenDocente,
-		   permanent: true
-	   }
-	   
-	   handle_vr.send({ message: create_request ,success: function (msg){
-		   if (msg["videoroom"]==="destroyed"){
-			   	deleteRoom();
-				
+		var tokenD = localStorage['tokenUtente'];
+		if(tokenD!=null){
+			//secret: password required to edit/destroy the room, optional
+			console.log("Richiesta di delete Room a Janus");
+		   create_request= {
+			   request: "destroy",
+			   room: room,
+			   secret: tokenD,
+			   permanent: true
 		   }
-		  
-	   }});
+		   
+		   handle_vr.send({ message: create_request ,success: function (msg){
+			   if (msg["videoroom"]==="destroyed"){
+				   	deleteRoom();
+					
+			   }
+			  
+		   }});
+			
+		}
+		
 
 }
 
@@ -792,11 +796,7 @@ janus.attach(
 
 function joinToRoomScreen() {
 	room = parseInt(nomeRoom);
-	var token;
-	
-	if(tokenDocente != null){
-		token = tokenDocente;
-	}else{token = tokenUtente}
+	var token = localStorage['tokenUtente'];
 
 	   var register = {
 		   request: "join",

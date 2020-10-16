@@ -4,8 +4,10 @@ package serviceLayer.videoroom.implementation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.Vector;
 
 import dataLayer.lezione.controller.ControllerLezioneDB;
@@ -45,21 +47,23 @@ public class ImplVideoRoom implements IVideoRoom{
 	@Override
 	public StateResult verifyFasciaOrariaIsInProgress(FasciaOraria fascia) {
 		
-		//System.out.println("verifyFasciaOrariaIsInProgress");
+		System.out.println("verifyFasciaOrariaIsInProgress");
 		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
+		sdformat.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
 		Date date = new Date();
-		//System.out.println("verifyFasciaOrariaIsInProgress1");
+		System.out.println("verifyFasciaOrariaIsInProgress1");
 		Date d1;
 		Date d2;
 		try {
 			d1 = sdformat.parse(sdformat.format(date));
+			
 			d2 = sdformat.parse(sdformat.format(fascia.getDataLezione()));		
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return StateResult.NOVALID;
 		}
-		//System.out.println("comparo le seguenti date: "+sdformat.format(d1)+", "+ sdformat.format(d2));
+		System.out.println("comparo le seguenti date: "+sdformat.format(d1)+", "+ sdformat.format(d2));
 		//sdformat.format(fascia.getDataLezione());
 		//sdformat.format(date);
 		
@@ -67,8 +71,10 @@ public class ImplVideoRoom implements IVideoRoom{
 			//le date sono uguali
 			String orarioFine = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioFine());
 			String orarioInizio = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.UK).format(fascia.getOrarioInizio());
-			//System.out.println("orario Inizio "+LocalTime.now().isAfter(LocalTime.parse( orarioInizio))+"\n OrarioFIne"+LocalTime.now().isBefore(LocalTime.parse( orarioFine) ));
-			if(LocalTime.now().isAfter(LocalTime.parse( orarioInizio)) && LocalTime.now().isBefore(LocalTime.parse( orarioFine ))) {
+			LocalTime now = LocalTime.now(ZoneId.of("Europe/Rome"));
+			System.out.println("orario Inizio "+now+"  "+orarioInizio+now.isAfter(LocalTime.parse( orarioInizio))+"\n OrarioFIne"+orarioFine+now.isBefore(LocalTime.parse( orarioFine) ));
+			
+			if(now.isAfter(LocalTime.parse( orarioInizio)) && now.isBefore(LocalTime.parse( orarioFine ))) {
 				return StateResult.VALID;
 			}
 			
@@ -145,6 +151,8 @@ public class ImplVideoRoom implements IVideoRoom{
 		StateResult result;
 		
 		result = controllerV.getRoom(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), room);
+		
+		
 		if(result != StateResult.VALID) {
 			return result;
 		}
@@ -155,6 +163,7 @@ public class ImplVideoRoom implements IVideoRoom{
 		}
 		
 		nomeRoom[0]  = room.getNomeRoom();
+		System.out.println("getRoom: "+result.toString()+""+room.getNomeRoom());
 		tokenUtente[0] = pagam.getToken();
 		
 		return result;
