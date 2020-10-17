@@ -354,7 +354,7 @@ public static Integer UpdateEntryDB(String nomeTabella,Hashtable<String, String>
 	
 	}
 /**
- * COn questa funzione è possibile selezionare delle tuple all'interno della tabella che hanno un determinato valore in determinate colonne.
+ * Con questa funzione è possibile selezionare delle tuple all'interno della tabella che hanno un determinato valore in determinate colonne.
  * @param nomeTabella Nome della tabella della base di dati persistente
  * @param fieldsToSelect Colonne della tabella da restituire nella select
  * @param conditionsFildsToValues  una hash table con cui è possibile esprimere condizioni del tipo: "Nella colonna "key" cerca le tuple che hanno il valore "value""
@@ -404,13 +404,13 @@ public static ResultSet SelectEntryDB(String nomeTabella,String [] fieldsToSelec
  * Con questa funzione è possibile selezionare delle tuple all'interno della tabella che hanno come valore di una colonna il risultato di un'altra query di selezione.
  * Esempio query: "SELECT fieldsToSelect1 FROM `nomeTabella1` WHERE fieldCondition1 IN(SELECT fieldToSelect2 FROM `nomeTabella2` WHERE conditionsFildsToValues2) ;
  * 
- * @param nomeTabella1
- * @param fieldsToSelect1
- * @param fieldCondition1
- * @param nomeTabella2
- * @param fieldToSelect2
- * @param conditionsFildsToValues2
- * @return
+ * @param nomeTabella1 Nome della tabella della base di dati persistente
+ * @param fieldsToSelect1 Colonne della tabella da restituire nella select
+ * @param fieldCondition1 Colonna che rappresenta la chiave esterna da ricercare nella select query successiva 
+ * @param nomeTabella2 Nome della tabella della base di dati persistente
+ * @param fieldToSelect2 Colonne della tabella da restituire nella select
+ * @param conditionsFildsToValues2 Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
+ * @return selectQuery Restituisce le tuple selezionate dalla query
  * @throws Exception
  */
 
@@ -491,8 +491,9 @@ String  mappingFieldValue = "";
 /**
  * Con questa funzione è possibile contare le tuple all'interno della tabella che hanno un determinato valore in determinate colonne.
  * @param nomeTabella Nome della tabella della base di dati persistente
- * @param conditionsFildsToValues  una hash table con cui è possibile esprimere condizioni del tipo: "Nella colonna "key" cerca le tuple che hanno il valore "value""
- * @return removeFromDB Rimuove le tuple selezionate dalla query
+ * @param selectValue Colonne della tabella da restituire nella select 
+ * @param fieldToCount Colonna su cui effettuare la count
+ * @return selectQuery Restituisce le tuple selezionate dalla query
  * @throws Exception
  * 
  */
@@ -508,15 +509,18 @@ public static ResultSet countEntryDB(String nomeTabella, String selectValue, Str
 
 
 /**
- * Con questa funzione � possibile effettuare una doppia query innestata
+ * Con questa funzione è possibile effettuare una doppia query innestata
  * 
- * @param nomeTabella1
- * @param fieldsToSelect1
- * @param fieldCondition1
- * @param nomeTabella2
- * @param fieldToSelect2
- * @param conditionsFildsToValues2
- * @return
+ * @param nomeTabella1 Nome della tabella della base di dati persistente
+ * @param fieldsToSelect1 Colonne della tabella da restituire nella select
+ * @param fieldCondition1 Colonna che rappresenta la chiave esterna da ricercare nella select query successiva
+ * @param nomeTabella2 Nome della tabella della base di dati persistente
+ * @param fieldToSelect2 Colonne della tabella da restituire nella select
+ * @param fieldCondition2 Colonna che rappresenta la chiave esterna da ricercare nella select query successiva
+ * @param nomeTabella3 Nome della tabella della base di dati persistente
+ * @param fieldToSelect3 Colonne della tabella da restituire nella select
+ * @param conditionsFildsToValues2 Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
+ * @return selectQuery Restituisce le tuple selezionate dalla query
  * @throws Exception
  */
 public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldsToSelect2, String fieldCondition2, String nomeTabella3, String fieldsToSelect3, Hashtable<String, String> conditionsFildsToValues2, Connection conn ) throws Exception {
@@ -549,13 +553,23 @@ public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fi
     }
     
     
- 
    String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldsToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+fieldCondition2+" IN(SELECT "+fieldsToSelect3+" FROM `"+dbName+"`.`"+nomeTabella3+"` WHERE "+mappingFieldValue+")) ;"; 
    System.out.println(query);
  return selectQuery(query, conn);
  
  }
 
+
+/**
+ * Con questa funzione è possibile creare una nuova tupla con un determinato topic
+ * 
+ * @param nomeTabella Nome della tabella della base di dati persistente
+ * @param fildsToValues Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
+ * @param nomeTabella2 Nome della tabella della base di dati persistente
+ * @param conditionToValue Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
+ * @return updateQuery Restituisce la nuova tupla inserita
+ * @throws Exception
+ */
 public static Integer createNewEntryDBInSelect(String nomeTabella, Hashtable<String, String> fildsToValues,String nomeTabella2,  Hashtable<String, String> conditionToValue) throws Exception {
 	 
 	 
@@ -603,8 +617,9 @@ public static Integer createNewEntryDBInSelect(String nomeTabella, Hashtable<Str
 	 return updateQuery(query);	 
 	 }
 
+
 /**
- * Con questa funzione � possibile selezionare tutte le tuple di una tabella
+ * Con questa funzione è possibile selezionare tutte le tuple di una tabella
  * @param nomeTabella Nome della tabella della base di dati persistente
  * @param fieldsToSelect Colonne della tabella da restituire nella select
  * @return SelectAll Restituisce le tuple selezionate dalla query
@@ -712,8 +727,17 @@ public static ResultSet queryRetrieveFascebyLezionePayedStillUp(String idlezione
 	   System.out.println(query);
 	   return selectQuery(query);
 	 
-}*/
+}*/ 
 
+/**
+ * Con questa funzione è possibile effettuare una query sulla tabella fasciaoraria con il controllo sulla data e gli orari
+ * 
+ * @param fieldsToSelect Colonne della tabella da restituire nella select
+ * @param conditionsFildsToValues Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
+ * @param conn
+ * @return selectQuery Restituisce le tuple selezionate dalla query
+ * @throws Exception
+ */
 public static ResultSet SelectFromFasciaOrariaDB(String [] fieldsToSelect, Hashtable<String, String> conditionsFildsToValues, Connection conn ) throws Exception {
 	
 	String  mappingFieldValue = "";
