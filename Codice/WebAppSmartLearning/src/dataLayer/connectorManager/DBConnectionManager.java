@@ -5,13 +5,13 @@ package dataLayer.connectorManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+//import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
+/*
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -25,7 +25,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 import com.mysql.jdbc.PreparedStatement;
 
 import  org.apache.commons.dbcp2.DriverManagerConnectionFactory;
-
+*/
 
 
 

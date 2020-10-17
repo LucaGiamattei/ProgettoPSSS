@@ -9,7 +9,17 @@ import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 import dataLayer.utilities.idTopic;
-
+/**
+ * Tale interfaccia espone le funzioni pubbliche sull'entità persistente Lezione e le sue Programmazioni 
+ * offerte dal livello data layer ai livelli superiori. <p>
+ * L'interfaccia segue il seguente standard: <p>
+ * - ogni funzione ritorna sempre uno StateResult che rispecchia lo stato di completamento della funzione <p>
+ * - le funzioni utilizzano come contenitori di informazioni solo le entità Lezione e FasciaOraria <p>
+ * - le informazioni ottenute dall'elaborazioni delle funzioni sono restituiti tramite parametri di I/O <p>
+ * 
+ * @author giorgio
+ *
+ */
 public interface API_LezioneDB {
 	/**
 	 *Questa funzione permette di validare l'id di una lezione
