@@ -44,7 +44,7 @@ public interface API_PagamentoDB {
 	public StateResult getUsersPayedLesson(idFasciaOraria idFasciaOraria, Vector<idUser> users);
 	
 	/**
-	 * Genera il token
+	 * Genera e salva i token per accedere alla videochiamata
 	 * @param idFasciaOraria
 	 * @param payments
 	 * @return StateResult Rappresenta lo stato dell'operazione:
@@ -55,7 +55,7 @@ public interface API_PagamentoDB {
 	public StateResult genAndGetTokens(idFasciaOraria idFasciaOraria, Vector<PagamentoDB>payments);
 	
 	/**
-	 * Restituisce il token di un utente
+	 * Restituisce il token di un utente che ha pagato per una fascia oraria
 	 * @param pagamentoUtente
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- VALID
