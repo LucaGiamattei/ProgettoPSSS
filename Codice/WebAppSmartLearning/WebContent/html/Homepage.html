@@ -101,7 +101,7 @@ function ricerca(){
 
 	console.log("ricercafunction "+ ricerca);
 	
-	var url = "../riservate/Search";
+	var url = "../riservate/lezioniutente";
 	var params = "ricerca="+ricerca+"&requesterId="+myId;
 	request.open('POST', url, true);
 
@@ -165,7 +165,7 @@ function gestisciRisposta(responseXML) {
 			
 		}
 	}else{
-		window.location.replace("http://localhost:8080/WebAppSmartLearning");
+		window.location.replace("../");
 	}
 }
 
@@ -184,7 +184,7 @@ function retrievePrograms(idlez){
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idlez="+idlez;
-	var url = "../riservate/programs";
+	var url = "../riservate/programmazioni";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -233,7 +233,7 @@ function gestisciRispostaProgrammazioni(responseXML) {
 			}
 		}
 	}else{
-		window.location.replace("http://localhost:8080/WebAppSmartLearning");
+		window.location.replace("../");
 	}
 }
 
@@ -248,7 +248,7 @@ function subscribeToProgram(idprog){
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId+"&idprog="+idprog;
-	var url = "../riservate/subscribeprog";
+	var url = "../riservate/prenotazione";
 	request.open('POST', url, true);
 	
 	//Send the proper header information along with the request
@@ -276,7 +276,7 @@ function gestisciRispostaSubProgram(responseXML) {
 			}
 		}
 	}else{
-		window.location.replace("http://localhost:8080/WebAppSmartLearning");
+		window.location.replace("../");
 	}
 
 }

@@ -5,7 +5,7 @@ import java.sql.Types;
 import java.util.Hashtable;
 
 import com.mysql.jdbc.CallableStatement;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.utilities.StateResult;
@@ -71,9 +71,10 @@ public class ControllerVideoRoomDB implements API_VideoRoomDB{
 			videoRoom.setPasswordRoom(outputValue);
 
 			conn.commit();
-			conn.close();
+			//conn.close();
 			
 			if(outputValue !=null) {
+				System.out.println("createNewRoom: StateResult.CREATED");
 				return StateResult.CREATED;
 			}else {
 				return StateResult.NOUPDATED;
@@ -97,7 +98,8 @@ public class ControllerVideoRoomDB implements API_VideoRoomDB{
 				
 		ResultSet result;
 		try {
-			result = DBConnectionManager.SelectEntryDB("Videocall", fieldsToSelect, conditionsFildsToValues);
+			Connection conn = null;
+			result = DBConnectionManager.SelectEntryDB("Videocall", fieldsToSelect, conditionsFildsToValues, conn);
 			
 			
 			int numOfRows = 0;
@@ -107,16 +109,15 @@ public class ControllerVideoRoomDB implements API_VideoRoomDB{
 					if (numOfRows==1) {
 						videoRoom.setNomeRoom(result.getString("NomeRoom"));
 						videoRoom.setPasswordRoom(result.getString("Password"));
+						return StateResult.VALID;
 						
 						
 					}
 			}
+			//conn.close();
 			
-			if(numOfRows ==1) {
-				return StateResult.VALID;
-			}else {
-				return StateResult.NOVALID;
-			}
+			return StateResult.NOVALID;
+			
 			
 					
 				

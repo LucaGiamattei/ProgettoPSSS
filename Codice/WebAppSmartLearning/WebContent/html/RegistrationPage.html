@@ -70,7 +70,7 @@ function RegisterFunction(){
 	
 	console.log("registerFunction "+ nome +" "+ cognome +" "+ email +" "+ password);
 	
-	var url = "../RegistrationServlet";
+	var url = "../RegistrazioneServlet";
 	var params = "cognome="+cognome+"&nome="+nome+"&email="+email+"&password="+password;
 	request.open('POST', url, true);
 
@@ -92,7 +92,7 @@ function gestisciRisposta(responseXML) {
 		
 		if(risposta.childNodes[0].nodeValue == "utenteCreato") {
 			
-			window.location.replace("http://localhost:8080/WebAppSmartLearning");
+			window.location.replace("../");
 			alert("Utente registrato correttamente");
 			
 		} else {

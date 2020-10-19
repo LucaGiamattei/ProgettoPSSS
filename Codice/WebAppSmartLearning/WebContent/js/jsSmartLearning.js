@@ -16,7 +16,7 @@ function isDocente(){
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
-	var url = "../riservate/docente/testDocente";
+	var url = "../riservate/docente/utenteservlet";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request
@@ -50,7 +50,7 @@ function logOut(){
 	localStorage.removeItem('nomeRoom');
 	localStorage.removeItem('idprog');
 	localStorage.removeItem('videoCallStarted');
-	window.location.replace("http://localhost:8080/WebAppSmartLearning");
+	window.location.replace("../");
 	
 	
 }

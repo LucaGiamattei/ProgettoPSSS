@@ -58,6 +58,12 @@ public class DocFilter implements Filter {
 			xmlReply.append("<risposta>utenteNonAutorizzato</risposta>");
 			response.setContentType("text/xml");
 			response.getWriter().write(xmlReply.toString());
+		}else {
+			System.out.println("Errore DocFilter");
+			StringBuffer xmlReply = new StringBuffer();
+			xmlReply.append("<risposta>errore</risposta>");
+			response.setContentType("text/xml");
+			response.getWriter().write(xmlReply.toString());
 		}
 	}
 

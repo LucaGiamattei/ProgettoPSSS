@@ -9,12 +9,22 @@ import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 import dataLayer.utilities.idTopic;
-
+/**
+ * Tale interfaccia espone le funzioni pubbliche sull'entità persistente Lezione e le sue Programmazioni 
+ * offerte dal livello data layer ai livelli superiori. <p>
+ * L'interfaccia segue il seguente standard: <p>
+ * - ogni funzione ritorna sempre uno StateResult che rispecchia lo stato di completamento della funzione <p>
+ * - le funzioni utilizzano come contenitori di informazioni solo le entità Lezione e FasciaOraria <p>
+ * - le informazioni ottenute dall'elaborazioni delle funzioni sono restituiti tramite parametri di I/O <p>
+ * 
+ * @author giorgio
+ *
+ */
 public interface API_LezioneDB {
 	/**
 	 *Questa funzione permette di validare l'id di una lezione
 	 *
-	 *@param idLesson
+	 *@param idLesson 
 	 *@return StateResult Rappresenta lo stato dell'operazione:
 	 *- NOVALID
 	 *- VALID
@@ -28,8 +38,9 @@ public interface API_LezioneDB {
 	 *Questa funzione permette di creare una lezione 
 	 *@warning La lezione è intesa in senso lato, ovvero senza alcuna specializzazione in fascia oraria
 	 *
-	 *@param infoLezione
-	 *@param nomeTopic
+	 *@param infoLezione (I/O) fornisce le informazioni riguardo la lezione da creare; 
+	 *terminata la funzione, l'id dell'oggetto infoLezione è settato all'id della lezione creata se la creazione è andata a buon fine
+	 *@param nomeTopic nome del topic della lezione da creare
 	 *@return StateResult Rappresenta lo stato dell'operazione:
 	 *- NOCHANGES
 	 *- DBPROBLEM
@@ -53,7 +64,7 @@ public interface API_LezioneDB {
 	 * Questa funzione permette di selezionare tutte le lezioni di un docente (senza controllo su visibile in fasce orarie)
 	 * 
 	 * @param idOwnerUser 
-	 * @param lezioni vettore di lezioni dell'utente
+	 * @param lezioni (parametro di uscita ) vettore di lezioni dell'utente
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- VALID
 	 *- DBPROBLEM
@@ -91,6 +102,7 @@ public interface API_LezioneDB {
 	 * @param lezioni (I/O) Da Input deve fornire principlamente gli identificativi delle lezioni, Da Output sar� arricchita ogni lezione con i riferimenti alle relative fasce orarie
 	 * @return StateResult Rappresenta lo stato dell'operazione:
 	 *- VALID
+	 *- NOVALID
 	 *- DBPROBLEM
 	 */
 	StateResult attachSlotsToLessonsDocente(Vector<LezioneDB> lezioni);
@@ -101,7 +113,10 @@ public interface API_LezioneDB {
 	 * @warning la la fasciaoraria è sia di input (da cui viene valutato idFasciaOraria) sia di output (i campi vengono riempiti in base all'esito della verifica)
 	 * @param id
 	 * @param fascia
-	 * @return
+	 * @return StateResult Rappresenta lo stato dell'operazione:
+	 *- VALID
+	 *- NOVALID
+	 *- DBPROBLEM
 	 */
 	public StateResult getFasciaOraria(idUser id, FasciaOraria fascia);
 	
@@ -134,6 +149,7 @@ public interface API_LezioneDB {
 	  * @param lezioni
 	  * @return StateResult Rappresenta lo stato dell'operazione:
 	  *- VALID
+	  *- NOVALID
 	  *- DBPROBLEM
 	  */
 	 
@@ -145,6 +161,7 @@ public interface API_LezioneDB {
 	  * @param lezioni vettore di lezioni in uscita
 	  * @return StateResult Rappresenta lo stato dell'operazione:
 	  *- VALID
+	  *- NOVALID
 	  *- DBPROBLEM
 	  */
 	 public StateResult getLessonsPayedStillUp(idUser idUser, Vector<LezioneDB> lezioni);
@@ -152,7 +169,10 @@ public interface API_LezioneDB {
 	 /**
 	  * Questa funzione permette di ottenere una fascia oraria visibile
 	  * @param fascia
-	  * @return
+	  * @return StateResult Rappresenta lo stato dell'operazione:
+	  * - VALID
+	  * - NOVALID
+	  * - DBPROBLEM
 	  */
 	 public StateResult getFasciaOraria(FasciaOraria fascia);
 	 
@@ -160,7 +180,10 @@ public interface API_LezioneDB {
 	  * Questa funzione permette di ottenere una fascia oraria in base ad un utente, anche se scaduta
 	  * @param id
 	  * @param fascia
-	  * @return
+	  * @return StateResult Rappresenta lo stato dell'operazione:
+	  * - VALID
+	  * - NOVALID
+	  * - DBPROBLEM
 	  */
 	 public StateResult getFasciaOrariaNoCatalogo(idUser id, FasciaOraria fascia);
 	 
@@ -169,7 +192,10 @@ public interface API_LezioneDB {
 	  * @param id
 	  * @param idlezione
 	  * @param fasce
-	  * @return
+	  * @return StateResult Rappresenta lo stato dell'operazione:
+	  * - VALID
+	  * - NOVALID
+	  * - DBPROBLEM
 	  */
 	 public StateResult getFascePayedStillUpByLesson(idUser idUser, idLesson idlez, Vector<FasciaOraria> fasce);
 }

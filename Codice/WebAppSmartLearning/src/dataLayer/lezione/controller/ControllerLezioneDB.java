@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.mysql.jdbc.CallableStatement;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
@@ -38,12 +38,14 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			
 			ResultSet result;
 			try {
-				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+				Connection conn = null;
+				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues, conn);
 				int numOfRows = 0;
 				
 				while (result.next()) {
 					numOfRows++;
 				}
+				//if(conn!=null) {conn.close();}
 				switch(numOfRows) {
 			      case 1:
 			    	  return StateResult.VALID;
@@ -73,7 +75,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			conditionsFildsToValues.put("Utente_idUtente", id.toString());
 						ResultSet result;
 						try {
-							result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues);
+							Connection conn = null;
+							result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues, conn);
 							
 							int numOfRows = 0;
 							
@@ -86,6 +89,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 								fascia.setDataLezione(result.getDate("DataLezione"));
 								
 							}
+							//if(conn!=null) {conn.close();}
 							switch(numOfRows) {
 						      case 1:
 						    	  return StateResult.VALID;
@@ -111,7 +115,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			conditionsFildsToValues.put("Lezione_Utente_idUtente", id.toString());
 						ResultSet result;
 						try {
-							result = DBConnectionManager.SelectEntryDB("fasciaoraria", fieldsToSelect, conditionsFildsToValues);
+							Connection conn = null;
+							result = DBConnectionManager.SelectEntryDB("fasciaoraria", fieldsToSelect, conditionsFildsToValues, conn);
 							
 							int numOfRows = 0;
 							
@@ -124,6 +129,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 								fascia.setDataLezione(result.getDate("DataLezione"));
 								
 							}
+							//if(conn!=null) {conn.close();}
 							switch(numOfRows) {
 						      case 1:
 						    	  return StateResult.VALID;
@@ -201,7 +207,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				int outputValue = stmt.getInt(5);
 	
 				conn.commit();
-				conn.close();
+				////if(conn!=null) {conn.close();}
 				
 				if(outputValue == 0) {
 					return StateResult.UPDATED;
@@ -242,7 +248,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				int retId = stmt.getInt(5);
 				
 				conn.commit();
-				conn.close();
+				////if(conn!=null) {conn.close();}
 				
 				if(retId > 0) {
 					orari.setId(new idFasciaOraria(retId));
@@ -269,8 +275,10 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 			
 			ResultSet result;
+			
 			try {
-				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+				Connection conn = null;
+				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues, conn);
 				int numTuple = 0;
 				while (result.next() ) {
 					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
@@ -279,8 +287,9 @@ public class ControllerLezioneDB implements API_LezioneDB{
 
 					numTuple++;
 				}
-				
-				
+				if(conn!=null) {
+					//if(conn!=null) {conn.close();}
+				}
 				if(numTuple!=0) {
 					controllerlez.attachSlotsToLessonsUtente(lezioni);
 					return StateResult.VALID;
@@ -293,8 +302,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return StateResult.DBPROBLEM;
+				
 			}
-	
 		}
 		
 		@Override
@@ -307,7 +316,8 @@ public class ControllerLezioneDB implements API_LezioneDB{
 			
 			ResultSet result;
 			try {
-				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+				Connection conn = null;
+				result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues, conn);
 				int numTuple = 0;
 				while (result.next() ) {
 					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
@@ -317,7 +327,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 					numTuple++;
 				}
 				
-				
+				//if(conn!=null) {conn.close();}
 				if(numTuple!=0) {
 					controllerlez.attachSlotsToLessonsDocente(lezioni);
 					return StateResult.VALID;
@@ -347,13 +357,15 @@ public class ControllerLezioneDB implements API_LezioneDB{
 					String [] fieldsToSelect = {"*"};
 					Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 					conditionsFildsToValues.put("idLezione", lezioni.get(i).getId().toString());
-					ResultSet result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues);
+					Connection conn = null;
+					ResultSet result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues, conn);
 					
 					while (result.next() ) {
 						FasciaOraria slot = new FasciaOraria(new idFasciaOraria(result.getInt("idFasciaOraria")),result.getInt("visibile"), result.getTime("OrarioInizioLezione"),result.getTime("OrarioFineLezione"), result.getDate("DataLezione"), result.getFloat("prezzo"));
 						lezioni.get(i).getSlots().add(slot);
 						
 					}
+					//if(conn!=null) {conn.close();}
 					
 				}
 				
@@ -381,7 +393,8 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 			
 						ResultSet result;
 						try {
-							result = DBConnectionManager.SelectEntryDB("FasciaOraria", fieldsToSelect, conditionsFildsToValues);
+							Connection conn = null;
+							result = DBConnectionManager.SelectEntryDB("FasciaOraria", fieldsToSelect, conditionsFildsToValues, conn);
 							
 							int numOfRows = 0;
 							
@@ -394,6 +407,7 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 								fascia.setDataLezione(result.getDate("DataLezione"));
 								
 							}
+							//if(conn!=null) {conn.close();}
 							switch(numOfRows) {
 						      case 1:
 						    	  return StateResult.VALID;
@@ -419,13 +433,15 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 			ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 			
 			try {
-				ResultSet result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+				Connection conn = null;
+				ResultSet result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues, conn);
 				int numTuple = 0;
 				while (result.next() ) {
 					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
 					lezioni.add(lezione);
 					numTuple++;
 				}
+				//if(conn!=null) {conn.close();}
 				if(numTuple>0) {
 					controllerlez.attachSlotsToLessonsUtente(lezioni);
 					return StateResult.VALID;
@@ -449,13 +465,15 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 			conditionsFildsToValues.put("NomeLezione", title);
 						
 			try {
-				ResultSet result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues);
+				Connection conn = null;
+				ResultSet result = DBConnectionManager.SelectEntryDB("Lezione", fieldsToSelect, conditionsFildsToValues, conn);
 				int numTuple = 0;
 				while (result.next() ) {
 					LezioneDB lezione = new LezioneDB(new idLesson(result.getInt("idLezione")), result.getString("NomeLezione"),result.getString("DescrizioneLezione"), result.getFloat("MediaScoreLezione"), result.getInt("NMaxStudenti"), new idTopic(result.getInt("Topic_idTopic")), new idUser(result.getInt("Utente_idUtente")));
 					lezioni.add(lezione);
 					numTuple++;
 				}
+				//if(conn!=null) {conn.close();}
 				if(numTuple>0) {
 					return StateResult.VALID;
 				}else {
@@ -485,13 +503,15 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 					Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
 					conditionsFildsToValues.put("idLezione", lezioni.get(i).getId().toString());
 					conditionsFildsToValues.put("visibile", "1");
-					ResultSet result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues);
+					Connection conn = null;
+					ResultSet result = DBConnectionManager.SelectEntryDB("CatalogoLezioni", fieldsToSelect, conditionsFildsToValues, conn);
 					int numTuple = 0;
 					while (result.next() ) {
 						FasciaOraria slot = new FasciaOraria(new idFasciaOraria(result.getInt("idFasciaOraria")),result.getInt("visibile"), result.getTime("OrarioInizioLezione"),result.getTime("OrarioFineLezione"), result.getDate("DataLezione"), result.getFloat("prezzo"));
 						lezioni.get(i).getSlots().add(slot);
 						numTuple++;
 					}
+					//if(conn!=null) {conn.close();}
 					
 				}
 				
@@ -577,8 +597,8 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 			
 			ResultSet result;
 			try {
-						
-				result = DBConnectionManager.SelectEntryDB("pagamento",fieldsToSelect,conditionsFildsToValues);
+				Connection conn = null;		
+				result = DBConnectionManager.SelectEntryDB("pagamento",fieldsToSelect,conditionsFildsToValues, conn);
 				
 				if (result.next()) {
 					
@@ -591,8 +611,8 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 					}
 					
 					conditionsFildsToValuesList.put("idFasciaOraria",list);
-					
-					result = DBConnectionManager.SelectEntryORDB("catalogolezioni",fieldsToSelectlist,conditionsFildsToValuesList);
+					Connection conn1 = null;
+					result = DBConnectionManager.SelectEntryORDB("catalogolezioni",fieldsToSelectlist,conditionsFildsToValuesList, conn1);
 					
 
 					while(result.next()) {
@@ -621,13 +641,19 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 					}
 
 					
-				
+					//if(conn!=null) {conn.close();}
+					//conn1.close();
 					if(lezioni.size() > 0) {
+						
 						return StateResult.VALID;
 					}else {
+						
 						return StateResult.NOVALID;
 					}
-				}else {return StateResult.NOVALID;}
+				}else {
+					//if(conn!=null) {conn.close();}
+					return StateResult.NOVALID;
+					}
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -651,8 +677,8 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 			
 			ResultSet result;
 			try {
-						
-				result = DBConnectionManager.SelectEntryDB("pagamento",fieldsToSelect,conditionsFildsToValues);
+				Connection conn = null;		
+				result = DBConnectionManager.SelectEntryDB("pagamento",fieldsToSelect,conditionsFildsToValues, conn);
 				
 				if (result.next()) {
 					
@@ -665,8 +691,8 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 					}
 					
 					conditionsFildsToValuesList.put("idFasciaOraria",list);
-					
-					result = DBConnectionManager.SelectEntryORDB("catalogolezioni",fieldsToSelectlist,conditionsFildsToValuesList);
+					Connection conn1 = null;
+					result = DBConnectionManager.SelectEntryORDB("catalogolezioni",fieldsToSelectlist,conditionsFildsToValuesList,  conn1);
 					
 
 					while(result.next()) {
@@ -677,13 +703,18 @@ public StateResult getFasciaOraria(FasciaOraria fascia) {
 					}
 
 					
-				
+					//if(conn!=null) {conn.close();}
+					//conn1.close();
 					if(fasce.size() > 0) {
 						return StateResult.VALID;
 					}else {
 						return StateResult.NOVALID;
 					}
-				}else {return StateResult.NOVALID;}
+				}else {
+					//if(conn!=null) {conn.close();}
+					return StateResult.NOVALID;
+					}
+				
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

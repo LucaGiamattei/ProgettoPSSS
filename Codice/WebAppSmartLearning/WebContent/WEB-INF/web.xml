@@ -8,194 +8,183 @@
   
   <servlet>
   <description></description>
-  <display-name>Registration</display-name>
-  <servlet-name>RegistrationServlet</servlet-name>
-  <servlet-class>webLayer.servlets.RegistrationServlet</servlet-class>
+  <display-name>RegistrazioneServlet</display-name>
+  <servlet-name>RegistrazioneServlet</servlet-name>
+  <servlet-class>webLayer.servlets.RegistrazioneServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>RegistrationServlet</servlet-name>
-  <url-pattern>/Registration</url-pattern>
+  <servlet-name>RegistrazioneServlet</servlet-name>
+  <url-pattern>/registrazione</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>Login</display-name>
+  <display-name>LoginServlet</display-name>
   <servlet-name>LoginServlet</servlet-name>
   <servlet-class>webLayer.servlets.LoginServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
   <servlet-name>LoginServlet</servlet-name>
-  <url-pattern>/Login</url-pattern>
+  <url-pattern>/login</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>Search</display-name>
-  <servlet-name>SearchServlet</servlet-name>
-  <servlet-class>webLayer.servlets.SearchServlet</servlet-class>
+  <display-name>LezioniUtenteServlet</display-name>
+  <servlet-name>LezioniUtenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.LezioniUtenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>SearchServlet</servlet-name>
-  <url-pattern>/riservate/Search</url-pattern>
+  <servlet-name>LezioniUtenteServlet</servlet-name>
+  <url-pattern>/riservate/lezioniutente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>Upgrade</display-name>
-  <servlet-name>UpgradeServlet</servlet-name>
-  <servlet-class>webLayer.servlets.UpgradeServlet</servlet-class>
+  <display-name>UpgradeToDocenteServlet</display-name>
+  <servlet-name>UpgradeToDocenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.UpgradeToDocenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>UpgradeServlet</servlet-name>
-  <url-pattern>/riservate/UpgradeDocente</url-pattern>
+  <servlet-name>UpgradeToDocenteServlet</servlet-name>
+  <url-pattern>/riservate/upgradetodocente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>User</display-name>
-  <servlet-name>UserServlet</servlet-name>
-  <servlet-class>webLayer.servlets.UserServlet</servlet-class>
+  <display-name>UtenteServlet</display-name>
+  <servlet-name>UtenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.UtenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>UserServlet</servlet-name>
-  <url-pattern>/riservate/GetUser</url-pattern>
+  <servlet-name>UtenteServlet</servlet-name>
+  <url-pattern>/riservate/utente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>Lesson</display-name>
-  <servlet-name>LessonServlet</servlet-name>
-  <servlet-class>webLayer.servlets.LessonServlet</servlet-class>
+  <display-name>LezioneDocenteServlet</display-name>
+  <servlet-name>LezioneDocenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.LezioneDocenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>LessonServlet</servlet-name>
-  <url-pattern>/riservate/docente/CreateLesson</url-pattern>
+  <servlet-name>LezioneDocenteServlet</servlet-name>
+  <url-pattern>/riservate/docente/lezionedocente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>RetrieveMyLessonsServlet</display-name>
-  <servlet-name>RetrieveMyLessonsServlet</servlet-name>
-  <servlet-class>webLayer.servlets.RetrieveMyLessonsServlet</servlet-class>
+  <display-name>LezioniDocenteServlet</display-name>
+  <servlet-name>LezioniDocenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.LezioniDocenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>RetrieveMyLessonsServlet</servlet-name>
-  <url-pattern>/riservate/docente/retrievemylessons</url-pattern>
+  <servlet-name>LezioniDocenteServlet</servlet-name>
+  <url-pattern>/riservate/docente/lezionidocente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>RetrieveTopicsServlet</display-name>
-  <servlet-name>RetrieveTopicsServlet</servlet-name>
-  <servlet-class>webLayer.servlets.RetrieveTopicsServlet</servlet-class>
+  <display-name>TopicsServlet</display-name>
+  <servlet-name>TopicsServlet</servlet-name>
+  <servlet-class>webLayer.servlets.TopicsServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>RetrieveTopicsServlet</servlet-name>
-  <url-pattern>/RetrieveTopics</url-pattern>
+  <servlet-name>TopicsServlet</servlet-name>
+  <url-pattern>/topics</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>ProgramLessonServlet</display-name>
-  <servlet-name>ProgramLessonServlet</servlet-name>
-  <servlet-class>webLayer.servlets.ProgramLessonServlet</servlet-class>
+  <display-name>ProgrammazioneDocenteServlet</display-name>
+  <servlet-name>ProgrammazioneDocenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.ProgrammazioneDocenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>ProgramLessonServlet</servlet-name>
-  <url-pattern>/riservate/docente/ProgramLesson</url-pattern>
+  <servlet-name>ProgrammazioneDocenteServlet</servlet-name>
+  <url-pattern>/riservate/docente/programmazionedocente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>ProgramsLessonServlet</display-name>
-  <servlet-name>ProgramsLessonServlet</servlet-name>
-  <servlet-class>webLayer.servlets.ProgramsLessonServlet</servlet-class>
+  <display-name>ProgrammazioniServlet</display-name>
+  <servlet-name>ProgrammazioniServlet</servlet-name>
+  <servlet-class>webLayer.servlets.ProgrammazioniServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>ProgramsLessonServlet</servlet-name>
-  <url-pattern>/riservate/programs</url-pattern>
+  <servlet-name>ProgrammazioniServlet</servlet-name>
+  <url-pattern>/riservate/programmazioni</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+  <description></description>
+  <display-name>LezioniPrenotateServlet</display-name>
+  <servlet-name>LezioniPrenotateServlet</servlet-name>
+  <servlet-class>webLayer.servlets.LezioniPrenotateServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>LezioniPrenotateServlet</servlet-name>
+  <url-pattern>/riservate/lezioniprenotate</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>testDocente</display-name>
-  <servlet-name>testDocente</servlet-name>
-  <servlet-class>webLayer.servlets.testDocente</servlet-class>
+  <display-name>PrenotazioneServlet</display-name>
+  <servlet-name>PrenotazioneServlet</servlet-name>
+  <servlet-class>webLayer.servlets.PrenotazioneServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>testDocente</servlet-name>
-  <url-pattern>/riservate/docente/testDocente</url-pattern>
+  <servlet-name>PrenotazioneServlet</servlet-name>
+  <url-pattern>/riservate/prenotazione</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>SubscribeServlet</display-name>
-  <servlet-name>SubscribeServlet</servlet-name>
-  <servlet-class>webLayer.servlets.SubscribeServlet</servlet-class>
+  <display-name>VideoCallDocenteServlet</display-name>
+  <servlet-name>VideoCallDocenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.VideoCallDocenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>SubscribeServlet</servlet-name>
-  <url-pattern>/riservate/subscribeprog</url-pattern>
+  <servlet-name>VideoCallDocenteServlet</servlet-name>
+  <url-pattern>/riservate/docente/videocalldocente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>SubscribesServlet</display-name>
-  <servlet-name>SubscribesServlet</servlet-name>
-  <servlet-class>webLayer.servlets.SubscribesServlet</servlet-class>
+  <display-name>VideoCallUtenteServlet</display-name>
+  <servlet-name>VideoCallUtenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.VideoCallUtenteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>SubscribesServlet</servlet-name>
-  <url-pattern>/riservate/retrievemysubscribes</url-pattern>
+  <servlet-name>VideoCallUtenteServlet</servlet-name>
+  <url-pattern>/riservate/videocallutente</url-pattern>
   </servlet-mapping>
   
   <servlet>
   <description></description>
-  <display-name>AvviaVideoCallServlet</display-name>
-  <servlet-name>AvviaVideoCallServlet</servlet-name>
-  <servlet-class>webLayer.servlets.AvviaVideoCallServlet</servlet-class>
+  <display-name>PrenotazioniServlet</display-name>
+  <servlet-name>PrenotazioniServlet</servlet-name>
+  <servlet-class>webLayer.servlets.PrenotazioniServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  <servlet-name>AvviaVideoCallServlet</servlet-name>
-  <url-pattern>/riservate/docente/avviavideocall</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <description></description>
-  <display-name>JoinVideoCallServlet</display-name>
-  <servlet-name>JoinVideoCallServlet</servlet-name>
-  <servlet-class>webLayer.servlets.JoinVideoCallServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  <servlet-name>JoinVideoCallServlet</servlet-name>
-  <url-pattern>/riservate/joinvideocall</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <description></description>
-  <display-name>ProgramsSubServlet</display-name>
-  <servlet-name>ProgramsSubServlet</servlet-name>
-  <servlet-class>webLayer.servlets.ProgramsSubServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  <servlet-name>ProgramsSubServlet</servlet-name>
-  <url-pattern>/riservate/programssub</url-pattern>
+  <servlet-name>PrenotazioniServlet</servlet-name>
+  <url-pattern>/riservate/prenotazioni</url-pattern>
   </servlet-mapping>
   
   
