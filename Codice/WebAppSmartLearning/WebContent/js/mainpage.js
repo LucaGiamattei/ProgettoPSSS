@@ -80,7 +80,6 @@ function creaHandler(isCreate, isDelete) {
                                 //$('#joinToRoom').click(joinToRoom);
                                 //$('#createRoom').click(newRoom);
                                 
-                                //NON VA BENE QUESTA SOLUZIONE: DA RIVEDERE!
                                 if(isDelete == true){
                                 	destroyRoom();
                                 }
