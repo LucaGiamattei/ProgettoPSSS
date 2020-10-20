@@ -1,4 +1,4 @@
-package serviceLayer.lezione.interfaces;
+package serviceLayer.lezione;
 
 import java.util.Vector;
 

@@ -1,4 +1,4 @@
-package dataLayer.topic.interfaces;
+package dataLayer.topic;
 
 import java.util.Vector;
 
@@ -8,7 +8,17 @@ import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idSubscription;
 import dataLayer.utilities.idTopic;
 import dataLayer.utilities.idUser;
-
+/**
+ * Tale interfaccia espone le funzioni pubbliche sull'entità persistente Topic
+ * offerte dal livello data layer ai livelli superiori. <p>
+ * L'interfaccia segue il seguente standard: <p>
+ * - ogni funzione ritorna sempre uno StateResult che rispecchia lo stato di completamento della funzione <p>
+ * - le funzioni utilizzano come contenitori di informazioni solo l'entità TopicDB <p>
+ * - le informazioni ottenute dall'elaborazioni delle funzioni sono restituiti tramite parametri di I/O <p>
+ * 
+ * @author PsssTeam
+ *
+ */
 public interface API_TopicDB {
 
 	/**

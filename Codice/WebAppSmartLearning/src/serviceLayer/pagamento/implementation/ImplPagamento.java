@@ -15,7 +15,7 @@ import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idPagamento;
 import dataLayer.utilities.idUser;
-import serviceLayer.pagamento.interfaces.IPagamento;
+import serviceLayer.pagamento.IPagamento;
 
 public class ImplPagamento implements IPagamento {
 

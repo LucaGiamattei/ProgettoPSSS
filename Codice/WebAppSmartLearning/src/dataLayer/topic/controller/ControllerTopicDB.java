@@ -7,8 +7,9 @@ import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.lezione.controller.ControllerLezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
+import dataLayer.topic.API_TopicDB;
 import dataLayer.topic.entities.TopicDB;
-import dataLayer.topic.interfaces.*;
+
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idTopic;
 import dataLayer.utilities.idUser;

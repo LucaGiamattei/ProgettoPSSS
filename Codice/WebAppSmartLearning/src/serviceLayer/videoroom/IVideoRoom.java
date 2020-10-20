@@ -1,4 +1,4 @@
-package serviceLayer.videoroom.interfaces;
+package serviceLayer.videoroom;
 
 import java.text.ParseException;
 import java.util.Vector;

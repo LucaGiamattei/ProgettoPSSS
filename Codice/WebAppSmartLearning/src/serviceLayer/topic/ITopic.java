@@ -1,4 +1,4 @@
-package serviceLayer.topic.interfaces;
+package serviceLayer.topic;
 
 import java.util.Vector;
 

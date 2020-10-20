@@ -19,7 +19,7 @@ import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idUser;
 import dataLayer.videoroom.controller.ControllerVideoRoomDB;
 import dataLayer.videoroom.entities.VideoRoomDB;
-import serviceLayer.videoroom.interfaces.IVideoRoom;
+import serviceLayer.videoroom.IVideoRoom;
 
 public class ImplVideoRoom implements IVideoRoom{
 	

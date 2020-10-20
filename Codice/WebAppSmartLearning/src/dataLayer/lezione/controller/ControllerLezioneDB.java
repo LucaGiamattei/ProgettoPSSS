@@ -15,12 +15,11 @@ import java.util.Vector;
 import com.mysql.jdbc.CallableStatement;
 import java.sql.Connection;
 import dataLayer.connectorManager.DBConnectionManager;
+import dataLayer.lezione.API_LezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
-import dataLayer.lezione.entities.result.ResultLezione;
-import dataLayer.lezione.interfaces.API_LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.user.entities.result.ResultUtente;
+
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;

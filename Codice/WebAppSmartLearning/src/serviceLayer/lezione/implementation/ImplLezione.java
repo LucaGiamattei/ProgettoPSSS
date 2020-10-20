@@ -11,7 +11,7 @@ import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
-import serviceLayer.lezione.interfaces.ILezione;
+import serviceLayer.lezione.ILezione;
 
 public class ImplLezione implements ILezione {
 

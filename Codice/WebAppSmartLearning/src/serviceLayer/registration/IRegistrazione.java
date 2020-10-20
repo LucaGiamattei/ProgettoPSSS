@@ -1,4 +1,4 @@
-package serviceLayer.registration.interfaces;
+package serviceLayer.registration;
 
 import dataLayer.utilities.StateResult;
 

@@ -1,4 +1,4 @@
-package serviceLayer.user.interfaces;
+package serviceLayer.user;
 
 import java.util.Vector;
 

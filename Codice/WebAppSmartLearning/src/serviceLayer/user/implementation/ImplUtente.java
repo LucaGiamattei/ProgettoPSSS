@@ -10,7 +10,7 @@ import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
-import serviceLayer.user.interfaces.IUtente;
+import serviceLayer.user.IUtente;
 
 public class ImplUtente implements IUtente {
 

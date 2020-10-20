@@ -1,15 +1,26 @@
-package dataLayer.user.interfaces;
+package dataLayer.user;
 
 
 import java.util.Vector;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.user.entities.result.ResultUtente;
+
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idLesson;
 import dataLayer.utilities.idUser;
 
+/**
+ * Tale interfaccia espone le funzioni pubbliche sull'entità persistente Utente (sia Studente che Docente)
+ * offerte dal livello data layer ai livelli superiori. <p>
+ * L'interfaccia segue il seguente standard: <p>
+ * - ogni funzione ritorna sempre uno StateResult che rispecchia lo stato di completamento della funzione <p>
+ * - le funzioni utilizzano come contenitori di informazioni solo l'entità UserDB <p>
+ * - le informazioni ottenute dall'elaborazioni delle funzioni sono restituiti tramite parametri di I/O <p>
+ * 
+ * @author PsssTeam
+ *
+ */
 public interface API_UtenteDB {
 	/**
 	 *Questa funzione permette di validare l'id di un utente

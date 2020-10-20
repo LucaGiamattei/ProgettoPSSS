@@ -1,4 +1,4 @@
-package serviceLayer.login.interfaces;
+package serviceLayer.login;
 
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;

@@ -1,9 +1,19 @@
-package dataLayer.videoroom.interfaces;
+package dataLayer.videoroom;
 
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.videoroom.entities.VideoRoomDB;
-
+/**
+ * Tale interfaccia espone le funzioni pubbliche sull'entità persistente VideoRoom
+ * offerte dal livello data layer ai livelli superiori. <p>
+ * L'interfaccia segue il seguente standard: <p>
+ * - ogni funzione ritorna sempre uno StateResult che rispecchia lo stato di completamento della funzione <p>
+ * - le funzioni utilizzano come contenitori di informazioni solo l'entità VideoRoomDB <p>
+ * - le informazioni ottenute dall'elaborazioni delle funzioni sono restituiti tramite parametri di I/O <p>
+ * 
+ * @author PsssTeam
+ *
+ */
 public interface API_VideoRoomDB {
 	
 	/**

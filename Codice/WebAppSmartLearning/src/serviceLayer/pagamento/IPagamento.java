@@ -1,4 +1,4 @@
-package serviceLayer.pagamento.interfaces;
+package serviceLayer.pagamento;
 
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
