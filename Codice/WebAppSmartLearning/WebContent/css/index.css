@@ -47,8 +47,8 @@
 	   background-size: 300% 100%;
   }
 
-  .video-container #mute{
-	position: absolute; bottom: 0px; left: 20%; margin: 15px;
+  #mute{
+	position: absolute; top:16%;  right: 1%;
 
   }
  
@@ -58,4 +58,8 @@
 
   #publishScreen{
 	position: absolute; top:12%;  right: 1% ;
+  }
+  
+  #backButton{
+	position: absolute; top:20%;  right: 1% ;
   }

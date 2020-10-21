@@ -29,67 +29,66 @@
 
 <body>
 
-<div class = "row">
-	<nav class="navbar navbar-default navbar-static-top" id="nav">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="Homepage.html">Smart Learning</a>
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav januscon_anchor">
-				<li ><a href="Homepage.html">Home</a></li>
-				<li class="active"><a href="ProfiloPage.html">Profilo</a></li> 
-				<li><a href="#">Documentazione</a></li>
-				<li><a href="#">Contatti</a></li>
-			</ul>
-			<div class="navbar-header navbar-right">
-				<ul class="nav navbar-nav">
-					<li> <a onclick="logOut()" class="navbar-link meetecho-logo">Log Out</a></li>
+<div id = "profilepage">
+	<div class = "row">
+		<nav class="navbar navbar-default navbar-static-top" id="nav">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="Homepage.html">Smart Learning</a>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav januscon_anchor">
+					<li ><a href="Homepage.html">Home</a></li>
+					<li class="active"><a href="ProfiloPage.html">Profilo</a></li> 
+					<li><a href="#">Documentazione</a></li>
+					<li><a href="#">Contatti</a></li>
 				</ul>
+				<div class="navbar-header navbar-right">
+					<ul class="nav navbar-nav">
+						<li> <a onclick="logOut()" class="navbar-link meetecho-logo">Log Out</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
+		</nav>
 	</div>
-	</nav>
-</div>
-<div class = "row">
-	<div class="container" id="mainPage">
-		<div class = "row">
-			<div class="col-md-2 ">
-				<ul class="nav flex-column">
-					<li class="nav-item">
-						<a class="nav-link active"  onclick="retrieveUserData()">Utente</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" onclick="mysubscribesFunc()">Lezioni sottoscritte</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" onclick="myLessonFunc()">Lezioni mie</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Impostazioni</a>
-					</li>
-				</ul>
+	<div class = "row">
+		<div class="container">
+			<div class = "row">
+				<div class="col-md-2 ">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link active"  onclick="retrieveUserData()">Utente</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" onclick="mysubscribesFunc()">Lezioni sottoscritte</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" onclick="myLessonFunc()">Lezioni mie</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Impostazioni</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-10 containerProfilo"></div>
 			</div>
-			<div class="col-md-10 containerProfilo"></div>
 		</div>
 	</div>
 </div>
 
-<!-- <div class="container hide" id= "videoCallPage"> -->
-<div class = "row bd">
-	<div class="col-md-9">
-		<div class="hide" id="gallery" >
-			<div class="video-container" id="myvideo-container"> </div>
-			<div class="video-container hide" id="myvideo-containerScreen"></div>
-		</div>
+<div class = "bd">
+	<div class="hide" id="gallery" >
+		<div class="video-container" id="myvideo-container"> </div>
+		<div class="video-container hide" id="myvideo-containerScreen"></div>
 	</div>
 </div>
-<!-- </div> -->
+
 
 </body>
 
