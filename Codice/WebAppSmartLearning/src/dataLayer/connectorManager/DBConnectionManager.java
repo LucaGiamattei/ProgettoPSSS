@@ -508,56 +508,6 @@ public static ResultSet countEntryDB(String nomeTabella, String selectValue, Str
 
 
 
-/**
- * Con questa funzione è possibile effettuare una doppia query innestata
- * 
- * @param nomeTabella1 Nome della tabella della base di dati persistente
- * @param fieldsToSelect1 Colonne della tabella da restituire nella select
- * @param fieldCondition1 Colonna che rappresenta la chiave esterna da ricercare nella select query successiva
- * @param nomeTabella2 Nome della tabella della base di dati persistente
- * @param fieldToSelect2 Colonne della tabella da restituire nella select
- * @param fieldCondition2 Colonna che rappresenta la chiave esterna da ricercare nella select query successiva
- * @param nomeTabella3 Nome della tabella della base di dati persistente
- * @param fieldToSelect3 Colonne della tabella da restituire nella select
- * @param conditionsFildsToValues2 Una hashtable nella quale è possibile associare i campi e i valori da aggiornare
- * @return selectQuery Restituisce le tuple selezionate dalla query
- * @throws Exception
- */
-public static ResultSet SelectEntryInSelectDB2(String nomeTabella1 ,String [] fieldsToSelect1,String fieldCondition1,String nomeTabella2, String fieldsToSelect2, String fieldCondition2, String nomeTabella3, String fieldsToSelect3, Hashtable<String, String> conditionsFildsToValues2, Connection conn ) throws Exception {
- 
- String  mappingFieldValue = "";
- 
- Set<String> keys = conditionsFildsToValues2.keySet();
-  
-    //Obtaining iterator over set entries
-    Iterator<String> itr = keys.iterator();
-    if(itr.hasNext()) {
-     // Getting Key
-        String key = itr.next();
-        mappingFieldValue = mappingFieldValue+"`"+key+"` ="+"'"+conditionsFildsToValues2.get(key)+"'";
-        
-    }
-    //Displaying Key and value pairs
-    while (itr.hasNext()) { 
-       // Getting Key
-       String key = itr.next();
-       mappingFieldValue = mappingFieldValue+" && "+key+" ="+"'"+conditionsFildsToValues2.get(key)+"'";
-       
-    }
-    String fields ="";
-    if (fieldsToSelect1.length>0) {
-     fields = fieldsToSelect1[0];
-    }
-    for (int i = 1; i<fieldsToSelect1.length;i++) {
-     fields = fields+","+fieldsToSelect1[i];
-    }
-    
-    
-   String query = "SELECT "+fields+" FROM `"+dbName+"`.`"+nomeTabella1+"` WHERE "+fieldCondition1+" IN(SELECT "+fieldsToSelect2+" FROM `"+dbName+"`.`"+nomeTabella2+"` WHERE "+fieldCondition2+" IN(SELECT "+fieldsToSelect3+" FROM `"+dbName+"`.`"+nomeTabella3+"` WHERE "+mappingFieldValue+")) ;"; 
-   System.out.println(query);
- return selectQuery(query, conn);
- 
- }
 
 
 /**

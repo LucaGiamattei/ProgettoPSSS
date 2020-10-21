@@ -93,6 +93,18 @@
   
   <servlet>
   <description></description>
+  <display-name>TestDocenteServlet</display-name>
+  <servlet-name>TestDocenteServlet</servlet-name>
+  <servlet-class>webLayer.servlets.TestDocenteServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>TestDocenteServlet</servlet-name>
+  <url-pattern>/riservate/docente/testdocente</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <description></description>
   <display-name>TopicsServlet</display-name>
   <servlet-name>TopicsServlet</servlet-name>
   <servlet-class>webLayer.servlets.TopicsServlet</servlet-class>
