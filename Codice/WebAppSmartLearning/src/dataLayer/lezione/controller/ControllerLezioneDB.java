@@ -15,12 +15,11 @@ import java.util.Vector;
 import com.mysql.jdbc.CallableStatement;
 import java.sql.Connection;
 import dataLayer.connectorManager.DBConnectionManager;
+import dataLayer.lezione.API_LezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
-import dataLayer.lezione.entities.result.ResultLezione;
-import dataLayer.lezione.interfaces.API_LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.user.entities.result.ResultUtente;
+
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
@@ -28,6 +27,49 @@ import dataLayer.utilities.idUser;
 import dataLayer.utilities.idTopic;
 
 public class ControllerLezioneDB implements API_LezioneDB{
+	
+	public StateResult getLessonsByCognome(String cognome, Vector<LezioneDB> lezioni) {
+		  // TODO Auto-generated method stub
+			
+		    String [] fieldsToSelect = {"idUtente"};
+		    Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
+		    conditionsFildsToValues.put("Cognome", cognome);
+		    ControllerLezioneDB controllerlez = new ControllerLezioneDB();
+		    
+		      
+		    ResultSet result;
+		    try {
+		    	Connection conn = null;
+		    	result = DBConnectionManager.SelectEntryDB("utente", fieldsToSelect, conditionsFildsToValues, conn);
+		    	if(result.next()) {
+		    	int idUtente = result.getInt("idUtente");
+		    	
+		    	controllerlez.getLessonsByUser(new idUser(idUtente), lezioni);
+		    	
+		    	int i = 0;
+		    	while(i < lezioni.size()) {
+		    		
+		    		if(lezioni.get(i).getSlots().size() == 0) {
+		    			lezioni.remove(i);
+		    		}else{
+		    			i++;
+		    		}
+		    	}
+		    	//if(conn!=null) {conn.close();}
+			     if(lezioni.size()>0) {
+			      return StateResult.VALID;
+			     }else {
+			      return StateResult.NOVALID;
+			     }
+			    }else {
+			    	return StateResult.NOVALID;
+			    }
+		    } catch (Exception e) {
+		     // TODO Auto-generated catch block
+		     e.printStackTrace();
+		     return StateResult.DBPROBLEM;
+		    }
+		 }
 	
 		
 		public StateResult validLezione(idLesson id) {

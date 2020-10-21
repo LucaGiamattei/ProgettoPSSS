@@ -1,8 +1,8 @@
 package dataLayer.utilities;
 
 /**
- * 
- * @author giorgio
+ * Lo StateResult è la struttura che viene utilizzata dalle API del data layer per restituire lo stato di fine elaborazione di una funzione
+ * @author PsssTeam
  *
  */
  public enum StateResult {

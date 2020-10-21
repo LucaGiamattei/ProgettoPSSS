@@ -64,6 +64,7 @@
   <servlet-mapping>
   <servlet-name>UtenteServlet</servlet-name>
   <url-pattern>/riservate/utente</url-pattern>
+  <url-pattern>/riservate/docente/utente</url-pattern>
   </servlet-mapping>
   
   <servlet>

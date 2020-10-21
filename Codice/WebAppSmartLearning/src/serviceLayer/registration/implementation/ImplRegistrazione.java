@@ -3,7 +3,7 @@ package serviceLayer.registration.implementation;
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
-import serviceLayer.registration.interfaces.IRegistrazione;
+import serviceLayer.registration.IRegistrazione;
 
 public class ImplRegistrazione implements IRegistrazione {
 

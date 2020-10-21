@@ -16,7 +16,7 @@ function isDocente(){
 		
 	var request = new XMLHttpRequest();
 	var params = "requesterId="+myId;
-	var url = "../riservate/docente/utenteservlet";
+	var url = "../riservate/docente/utente";
 	request.open('GET', url+"?"+params, true);
 	
 	//Send the proper header information along with the request

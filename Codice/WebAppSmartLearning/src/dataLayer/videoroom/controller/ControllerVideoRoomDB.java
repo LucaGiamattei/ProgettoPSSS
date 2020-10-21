@@ -10,9 +10,8 @@ import java.sql.Connection;
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
-
+import dataLayer.videoroom.API_VideoRoomDB;
 import dataLayer.videoroom.entities.VideoRoomDB;
-import dataLayer.videoroom.interfaces.API_VideoRoomDB;
 
 
 

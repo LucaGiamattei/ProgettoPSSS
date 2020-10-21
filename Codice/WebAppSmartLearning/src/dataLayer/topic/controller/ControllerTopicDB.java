@@ -7,8 +7,9 @@ import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.lezione.controller.ControllerLezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
+import dataLayer.topic.API_TopicDB;
 import dataLayer.topic.entities.TopicDB;
-import dataLayer.topic.interfaces.*;
+
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idTopic;
 import dataLayer.utilities.idUser;
@@ -197,47 +198,35 @@ public class ControllerTopicDB implements API_TopicDB{
 				}
 				
 	}
-
-	public StateResult getLessonsByTopicName(String nome, Vector<LezioneDB> lezioni) {
-		   // TODO Auto-generated method stub
+	
+	
+	public StateResult getTopicByName(TopicDB topic){
+		// TODO Auto-generated method stub
 		   String [] fieldsToSelect = {"idTopic"};
 		   Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
-		   conditionsFildsToValues.put("Name", nome);
+		   conditionsFildsToValues.put("Name", topic.getNome());
 		   ControllerLezioneDB controllerlez = new ControllerLezioneDB();
 		   
 		   try {
 			   Connection conn = null;
-		    ResultSet result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues, conn);
-		    if(result.next()) {
-			    controllerlez.getLessonsbyTopics(new idTopic(result.getInt("idTopic")), lezioni);
-		    	
-		    	int i = 0;
-		    	while(i < lezioni.size()) {
-		    		
-		    		if(lezioni.get(i).getSlots().size() == 0) {
-		    			lezioni.remove(i);
-		    		}else{
-		    			i++;
-		    		}
-		    	}
-		    	//if(conn!=null) {conn.close();}
-			     if(lezioni.size()>0) {
-			     return StateResult.VALID;
-			    }else {
-			     return StateResult.NOVALID;
-			    }
-		    }else {
-		    	//if(conn!=null) {conn.close();}
-		    	return StateResult.NOVALID;
-		    } 
-		   } catch (Exception e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		    return StateResult.DBPROBLEM;
+			   ResultSet result = DBConnectionManager.SelectEntryDB("Topic", fieldsToSelect, conditionsFildsToValues, conn);
+			   if(result.next()) {
+				   topic.setId(new idTopic(result.getInt("idTopic")));
+				   return StateResult.VALID;
+			   }
+			   return StateResult.NOVALID;
+		   }catch(Exception e) {
+			// TODO Auto-generated catch block
+			  e.printStackTrace();
+			  return StateResult.DBPROBLEM;
+			   
 		   }
-		   
-		  
-		  }
+		
+		
+	}
+
+	//VA SOPRA//
+	
 	
 	public StateResult getTopics(Vector<String> topics) {
 		  // TODO Auto-generated method stub

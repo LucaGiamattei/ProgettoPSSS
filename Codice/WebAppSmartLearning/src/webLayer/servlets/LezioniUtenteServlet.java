@@ -15,6 +15,7 @@ import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
+import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.topic.implementation.ImplTopic;
 import serviceLayer.user.implementation.ImplUtente;
 
@@ -54,19 +55,18 @@ public class LezioniUtenteServlet extends HttpServlet {
 		String ricerca = request.getParameter("ricerca");
 		System.out.println("ricerca="+ricerca+"\n");
 
-		ImplUtente utente = new ImplUtente();
-		ImplTopic topic = new ImplTopic();
+		ImplLezione lezione = new ImplLezione();
 		Vector<LezioneDB> lezioni = new Vector<LezioneDB>();
 		boolean isCognome = true;
 		
 		Vector<String> str = new Vector<String>();
 		str.add(ricerca);
 		
-		StateResult result = utente.getLessonsByCognome(str, lezioni); //str(0): cognome str(1): nome str(2): topic
+		StateResult result = lezione.getLessonsByCognome(str, lezioni); //str(0): cognome str(1): nome str(2): topic
 		
 		if(result == StateResult.NOVALID) {
 			isCognome = false;
-			result = topic.getLessonsByTopic(str, lezioni); //str(0): topic str(1): cognome str(2): nome
+			result = lezione.getLessonsByTopic(str, lezioni); //str(0): topic str(1): cognome str(2): nome
 		}
 		
 		

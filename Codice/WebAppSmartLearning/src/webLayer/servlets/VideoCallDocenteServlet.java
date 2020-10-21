@@ -36,6 +36,7 @@ public class VideoCallDocenteServlet extends HttpServlet {
 		System.out.println("doGet_AVVIAVIDEOCALL");
 		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
 		String[] tokenDocente = new String[1];
+		String[] nomeRoom = new String[1];
 		Vector<String> tokens = new Vector<String>();
 		
 		// TODO Auto-generated method stub
@@ -45,17 +46,11 @@ public class VideoCallDocenteServlet extends HttpServlet {
 		
 		System.out.println("idFasciaOraria="+idFasciaOraria+"&idDocente="+idDocente+"\n");
 		
-		FasciaOraria fascia = new FasciaOraria();
-		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
 		
 		StringBuffer xmlReply = new StringBuffer();
 		
-		if (implVideoRoom.verifyDocenteHasFasciaOraria(idDocente, fascia)==StateResult.VALID && implVideoRoom.verifyFasciaOrariaIsInProgress(fascia) == StateResult.VALID) {
-			String nomeRoom = implVideoRoom.genNomeRoom(idFasciaOraria, idDocente);
-			
-			
-			if (implVideoRoom.startVideoRoom(idFasciaOraria,nomeRoom, tokenDocente, tokens)==StateResult.CREATED) {
-				xmlReply.append("<risposta><risultato>VideoCallCreata</risultato><nomeRoom>"+nomeRoom+"</nomeRoom><tokenDocente>"+tokenDocente[0]+"</tokenDocente><tokenUtente>");
+		if (implVideoRoom.avviaVideoRoom(idFasciaOraria,idDocente,nomeRoom, tokenDocente, tokens)==StateResult.CREATED) {
+				xmlReply.append("<risposta><risultato>VideoCallCreata</risultato><nomeRoom>"+nomeRoom[0]+"</nomeRoom><tokenDocente>"+tokenDocente[0]+"</tokenDocente><tokenUtente>");
 				for (int i=0; i<tokens.size();i++) {
 					xmlReply.append("<token>"+tokens.get(i)+"</token>");
 				}
@@ -63,12 +58,7 @@ public class VideoCallDocenteServlet extends HttpServlet {
 				response.setContentType("text/xml");
 				System.out.println("XML: "+ xmlReply.toString());
 				response.getWriter().write(xmlReply.toString());
-			}else {
-				xmlReply.append("<risposta><risultato>VideoCallNonCreata</risultato></risposta>");
-				response.setContentType("text/xml");
-				response.getWriter().write(xmlReply.toString());
-				System.out.println("XML1: "+ xmlReply.toString());
-			}
+			
 		}else {
 			xmlReply.append("<risposta><risultato>VideoCallNonCreata</risultato></risposta>");
 			response.setContentType("text/xml");
@@ -91,23 +81,15 @@ public class VideoCallDocenteServlet extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet_DELETEVIDEOCALL");
+		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
 		String idFasciaOraria = request.getParameter("idprog");
 		String idDocente = request.getParameter("requesterId");
 		StringBuffer xmlReply = new StringBuffer();
 		
-		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
-		FasciaOraria fascia = new FasciaOraria();
-		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
-		
-		
-		if (implVideoRoom.verifyDocenteHasFasciaOraria(idDocente, fascia)==StateResult.VALID) {
-			if(implVideoRoom.deleteVideoRoom(fascia.getId())==StateResult.REMOVED) {
-				xmlReply.append("<risposta><risultato>VideoCallEliminata</risultato></risposta>");
-				
-			}else {
-				xmlReply.append("<risposta><risultato>VideoCallNonEliminata</risultato></risposta>");
-			}
+	
+		if (implVideoRoom.deleteVideoRoom(idFasciaOraria, idDocente)==StateResult.REMOVED) {
 			
+				xmlReply.append("<risposta><risultato>VideoCallEliminata</risultato></risposta>");
 		}else {
 			xmlReply.append("<risposta><risultato>VideoCallNonEliminata</risultato></risposta>");
 		}

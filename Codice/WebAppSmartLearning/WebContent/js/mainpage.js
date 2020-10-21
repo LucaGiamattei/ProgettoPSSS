@@ -80,7 +80,6 @@ function creaHandler(isCreate, isDelete) {
                                 //$('#joinToRoom').click(joinToRoom);
                                 //$('#createRoom').click(newRoom);
                                 
-                                //NON VA BENE QUESTA SOLUZIONE: DA RIVEDERE!
                                 if(isDelete == true){
                                 	destroyRoom();
                                 }
@@ -323,8 +322,7 @@ function creaHandler(isCreate, isDelete) {
                                 }
                                 
                                 
-                                $('#JoinedOrCreatedToRoom').addClass("hide");
-                                $('#mainPage').addClass("hide");
+  
                                 $("#gallery").removeClass("hide"); 
                                 $("#myvideo-container").removeClass("hide");                               
                                 
@@ -332,7 +330,7 @@ function creaHandler(isCreate, isDelete) {
 								
 								if($('#mute').length === 0) {
 									// Add a 'mute' button
-									$('#myvideo-container').append('<button class="btn " id="mute">Mute</button>');
+									$('.bd').append('<button class="btn " id="mute">Mute</button>');
 									$('#mute').click(toggleMute);
 									// Add an 'unpublish' button
 									$('.bd').append('<button class="btn " id="unpublish">Unpublish Webcam</button>');
@@ -340,6 +338,9 @@ function creaHandler(isCreate, isDelete) {
 									//Add an 'share screen' button
 									$('.bd').append('<button class="btn " id="publishScreen">Publish Screen</button>');
 									$('#publishScreen').click(toggleOwnFeedScreen);
+									//Add an 'Back' button
+									$('.bd').append('<button class="btn " id="backButton">Back</button>');
+									$('#backButton').click(backFunction);									
 								}
 
                                 recalculateLayout();
@@ -412,8 +413,7 @@ function creaHandler(isCreate, isDelete) {
 
 function joinToRoom(){
 	
-	$("#mainPage").addClass("hide");
-	$(".bodyclass").addClass("bd");
+	$("#profilepage").addClass("hide");
 	
 	room = parseInt(localStorage['nomeRoom']);
 	
@@ -443,8 +443,8 @@ function newRoom(){
 	   /*var JoinedOrCreatedToRoom=document.getElementById("JoinedOrCreatedToRoom");
 	   handle_vr.spinner = new Spinner().spin(JoinedOrCreatedToRoom);*/
 	
-	$("#mainPage").addClass("hide");
-	$(".bodyclass").addClass("bd");
+	$("#profilepage").addClass("hide");
+
 	
 		room = parseInt(nomeRoom);
 		//secret: password required to edit/destroy the room, optional
@@ -899,6 +899,12 @@ function toggleOwnFeedScreen() {
         preShareScreen(true);
         
     }
+   
+}
+
+function backFunction() {
+	
+	window.location.reload();
    
 }
 
