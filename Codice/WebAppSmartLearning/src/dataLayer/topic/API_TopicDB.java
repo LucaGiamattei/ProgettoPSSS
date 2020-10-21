@@ -94,16 +94,12 @@ public interface API_TopicDB {
 	 */
 	StateResult getTopicName(TopicDB topic);
 	
+	
+	
 	/**
-	 *Questa funzione permette di prendere tutte le lezioni relative ad un topic
-	 *
-	 *@param nome nome del topic
-	 *@param lezioni vettore di lezioni relative al docente
-	 *@return StateResult Rappresenta lo stato dell'operazione:
-	 *
-	 *- VALID
-	 *- NOVALID
-	 *- DBPROBLEM
+	 * Questa funzione permette di ottenere l'id del topic in base al nome del topic
+	 * @param topic
+	 * @return
 	 */
-	StateResult getLessonsByTopicName(String nome, Vector<LezioneDB> lezioni);
+	StateResult getTopicByName(TopicDB topic);
 }

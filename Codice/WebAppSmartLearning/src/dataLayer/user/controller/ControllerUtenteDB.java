@@ -354,48 +354,7 @@ public class ControllerUtenteDB implements API_UtenteDB{
 	}
 	
 	
-	public StateResult getLessonsByCognome(String cognome, Vector<LezioneDB> lezioni) {
-		  // TODO Auto-generated method stub
-			
-		    String [] fieldsToSelect = {"idUtente"};
-		    Hashtable<String,String> conditionsFildsToValues = new Hashtable<String, String>();
-		    conditionsFildsToValues.put("Cognome", cognome);
-		    ControllerLezioneDB controllerlez = new ControllerLezioneDB();
-		    
-		      
-		    ResultSet result;
-		    try {
-		    	Connection conn = null;
-		    	result = DBConnectionManager.SelectEntryDB("utente", fieldsToSelect, conditionsFildsToValues, conn);
-		    	if(result.next()) {
-		    	int idUtente = result.getInt("idUtente");
-		    	
-		    	controllerlez.getLessonsByUser(new idUser(idUtente), lezioni);
-		    	
-		    	int i = 0;
-		    	while(i < lezioni.size()) {
-		    		
-		    		if(lezioni.get(i).getSlots().size() == 0) {
-		    			lezioni.remove(i);
-		    		}else{
-		    			i++;
-		    		}
-		    	}
-		    	//if(conn!=null) {conn.close();}
-			     if(lezioni.size()>0) {
-			      return StateResult.VALID;
-			     }else {
-			      return StateResult.NOVALID;
-			     }
-			    }else {
-			    	return StateResult.NOVALID;
-			    }
-		    } catch (Exception e) {
-		     // TODO Auto-generated catch block
-		     e.printStackTrace();
-		     return StateResult.DBPROBLEM;
-		    }
-		 }
+	
 	
 
 }

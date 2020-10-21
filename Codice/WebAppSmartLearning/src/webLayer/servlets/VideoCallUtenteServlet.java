@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.utilities.StateResult;
+
 import serviceLayer.videoroom.implementation.ImplVideoRoom;
 
 /**
@@ -29,9 +30,9 @@ public class VideoCallUtenteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("doGet_JOINVIDEOCALL");
 		
-		ImplVideoRoom implVR = new ImplVideoRoom();
+		System.out.println("doGet_JOINVIDEOCALL");
+		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
 		String[] tokenUtente = new String[1];
 		String[] nomeRoom = new String[1];
 		
@@ -40,7 +41,7 @@ public class VideoCallUtenteServlet extends HttpServlet {
 		
 		System.out.println("idFasciaOraria="+idFasciaOraria+"&idDocente="+idUtente+"\n");
 		
-		StateResult result = implVR.getJoinUserData(idFasciaOraria, idUtente, tokenUtente, nomeRoom);
+		StateResult result = implVideoRoom.getJoinUserData(idFasciaOraria, idUtente, tokenUtente, nomeRoom);
 		System.out.println("Nome room: "+nomeRoom[0]);
 		StringBuffer xmlReply = new StringBuffer();
 		

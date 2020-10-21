@@ -19,6 +19,7 @@ import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idUser;
 import dataLayer.videoroom.controller.ControllerVideoRoomDB;
 import dataLayer.videoroom.entities.VideoRoomDB;
+import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.videoroom.IVideoRoom;
 
 public class ImplVideoRoom implements IVideoRoom{
@@ -32,19 +33,77 @@ public class ImplVideoRoom implements IVideoRoom{
 		return StateResult.NOREMOVED;
 	}
 
-	@Override
-	public StateResult verifyDocenteHasFasciaOraria(String idUtente, FasciaOraria fascia) {
+	
 
-		ControllerLezioneDB controllerLezione = new ControllerLezioneDB();
-		if (controllerLezione.getFasciaOrariaNoCatalogo(new idUser(Integer.parseInt(idUtente)), fascia)==StateResult.VALID) {
+	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String[] tokenDocente, Vector <String> tokens) {
+		// TODO Auto-generated method stub
+		ControllerVideoRoomDB contVideoRoom = new ControllerVideoRoomDB();
+		ControllerPagamentoDB contPagamento = new ControllerPagamentoDB();
+		 
+		
+		idFasciaOraria idFascia = new idFasciaOraria(Integer.parseInt(idFasciaOraria));
+		
+		VideoRoomDB  videoRoom = new VideoRoomDB();
+		videoRoom.setNomeRoom(nomeRoom);
+		
+		
+		if(contPagamento.thereAreUsersPayedLesson(idFascia)==StateResult.VALID && contVideoRoom.createNewRoom(idFascia, videoRoom)==StateResult.CREATED) {
+			//System.out.println("start_1");
+			//tokens.add(videoRoom.getPasswordRoom());
+			tokenDocente[0] = videoRoom.getPasswordRoom();
+			Vector<PagamentoDB> payments = new Vector<PagamentoDB>();
+			if( contPagamento.genAndGetTokens(idFascia, payments) ==StateResult.UPDATED) {
+				//System.out.println("start_2");
+				for (int i=0; i<payments.size();i++) {
+					tokens.add(payments.get(i).getToken());
+				}
+				
+					return StateResult.CREATED;
+				
+			}else {
+				//delete video room
+				contVideoRoom.removeRoom(idFascia);
+				System.out.println("Rollback:RooomEliminata");
+			}
 			
-			return StateResult.VALID;
-		}else {
-			return StateResult.NOVALID;
 		}
+		
+		return StateResult.NOCHANGES;
 	}
+	
+	
+	
+	public StateResult getJoinUserData(String idFasciaOraria, String idUtente, String[] tokenUtente, String[] nomeRoom) {
+		// TODO Auto-generated method stub
+		ControllerVideoRoomDB controllerV = new ControllerVideoRoomDB();
+		VideoRoomDB room = new VideoRoomDB();
+		ControllerPagamentoDB controllerP = new ControllerPagamentoDB();
+		PagamentoDB pagam = new PagamentoDB(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), new idUser(Integer.parseInt(idUtente)));
+		StateResult result;
+		
+		result = controllerV.getRoom(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), room);
+		
+		
+		if(result != StateResult.VALID) {
+			return result;
+		}
+		
+		result = controllerP.getTokenByUtente(pagam);
+		if(result != StateResult.VALID) {
+			return result;
+		}
+		
+		nomeRoom[0]  = room.getNomeRoom();
+		System.out.println("getRoom: "+result.toString()+""+room.getNomeRoom());
+		tokenUtente[0] = pagam.getToken();
+		
+		return result;
+	}
+	
+	
+	
 
-	@Override
+
 	public StateResult verifyFasciaOrariaIsInProgress(FasciaOraria fascia) {
 		
 		System.out.println("verifyFasciaOrariaIsInProgress");
@@ -83,91 +142,52 @@ public class ImplVideoRoom implements IVideoRoom{
 		
 	}
 
-	@Override
+	
 	public String genNomeRoom(String idFasciaOraria, String idDocente) {
 		// TODO Auto-generated method stub
 		
 		return idFasciaOraria;
 	}
 	
-	/**
-	 * Questa funzione ha il compito di:
-	 * - 1)creare un'istanza nel database di videocall, e ottenere anche la password generata automaticamente da SQL che noi utilizziamo come token del docente
-	 * - 2) se la creazione della room sul db va  a buon fine allora si è sicuri che il nome della room sia univoco, in tal caso
-	 * - - 2a) bisognerà ottenere dal db tramite idFasciaOraria tutti gli id degli utenti che hanno pagato
-	 * - - - 2a.a) per ognuno di essi verrà generato un token e memorizzato. (i token devono essere differenti tra di loro)
-	 * - - 2b) bisognerà interfacciarsi con il server janus per creare una room con:
-	 * - - - 2b.a)la password ottenuta al passo 1)
-	 * - - - 2b.b)i tokens generati al passo 2a.a)
-	 * - - 2c) viene restituito il token del docente e tutti i token (compreso quello del docente)
-	 * @param nomeRoom
-	 * @param password
-	 * @return
-	 */
-	@Override
-	public StateResult startVideoRoom(String idFasciaOraria, String nomeRoom, String[] tokenDocente, Vector <String> tokens) {
-		// TODO Auto-generated method stub
-		ControllerVideoRoomDB contVideoRoom = new ControllerVideoRoomDB();
-		ControllerPagamentoDB contPagamento = new ControllerPagamentoDB();
-		 
+	
+	
+	
+	public StateResult deleteVideoRoom(String idFasciaOraria, String idDocente){
+		FasciaOraria fascia = new FasciaOraria();
+		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
+		ImplLezione implLezione = new ImplLezione();
+		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
 		
-		idFasciaOraria idFascia = new idFasciaOraria(Integer.parseInt(idFasciaOraria));
-		
-		VideoRoomDB  videoRoom = new VideoRoomDB();
-		videoRoom.setNomeRoom(nomeRoom);
-		
-		
-		if(contPagamento.thereAreUsersPayedLesson(idFascia)==StateResult.VALID && contVideoRoom.createNewRoom(idFascia, videoRoom)==StateResult.CREATED) {
-			//System.out.println("start_1");
-			//tokens.add(videoRoom.getPasswordRoom());
-			tokenDocente[0] = videoRoom.getPasswordRoom();
-			Vector<PagamentoDB> payments = new Vector<PagamentoDB>();
-			if( contPagamento.genAndGetTokens(idFascia, payments) ==StateResult.UPDATED) {
-				//System.out.println("start_2");
-				for (int i=0; i<payments.size();i++) {
-					tokens.add(payments.get(i).getToken());
-				}
-				
-					return StateResult.CREATED;
+		if (implLezione.verifyDocenteHasFasciaOraria(idDocente, fascia)==StateResult.VALID) {
+			if(implVideoRoom.deleteVideoRoom(fascia.getId())==StateResult.REMOVED) {
+				return StateResult.REMOVED;
 				
 			}else {
-				//delete video room
-				contVideoRoom.removeRoom(idFascia);
-				System.out.println("Rollback:RooomEliminata");
+				return StateResult.NOREMOVED;
 			}
 			
+		}else {
+			return StateResult.NOREMOVED;
+		}
+	}
+		
+	public StateResult avviaVideoRoom(String idFasciaOraria, String idDocente,String[] nomeRoom, String[] tokenDocente, Vector <String> tokens){
+		FasciaOraria fascia = new FasciaOraria();
+		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
+		ImplLezione implLezione = new ImplLezione();
+		if (implLezione.verifyDocenteHasFasciaOraria(idDocente, fascia)==StateResult.VALID && verifyFasciaOrariaIsInProgress(fascia) == StateResult.VALID) {
+			nomeRoom[0] = genNomeRoom(idFasciaOraria, idDocente);
+			if (startVideoRoom(idFasciaOraria,nomeRoom[0], tokenDocente, tokens)==StateResult.CREATED) {
+				return StateResult.CREATED;
+			
+			}
 		}
 		
 		return StateResult.NOCHANGES;
 	}
+	
 
-	@Override
-	public StateResult getJoinUserData(String idFasciaOraria, String idUtente, String[] tokenUtente, String[] nomeRoom) {
-		// TODO Auto-generated method stub
-		ControllerVideoRoomDB controllerV = new ControllerVideoRoomDB();
-		VideoRoomDB room = new VideoRoomDB();
-		ControllerPagamentoDB controllerP = new ControllerPagamentoDB();
-		PagamentoDB pagam = new PagamentoDB(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), new idUser(Integer.parseInt(idUtente)));
-		StateResult result;
-		
-		result = controllerV.getRoom(new idFasciaOraria(Integer.parseInt(idFasciaOraria)), room);
-		
-		
-		if(result != StateResult.VALID) {
-			return result;
-		}
-		
-		result = controllerP.getTokenByUtente(pagam);
-		if(result != StateResult.VALID) {
-			return result;
-		}
-		
-		nomeRoom[0]  = room.getNomeRoom();
-		System.out.println("getRoom: "+result.toString()+""+room.getNomeRoom());
-		tokenUtente[0] = pagam.getToken();
-		
-		return result;
-	}
+	
 	
 	
 }

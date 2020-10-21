@@ -134,17 +134,6 @@ public interface API_UtenteDB {
 	 */
 	StateResult updateContoPaypal(idUser id, String contPaypal);
 	
-	/**
-	 *Questa funzione permette di prendere tutte le lezioni relative ad un docente tramite il cognome
-	 *
-	 *@param cognome 
-	 *@param lezioni vettore di lezioni relative al docente
-	 *@return StateResult Rappresenta lo stato dell'operazione:
-	 *
-	 *- UPDATED
-	 *- NOUPDATED
-	 *- DBPROBLEM
-	 */
-	StateResult getLessonsByCognome(String cognome, Vector<LezioneDB> lezioni);
+	
 	
 }
