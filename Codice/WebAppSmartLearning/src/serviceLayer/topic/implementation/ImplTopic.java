@@ -12,23 +12,6 @@ import serviceLayer.topic.ITopic;
 
 public class ImplTopic implements ITopic {
 
-	@Override
-	public StateResult getLessonsByTopic(Vector<String> str, Vector<LezioneDB> lezioni) {
-		// TODO Auto-generated method stub
-		ControllerTopicDB controllertopic = new ControllerTopicDB();
-		ControllerUtenteDB controller = new ControllerUtenteDB();
-		
-		StateResult result = controllertopic.getLessonsByTopicName(str.get(0), lezioni);
-		
-		if(lezioni.size() > 0) {
-			UtenteDB utente = new UtenteDB();
-			controller.retrieveUser(lezioni.get(0).getIdUtente(), utente);
-			str.add(utente.getCognome());
-			str.add(utente.getNome());
-		}
-		
-		return result;
-	}
 
 	@Override
 	public StateResult getTopics(Vector<String> topics) {

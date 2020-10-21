@@ -8,6 +8,5 @@ import dataLayer.utilities.StateResult;
 
 public interface ITopic {
 
-	public StateResult getLessonsByTopic(Vector<String> str, Vector<LezioneDB> lezioni);
 	public StateResult getTopics(Vector<String> topics);
 }

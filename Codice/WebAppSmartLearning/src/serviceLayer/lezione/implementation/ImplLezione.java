@@ -7,6 +7,8 @@ import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.topic.controller.ControllerTopicDB;
 import dataLayer.topic.entities.TopicDB;
+import dataLayer.user.controller.ControllerUtenteDB;
+import dataLayer.user.entities.UtenteDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.utilities.idLesson;
@@ -30,6 +32,73 @@ public class ImplLezione implements ILezione {
 		
 		return result;
 	}
+
+	@Override
+	public StateResult getLessonsByTopic(Vector<String> str, Vector<LezioneDB> lezioni) {
+		// TODO Auto-generated method stub
+		ControllerTopicDB controllertopic = new ControllerTopicDB();
+		ControllerUtenteDB controller = new ControllerUtenteDB();
+		
+		StateResult result = controllertopic.getLessonsByTopicName(str.get(0), lezioni);
+		
+		if(lezioni.size() > 0) {
+			UtenteDB utente = new UtenteDB();
+			controller.retrieveUser(lezioni.get(0).getIdUtente(), utente);
+			str.add(utente.getCognome());
+			str.add(utente.getNome());
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public StateResult getLessonsByCognome(Vector<String> str, Vector<LezioneDB> lezioni) {
+		// TODO Auto-generated method stub
+		
+		ControllerUtenteDB controller = new ControllerUtenteDB();
+		ControllerTopicDB controllertopic = new ControllerTopicDB();
+		
+		
+		StateResult result = controller.getLessonsByCognome(str.get(0), lezioni);
+		
+		if(lezioni.size() > 0) {
+		UtenteDB utente = new UtenteDB();
+		controller.retrieveUser(lezioni.get(0).getIdUtente(), utente);
+		str.add(utente.getNome());
+		
+		for (int i = 0; i<lezioni.size(); i++) {
+			TopicDB topicvar = new TopicDB(lezioni.get(i).getIdTopic());
+			controllertopic.getTopicName(topicvar);
+	
+			str.add(topicvar.getNome());
+		}
+		
+		}
+		
+		
+		//System.out.println("[IMPLUTENTE] nome: "+ str.get(1)+" topic: "+str.get(2));
+		return result;
+	}
+	
+	@Override
+	public StateResult getLessonsById(idUser myid, Vector<String> str, Vector<LezioneDB> lezioni) {
+		// TODO Auto-generated method stub
+		
+		ControllerLezioneDB controller = new ControllerLezioneDB();
+		ControllerTopicDB controllertopic = new ControllerTopicDB();
+		
+		StateResult result = controller.getLessonsByDocente(myid, lezioni);
+		
+		for (int i = 0; i<lezioni.size(); i++) {
+			TopicDB topicvar = new TopicDB(lezioni.get(i).getIdTopic());
+			controllertopic.getTopicName(topicvar);
+		
+			str.add(topicvar.getNome());
+		}
+		
+		return result;
+	}
+	
 
 	@Override
 	public StateResult addFasciaOraria(idUser iduser, idLesson idlesson, FasciaOraria fascia) {

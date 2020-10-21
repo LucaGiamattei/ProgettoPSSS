@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
+import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.user.implementation.ImplUtente;
 
 /**
@@ -38,11 +39,11 @@ public class LezioniDocenteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("DoGet_RETRIEVEMYLESSONS");
 		
-		ImplUtente iutente = new ImplUtente();
+		ImplLezione lezione = new ImplLezione();
 		Vector<String> str = new Vector<String>();
 		Vector<LezioneDB> lezioni = new Vector<LezioneDB>();
 		
-		StateResult result = iutente.getLessonsById(new idUser(Integer.parseInt(request.getParameter("requesterId"))),str, lezioni);
+		StateResult result = lezione.getLessonsById(new idUser(Integer.parseInt(request.getParameter("requesterId"))),str, lezioni);
 		
 		
 		StringBuffer xmlReply = new StringBuffer();

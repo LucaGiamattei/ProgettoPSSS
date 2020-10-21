@@ -11,6 +11,9 @@ import dataLayer.utilities.idUser;
 
 public interface ILezione {
 	
+	public StateResult getLessonsByCognome(Vector<String> str, Vector<LezioneDB> lezioni);
+	public StateResult getLessonsById(idUser myid, Vector<String> str, Vector<LezioneDB> lezioni);
+	public StateResult getLessonsByTopic(Vector<String> str, Vector<LezioneDB> lezioni);
 	public StateResult creaLezione(idUser iduser, String nome, String descrizione, String nomeTopic, int nmax);
 	public StateResult addFasciaOraria(idUser iduser, idLesson idlesson, FasciaOraria fascia);
 	public StateResult getFasceOrarie(idLesson idlesson, Vector<FasciaOraria> fascia);
