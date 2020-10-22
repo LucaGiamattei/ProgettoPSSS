@@ -14,7 +14,7 @@ import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idUser;
 
 /**
- * @author giorgio
+ * @author PsssTeam
  *Il test richiede che nel db vi sia una tupla in Utente con password = "testPassword" e idUser = 1
  */
 class TestUtente {

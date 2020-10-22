@@ -4,11 +4,11 @@ import dataLayer.utilities.StateResult;
 import dataLayer.utilities.idFasciaOraria;
 import dataLayer.videoroom.entities.VideoRoomDB;
 /**
- * Tale interfaccia espone le funzioni pubbliche sull'entità persistente VideoRoom
+ * Tale interfaccia espone le funzioni pubbliche sull'entita' persistente VideoRoom
  * offerte dal livello data layer ai livelli superiori. <p>
  * L'interfaccia segue il seguente standard: <p>
  * - ogni funzione ritorna sempre uno StateResult che rispecchia lo stato di completamento della funzione <p>
- * - le funzioni utilizzano come contenitori di informazioni solo l'entità VideoRoomDB <p>
+ * - le funzioni utilizzano come contenitori di informazioni solo l'entita' VideoRoomDB <p>
  * - le informazioni ottenute dall'elaborazioni delle funzioni sono restituiti tramite parametri di I/O <p>
  * 
  * @author PsssTeam
@@ -19,38 +19,38 @@ public interface API_VideoRoomDB {
 	/**
 	 *Questa funzione permette di creare una videochiamata
 	 *
-	 *@param idFasciaOraria
-	 *@param videoRoom
-	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *@param idFasciaOraria identificativo della programmazione
+	 *@param videoRoom struttura che contiene il noem della room (Input) e conterra' il token del docente (Output)
+	 *@return StateResult Rappresenta lo stato dell'operazione: <p>
 	 *
-	 *- CREATED
-	 *- NOUPDATED
-	 *- DBPROBLEM
+	 *- CREATED <p>
+	 *- NOUPDATED <p>
+	 *- DBPROBLEM <p>
 	 */
 	public StateResult createNewRoom(idFasciaOraria idFasciaOraria, VideoRoomDB videoRoom);
 	
 	/**
 	 *Questa funzione permette di ottenere le informazioni di una videochiamata 
 	 *
-	 *@param id 
-	 *@param videoRoom
-	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *@param id identificativo della programmazione
+	 *@param videoRoom struttura che conterra' il nome della room
+	 *@return StateResult Rappresenta lo stato dell'operazione: <p>
 	 *
-	 *- VALID
-	 *- NOVALID
-	 *- DBPROBLEM
+	 *- VALID <p>
+	 *- NOVALID <p>
+	 *- DBPROBLEM <p>
 	 */
 	public StateResult getRoom(idFasciaOraria id, VideoRoomDB videoRoom);
 	
 	/**
 	 *Questa funzione permette di eliminare una videochiamata
 	 *
-	 *@param idFasciaOraria
-	 *@return StateResult Rappresenta lo stato dell'operazione:
+	 *@param idFasciaOraria identificativo della programmazione
+	 *@return StateResult Rappresenta lo stato dell'operazione: <p>
 	 *
-	 *- REMOVED
-	 *- NOREMOVED
-	 *- DBPROBLEM
+	 *- REMOVED <p>
+	 *- NOREMOVED <p>
+	 *- DBPROBLEM <p>
 	 */
 	public StateResult removeRoom(idFasciaOraria idFasciaOraria);
 	
