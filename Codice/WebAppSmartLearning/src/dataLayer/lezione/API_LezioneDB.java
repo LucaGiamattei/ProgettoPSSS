@@ -174,7 +174,7 @@ public interface API_LezioneDB {
 	  * - NOVALID
 	  * - DBPROBLEM
 	  */
-	 public StateResult getFasciaOraria(FasciaOraria fascia);
+	 public StateResult getFasciaOrariaVis(FasciaOraria fascia);
 	 
 	 /**
 	  * Questa funzione permette di ottenere una fascia oraria in base ad un utente, anche se scaduta

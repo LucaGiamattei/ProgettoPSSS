@@ -425,7 +425,7 @@ public class ControllerLezioneDB implements API_LezioneDB{
 		
 		
 	//----------------------------UTENTE------------------------------------//
-public StateResult getFasciaOraria(FasciaOraria fascia) {
+public StateResult getFasciaOrariaVis(FasciaOraria fascia) {
 			
 			// TODO Auto-generated method stub
 			String [] fieldsToSelect = {"*"};

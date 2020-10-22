@@ -62,15 +62,7 @@ public class UtenteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// TODO Auto-generated method stub
-		
-		System.out.println("doGet_TESTDOCENTE");
-		
-		StringBuffer xmlReply = new StringBuffer();
-		
-		xmlReply.append("<risposta>utenteAutorizzato</risposta>");
-		response.setContentType("text/xml");
-		response.getWriter().write(xmlReply.toString());
-		
+
 	}
 
 }

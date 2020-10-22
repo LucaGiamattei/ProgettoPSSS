@@ -1,14 +1,10 @@
 package dataLayer.utilities;
 
 public class idPagamento {
-
 private int id ;
 	
-	public idPagamento() {
-		super();
-	
-	}
-	
+
+
 
 	@Override
 	public String toString() {
@@ -27,5 +23,4 @@ private int id ;
 	public void setId(int id) {
 		this.id = id;
 	}
-
 }

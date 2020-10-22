@@ -1,14 +1,10 @@
 package dataLayer.utilities;
 
 public class idSubscription {
-
 private int id ;
 	
-	public idSubscription() {
-		super();
-	
-	}
-	
+
+
 
 	@Override
 	public String toString() {
