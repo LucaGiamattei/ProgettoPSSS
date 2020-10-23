@@ -8,9 +8,9 @@ import dataLayer.topic.controller.ControllerTopicDB;
 import dataLayer.topic.entities.TopicDB;
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
 import serviceLayer.user.IUtente;
+import utilities.StateResult;
+import utilities.idUser;
 
 public class ImplUtente implements IUtente {
 

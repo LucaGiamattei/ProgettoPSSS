@@ -1,6 +1,6 @@
 package serviceLayer.registration;
 
-import dataLayer.utilities.StateResult;
+import utilities.StateResult;
 
 public interface IRegistrazione {
 	

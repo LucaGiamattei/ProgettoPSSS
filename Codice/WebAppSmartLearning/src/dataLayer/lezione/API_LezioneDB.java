@@ -4,11 +4,11 @@ import java.util.Vector;
 
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idUser;
-import dataLayer.utilities.idTopic;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idLesson;
+import utilities.idTopic;
+import utilities.idUser;
 /**
  * Tale interfaccia espone le funzioni pubbliche sull'entita' persistente Lezione e le sue Programmazioni 
  * offerte dal livello data layer ai livelli superiori. <p>

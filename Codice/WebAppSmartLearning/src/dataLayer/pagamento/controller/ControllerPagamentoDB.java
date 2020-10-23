@@ -13,10 +13,10 @@ import java.sql.Connection;
 import dataLayer.connectorManager.DBConnectionManager;
 import dataLayer.pagamento.API_PagamentoDB;
 import dataLayer.pagamento.entities.PagamentoDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idPagamento;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idPagamento;
+import utilities.idUser;
 
 public class ControllerPagamentoDB implements API_PagamentoDB{
 	@Override

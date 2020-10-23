@@ -4,10 +4,10 @@ import java.util.Vector;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.topic.entities.TopicDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idSubscription;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idSubscription;
+import utilities.idTopic;
+import utilities.idUser;
 /**
  * Tale interfaccia espone le funzioni pubbliche sull'entita' persistente Topic
  * offerte dal livello data layer ai livelli superiori. <p>

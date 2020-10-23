@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import dataLayer.pagamento.controller.ControllerPagamentoDB;
 import dataLayer.pagamento.entities.PagamentoDB;
-import dataLayer.utilities.idFasciaOraria;
+import utilities.idFasciaOraria;
 
 class TestPagamento {
 	static ControllerPagamentoDB contPagamento;

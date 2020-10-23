@@ -19,12 +19,11 @@ import dataLayer.lezione.API_LezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idUser;
-import dataLayer.utilities.idTopic;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idLesson;
+import utilities.idTopic;
+import utilities.idUser;
 
 public class ControllerLezioneDB implements API_LezioneDB{
 	

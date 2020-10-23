@@ -11,11 +11,11 @@ import java.util.TimeZone;
 import dataLayer.lezione.controller.ControllerLezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.pagamento.controller.ControllerPagamentoDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idPagamento;
-import dataLayer.utilities.idUser;
 import serviceLayer.pagamento.IPagamento;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idPagamento;
+import utilities.idUser;
 
 public class ImplPagamento implements IPagamento {
 
@@ -37,7 +37,7 @@ public class ImplPagamento implements IPagamento {
 public StateResult verifyFasciaOrariaIsNotStarted(FasciaOraria fascia) {
 		//Funzione che preleva una fascia oraria
 		ControllerLezioneDB contLezione = new ControllerLezioneDB();
-		if ( contLezione.getFasciaOraria(fascia)==StateResult.VALID) {
+		if ( contLezione.getFasciaOrariaVis(fascia)==StateResult.VALID) {
 			System.out.println("VALID: getFasciaOraria ");
 			//System.out.println("verifyFasciaOrariaIsInProgress");
 			SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");

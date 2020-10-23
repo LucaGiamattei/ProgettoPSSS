@@ -3,10 +3,10 @@ package dataLayer.pagamento;
 import java.util.Vector;
 
 import dataLayer.pagamento.entities.PagamentoDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idPagamento;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idPagamento;
+import utilities.idUser;
 /**
  * Tale interfaccia espone le funzioni pubbliche sull'entita' persistente Pagamento
  * offerte dal livello data layer ai livelli superiori. <p>

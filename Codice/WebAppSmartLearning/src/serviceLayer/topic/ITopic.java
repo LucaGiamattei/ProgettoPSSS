@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.topic.entities.TopicDB;
-import dataLayer.utilities.StateResult;
+import utilities.StateResult;
 
 public interface ITopic {
 

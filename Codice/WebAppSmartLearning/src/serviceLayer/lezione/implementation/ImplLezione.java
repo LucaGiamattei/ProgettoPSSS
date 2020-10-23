@@ -9,11 +9,11 @@ import dataLayer.topic.controller.ControllerTopicDB;
 import dataLayer.topic.entities.TopicDB;
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idUser;
 import serviceLayer.lezione.ILezione;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idLesson;
+import utilities.idUser;
 
 public class ImplLezione implements ILezione {
 	@Override

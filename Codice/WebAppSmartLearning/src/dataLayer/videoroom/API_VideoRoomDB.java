@@ -1,8 +1,8 @@
 package dataLayer.videoroom;
 
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
 import dataLayer.videoroom.entities.VideoRoomDB;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
 /**
  * Tale interfaccia espone le funzioni pubbliche sull'entita' persistente VideoRoom
  * offerte dal livello data layer ai livelli superiori. <p>

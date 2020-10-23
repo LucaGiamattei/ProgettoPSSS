@@ -14,13 +14,13 @@ import dataLayer.lezione.controller.ControllerLezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.pagamento.controller.ControllerPagamentoDB;
 import dataLayer.pagamento.entities.PagamentoDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idUser;
 import dataLayer.videoroom.controller.ControllerVideoRoomDB;
 import dataLayer.videoroom.entities.VideoRoomDB;
 import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.videoroom.IVideoRoom;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idUser;
 
 public class ImplVideoRoom implements IVideoRoom{
 	
@@ -154,7 +154,7 @@ public class ImplVideoRoom implements IVideoRoom{
 	
 	public StateResult deleteVideoRoom(String idFasciaOraria, String idDocente){
 		FasciaOraria fascia = new FasciaOraria();
-		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
+		fascia.setId(new utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
 		ImplLezione implLezione = new ImplLezione();
 		ImplVideoRoom implVideoRoom = new ImplVideoRoom();
 		
@@ -173,7 +173,7 @@ public class ImplVideoRoom implements IVideoRoom{
 		
 	public StateResult avviaVideoRoom(String idFasciaOraria, String idDocente,String[] nomeRoom, String[] tokenDocente, Vector <String> tokens){
 		FasciaOraria fascia = new FasciaOraria();
-		fascia.setId(new dataLayer.utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
+		fascia.setId(new utilities.idFasciaOraria(Integer.parseInt(idFasciaOraria)));
 		ImplLezione implLezione = new ImplLezione();
 		if (implLezione.verifyDocenteHasFasciaOraria(idDocente, fascia)==StateResult.VALID && verifyFasciaOrariaIsInProgress(fascia) == StateResult.VALID) {
 			nomeRoom[0] = genNomeRoom(idFasciaOraria, idDocente);

@@ -5,10 +5,9 @@ import java.util.Vector;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idLesson;
+import utilities.idUser;
 
 /**
  * Tale interfaccia espone le funzioni pubbliche sull'entita' persistente Utente (sia Studente che Docente)

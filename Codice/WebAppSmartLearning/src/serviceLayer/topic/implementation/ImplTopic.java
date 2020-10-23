@@ -7,8 +7,8 @@ import dataLayer.topic.controller.ControllerTopicDB;
 import dataLayer.topic.entities.TopicDB;
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
 import serviceLayer.topic.ITopic;
+import utilities.StateResult;
 
 public class ImplTopic implements ITopic {
 

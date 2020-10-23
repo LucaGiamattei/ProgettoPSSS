@@ -1,8 +1,8 @@
 package dataLayer.topic.entities;
 
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
+import utilities.idLesson;
+import utilities.idTopic;
+import utilities.idUser;
 
 public class TopicDB {
 

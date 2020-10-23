@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.LezioneDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
 import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.user.implementation.ImplUtente;
+import utilities.StateResult;
+import utilities.idUser;
 
 /**
  * Servlet implementation class retrieveMyLessons

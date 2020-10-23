@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.FasciaOraria;
-import dataLayer.utilities.StateResult;
-
 import serviceLayer.videoroom.implementation.ImplVideoRoom;
+import utilities.StateResult;
 
 /**
  * Servlet implementation class AvviaVideoCallServlet

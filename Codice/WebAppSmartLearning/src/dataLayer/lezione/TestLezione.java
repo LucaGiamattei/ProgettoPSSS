@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 import dataLayer.lezione.controller.ControllerLezioneDB;
 import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idLesson;
+import utilities.idTopic;
+import utilities.idUser;
 
 class TestLezione {
 	private static ControllerLezioneDB controller;

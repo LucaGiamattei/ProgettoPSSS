@@ -12,10 +12,10 @@ import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.API_UtenteDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idLesson;
+import utilities.idTopic;
+import utilities.idUser;
 
 public class ControllerUtenteDB implements API_UtenteDB{
 

@@ -4,8 +4,8 @@ import java.util.Vector;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idUser;
 
 public interface IUtente {
 	

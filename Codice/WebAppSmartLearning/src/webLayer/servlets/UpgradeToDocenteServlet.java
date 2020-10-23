@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
 import serviceLayer.registration.implementation.ImplRegistrazione;
 import serviceLayer.user.implementation.ImplUtente;
+import utilities.StateResult;
+import utilities.idUser;
 
 
 public class UpgradeToDocenteServlet extends HttpServlet {

@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.FasciaOraria;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idUser;
 import serviceLayer.lezione.implementation.ImplLezione;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idLesson;
+import utilities.idUser;
 
 /**
  * Servlet implementation class ProgramLessonServlet

@@ -4,8 +4,8 @@ import java.text.ParseException;
 import java.util.Vector;
 
 import dataLayer.lezione.entities.FasciaOraria;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
 
 public interface IVideoRoom {
 	
