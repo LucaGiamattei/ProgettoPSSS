@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 import dataLayer.user.controller.ControllerUtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
 import serviceLayer.user.implementation.ImplUtente;
+import utilities.StateResult;
+import utilities.idUser;
 
 /**
  * Servlet Filter implementation class DocFilter

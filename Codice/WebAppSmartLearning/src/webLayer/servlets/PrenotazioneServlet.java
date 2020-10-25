@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.FasciaOraria;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idUser;
 import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.pagamento.implementation.ImplPagamento;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
+import utilities.idUser;
 
 /**
  * Servlet implementation class SubscribeServlet

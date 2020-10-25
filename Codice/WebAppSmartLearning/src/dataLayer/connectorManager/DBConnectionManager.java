@@ -97,7 +97,7 @@ public class DBConnectionManager
 		 try {
 		    if (conn == null || conn.isClosed()) {
 		      
-		      Class.forName(driver);
+		       Class.forName(driver);
 		       conn = (Connection) DriverManager.getConnection(url+dbName+"?autoReconnect=true&useSSL=true",userName,password);
 		    }
 	    } catch (Exception e) {
@@ -144,7 +144,7 @@ public class DBConnectionManager
 		
         java.sql.PreparedStatement statement = conn.prepareStatement(query);
         ResultSet ret = statement.executeQuery();
-        ResultSet rs;
+        
         //conn.close();
        
         return ret;

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataLayer.utilities.StateResult;
 import serviceLayer.topic.implementation.ImplTopic;
+import utilities.StateResult;
 
 /**
  * Servlet implementation class RetrieveTopicsServlet

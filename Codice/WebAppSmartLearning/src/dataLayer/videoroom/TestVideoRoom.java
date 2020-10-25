@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
 import dataLayer.videoroom.controller.ControllerVideoRoomDB;
 import dataLayer.videoroom.entities.VideoRoomDB;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
 
 class TestVideoRoom {
 	static ControllerVideoRoomDB controller;

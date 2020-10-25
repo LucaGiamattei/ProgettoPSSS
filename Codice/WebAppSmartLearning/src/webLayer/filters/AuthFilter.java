@@ -14,9 +14,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.user.controller.ControllerUtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
 import serviceLayer.user.implementation.ImplUtente;
+import utilities.StateResult;
+import utilities.idUser;
 
 /**
  * Servlet Filter implementation class AuthFilter

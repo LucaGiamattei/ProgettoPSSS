@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
 import serviceLayer.lezione.implementation.ImplLezione;
 import serviceLayer.topic.implementation.ImplTopic;
 import serviceLayer.user.implementation.ImplUtente;
+import utilities.StateResult;
+import utilities.idUser;
 
 
 /**

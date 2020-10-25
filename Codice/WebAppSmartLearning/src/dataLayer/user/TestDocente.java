@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idLesson;
+import utilities.idUser;
 
 class TestDocente {
 	private static ControllerUtenteDB controller;

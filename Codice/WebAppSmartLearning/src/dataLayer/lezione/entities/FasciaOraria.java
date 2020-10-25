@@ -3,7 +3,7 @@ package dataLayer.lezione.entities;
 import java.sql.Date;
 import java.sql.Time;
 
-import dataLayer.utilities.idFasciaOraria;
+import utilities.idFasciaOraria;
 
 
 

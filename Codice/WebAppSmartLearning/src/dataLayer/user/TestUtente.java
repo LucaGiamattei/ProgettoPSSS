@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import dataLayer.user.controller.ControllerUtenteDB;
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idUser;
 
 /**
- * @author giorgio
+ * @author PsssTeam
  *Il test richiede che nel db vi sia una tupla in Utente con password = "testPassword" e idUser = 1
  */
 class TestUtente {
@@ -34,7 +34,7 @@ class TestUtente {
 	}
 
 	/**
-	 * Test method for {@link dataLayer.user.controller.ControllerUtenteDB#validateUser(dataLayer.utilities.idUser)}.
+	 * Test method for {@link dataLayer.user.controller.ControllerUtenteDB#validateUser(utilities.idUser)}.
 	 */
 	@Test
 	void testValidateUser() {
@@ -58,7 +58,7 @@ class TestUtente {
 	}
 
 	/**
-	 * Test method for {@link dataLayer.user.controller.ControllerUtenteDB#retrieveUser(dataLayer.utilities.idUser, dataLayer.user.entities.UtenteDB)}.
+	 * Test method for {@link dataLayer.user.controller.ControllerUtenteDB#retrieveUser(utilities.idUser, dataLayer.user.entities.UtenteDB)}.
 	 */
 	@Test
 	void testRetrieveUser() {
@@ -70,7 +70,7 @@ class TestUtente {
 	}
 
 	/**
-	 * Test method for {@link dataLayer.user.controller.ControllerUtenteDB#verifyPassword(dataLayer.utilities.idUser, java.lang.String)}.
+	 * Test method for {@link dataLayer.user.controller.ControllerUtenteDB#verifyPassword(utilities.idUser, java.lang.String)}.
 	 */
 	@Test
 	void testVerifyPassword() {

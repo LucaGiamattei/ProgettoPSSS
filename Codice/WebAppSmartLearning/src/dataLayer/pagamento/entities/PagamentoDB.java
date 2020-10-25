@@ -1,7 +1,7 @@
 package dataLayer.pagamento.entities;
 
-import dataLayer.utilities.idFasciaOraria;
-import dataLayer.utilities.idUser;
+import utilities.idFasciaOraria;
+import utilities.idUser;
 
 public class PagamentoDB {
 	idFasciaOraria idFascia;

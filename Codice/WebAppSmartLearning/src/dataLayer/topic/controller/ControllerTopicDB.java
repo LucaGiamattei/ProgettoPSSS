@@ -9,12 +9,12 @@ import dataLayer.lezione.entities.FasciaOraria;
 import dataLayer.lezione.entities.LezioneDB;
 import dataLayer.topic.API_TopicDB;
 import dataLayer.topic.entities.TopicDB;
+import utilities.StateResult;
+import utilities.idLesson;
+import utilities.idSubscription;
+import utilities.idTopic;
+import utilities.idUser;
 
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idSubscription;
 import java.sql.Connection;
 
 public class ControllerTopicDB implements API_TopicDB{

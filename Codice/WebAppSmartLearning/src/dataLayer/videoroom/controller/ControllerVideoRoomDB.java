@@ -8,10 +8,10 @@ import com.mysql.jdbc.CallableStatement;
 import java.sql.Connection;
 
 import dataLayer.connectorManager.DBConnectionManager;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idFasciaOraria;
 import dataLayer.videoroom.API_VideoRoomDB;
 import dataLayer.videoroom.entities.VideoRoomDB;
+import utilities.StateResult;
+import utilities.idFasciaOraria;
 
 
 

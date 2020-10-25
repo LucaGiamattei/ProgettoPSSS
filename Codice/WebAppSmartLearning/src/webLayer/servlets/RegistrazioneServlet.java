@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataLayer.utilities.StateResult;
 import serviceLayer.registration.implementation.ImplRegistrazione;
+import utilities.StateResult;
 
 /**
  * Servlet implementation class RegistrationServlet

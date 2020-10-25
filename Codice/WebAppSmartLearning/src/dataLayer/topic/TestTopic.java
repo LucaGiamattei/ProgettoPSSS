@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import dataLayer.topic.controller.ControllerTopicDB;
 import dataLayer.topic.entities.TopicDB;
-import dataLayer.utilities.StateResult;
-import dataLayer.utilities.idSubscription;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
+import utilities.StateResult;
+import utilities.idSubscription;
+import utilities.idTopic;
+import utilities.idUser;
 
 class TestTopic {
 	private static ControllerTopicDB controller;

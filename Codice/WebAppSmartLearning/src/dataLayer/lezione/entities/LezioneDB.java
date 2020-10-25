@@ -7,9 +7,9 @@ import java.util.Vector;
 //import com.mysql.fabric.xmlrpc.base.Data;
 */
 import dataLayer.connectorManager.DBConnectionManager;
-import dataLayer.utilities.idLesson;
-import dataLayer.utilities.idTopic;
-import dataLayer.utilities.idUser;
+import utilities.idLesson;
+import utilities.idTopic;
+import utilities.idUser;
 
 public class LezioneDB {
 	private idLesson id;
@@ -36,7 +36,7 @@ public class LezioneDB {
 	 * @param idUtente
 	 * @param slot
 	 */
-	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, dataLayer.utilities.idTopic idTopic,
+	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, utilities.idTopic idTopic,
 			idUser idUtente, FasciaOraria slot) {
 		super();
 		this.id = id;
@@ -59,7 +59,7 @@ public class LezioneDB {
 	 * @param idTopic
 	 * @param idUtente
 	 */
-	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, dataLayer.utilities.idTopic idTopic,
+	public LezioneDB(idLesson id, String nomeLezione,String descrizioneLezione, float media_score, int nmax, utilities.idTopic idTopic,
 			idUser idUtente) {
 		super();
 		this.id = id;
@@ -81,7 +81,7 @@ public class LezioneDB {
 	 * @param idTopic
 	 * @param idUtente
 	 */
-	public LezioneDB(String nomeLezione,String descrizioneLezione,int nmax, dataLayer.utilities.idTopic idTopic,
+	public LezioneDB(String nomeLezione,String descrizioneLezione,int nmax, utilities.idTopic idTopic,
 			idUser idUtente) {
 		super();
 		

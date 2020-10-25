@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Hashtable;
 
 import dataLayer.connectorManager.DBConnectionManager;
-import dataLayer.utilities.idUser;
+import utilities.idUser;
 
 public class UtenteDB {
 	private idUser id;

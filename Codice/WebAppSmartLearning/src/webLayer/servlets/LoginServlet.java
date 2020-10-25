@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
 import serviceLayer.login.implementation.ImplLogin;
 import serviceLayer.registration.implementation.ImplRegistrazione;
+import utilities.StateResult;
 
 /**
  * Servlet implementation class LoginServlet

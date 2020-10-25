@@ -1,7 +1,7 @@
 package serviceLayer.login;
 
 import dataLayer.user.entities.UtenteDB;
-import dataLayer.utilities.StateResult;
+import utilities.StateResult;
 
 public interface ILogin {
 	
