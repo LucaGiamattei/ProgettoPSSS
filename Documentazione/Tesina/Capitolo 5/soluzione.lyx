@@ -1,0 +1,1019 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{listings,xcolor,courier,bookmark}
+\usepackage{listingsutf8}
+\usepackage{lmodern}
+\definecolor{darkblue}{named}{blue}
+\definecolor{darkred}{named}{red}
+\definecolor{grau}{named}{gray}
+\let\Righttorque\relax
+\lstset{
+captionpos=b,
+commentstyle=\color[rgb]{0.133,0.545,0.133},
+keywordstyle=\color{darkblue},
+stringstyle=\color{darkred},
+extendedchars=true,
+basicstyle=\small\ttfamily,
+showstringspaces=false,
+tabsize=2,
+numbers=left,
+numberstyle=\tiny,
+breakautoindent  = true,
+breakindent      = 2em,
+breaklines       = true,
+postbreak        = ,
+prebreak         = \raisebox{-.8ex}[0ex][0ex]{\Righttorque},
+showspaces=false, 
+showtabs=false, 
+showstringspaces=false,
+language=VHDL,
+frame=single,
+morecomment=[s]{--}
+}
+
+
+\renewcommand*{\lstlistingname}{Codice Componente}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{} 
+\fancyfoot{} 
+
+\fancyhead[RO,LE]{\bfseries \leftmark}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Tesina in ASE: Architetture dei Sistemi di Elaborazione}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\date{}
+\cfoot{}
+\end_preamble
+\use_default_options true
+\master Tesina.lyx
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2.5cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introduzione
+\end_layout
+
+\begin_layout Standard
+La web application è strutturata secondo un'
+\series bold
+architettura three-tier
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Il Client non comunica direttamente con il server del database, ma con il
+ server dell'applicazione.
+ Il Client svolge solo il compito di interfaccia utente e la logica dell'applica
+zione è inserita nel server applicativo.
+\end_layout
+
+\begin_layout Standard
+Server applicativo e server di database possono risiedere nella stessa macchina
+ o su macchine diverse collegate in rete: nel nostro caso risiedono entrambi
+ su 
+\series bold
+Azure Cloud
+\series default
+, ma su due locazioni differenti.
+\end_layout
+
+\begin_layout Standard
+Il Client è un semplice browser web, mentre il server applicativo è un server
+ web: come server applicativo è stato utilizzato 
+\series bold
+Apache Tomcat 9.0
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda il server del database, invece, è stato adoperato come
+ DBMS 
+\series bold
+MySQL 8.0
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Il web browser del client invia le proprie richieste, tramite il protocollo
+ HTTP/HTTPS, al livello intermedio ovvero al web server.
+ Quest'ultimo interpreta e serve tali richieste, interagendo anche con il
+ DBMS, per poi generare una risposta in formato XML da inviare allo stesso
+ browser, che la interpreterà e la presenterà all'utente sotto forma di
+ Web.
+\end_layout
+
+\begin_layout Standard
+D'altra parte l'applicazione fa ricorso ad un servizio esterno, 
+\series bold
+Janus
+\series default
+, per implementare la funzionalità di videochiamata, il quale comunicherà
+ direttamente con il Client.
+\end_layout
+
+\begin_layout Section
+Component Diagram
+\end_layout
+
+\begin_layout Standard
+Per illustrare l'architettura del sistema, si è fatto ricorso al Component
+ Diagram, il quale è un diagramma che ha lo scopo di rappresentare la struttura
+ interna del sistema software modellato in termini dei suoi componenti principal
+i e delle relazioni fra di essi.
+ Per componente si intende una unità software dotata di una precisa identità,
+ nonché responsabilità e interfacce ben definite.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Component Diagram.jpg
+	lyxscale 80
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Component Diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Com'è possibile evincere dalla figura, è possibile scomporre il sistema
+ nei seguenti componenti:
+\end_layout
+
+\begin_layout Itemize
+Una Web Application: Smart Learning;
+\end_layout
+
+\begin_layout Itemize
+Due User Interface: Utente ed Utente loggato;
+\end_layout
+
+\begin_layout Itemize
+Un Service (servizi esterni adoperati dal sistema): Janus;
+\end_layout
+
+\begin_layout Itemize
+Un Database (necessario per gestire la pesistenza dei dati): MySQL;
+\end_layout
+
+\begin_layout Itemize
+Sette API interpostre tra Client e Web Application (alcune ulteriormente
+ scomponibili in REST API):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Registrazione API (REST API);
+\end_layout
+
+\begin_layout Itemize
+Login API (REST API);
+\end_layout
+
+\begin_layout Itemize
+Utente API:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Utente API (REST API);
+\end_layout
+
+\begin_layout Itemize
+UpgradeToDocente API (REST API);
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Lezione API:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+LezioniPrenotate API (REST API);
+\end_layout
+
+\begin_layout Itemize
+Programmazioni API (REST API);
+\end_layout
+
+\begin_layout Itemize
+LezioniUtente API (REST API);
+\end_layout
+
+\begin_layout Itemize
+ProgrammazioneDocente API (REST API);
+\end_layout
+
+\begin_layout Itemize
+LezioneDocente API (REST API);
+\end_layout
+
+\begin_layout Itemize
+LezioniDocente API (REST API);
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Pagamento API:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Prenotazione API (REST API);
+\end_layout
+
+\begin_layout Itemize
+Prenotazioni API (REST API);
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Topics API (REST API);
+\end_layout
+
+\begin_layout Itemize
+Videoroom API:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+VideoCallUtente API (REST API);
+\end_layout
+
+\begin_layout Itemize
+VideoCallDocenteAPI (REST API).
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Section
+Application Server
+\end_layout
+
+\begin_layout Standard
+Le funzionalità dell'applicazione Smart Learning, precedentemente definite
+ nella specifica dei requisiti, possono essere raggruppate nei seguenti
+ moduli: Registrazione, Login, Utente, Lezione, Pagamento, Topic e Videoroom.
+\end_layout
+
+\begin_layout Standard
+Dato il numero dei servizi offerti, sono state valutate due possibili soluzioni
+ architetturali: un'architettura a microservizi o un'architettura three-layer.
+\end_layout
+
+\begin_layout Standard
+In particolare, l'architettura a microservizi sembra adattarsi perfettamente
+ al sistema.
+ D'altra parte essa, grazie alla separazione dei componenti in microservizi
+ indipendenti (ognuno con la propria base di dati), attribuirebbe al software
+ flessibilità, scalabilità ed estensibilità (nuovi servizi), requisiti ottimali
+ per un’applicazione sviluppata ex-novo.
+ 
+\end_layout
+
+\begin_layout Standard
+Inoltre, i servizi sarebbero sviluppati e distribuiti in maniera indipendente,
+ risultando più facili da manutenere, correggere e aggiornare, rispetto
+ ad una classica applicazione monolitica.
+\end_layout
+
+\begin_layout Standard
+Di contro, lo sviluppo di un'architettura a microservizi richiederebbe un
+ grosso sforzo implementativo, dovuto alla complessità di una tale tipologia
+ di architettura.
+ Di conseguenza, in seguito ad un'analisi di fattibilità, si è constato
+ che non si sarebbero potuti rispettare i tempi di consegna del progetto.
+\end_layout
+
+\begin_layout Standard
+In particolare la problematica principale è rappresentata dal mantenimento
+ della consistenza dei dati, distribuiti su basi di dati indipendenti; essa
+ prevederebbe una comunicazione asincrona tra i microservizi (tramite broker),
+ evitando l'overhead della comunicazione sincrona (
+\shape italic
+two-phase-commit
+\shape default
+), e degli orchestratori delegati a sfruttare questa comunicazione asincrona
+ per implementare la logica di business e dei meccanismi affidabili di rollback.
+\end_layout
+
+\begin_layout Standard
+Per tale motivo, si è optato verso un'architettura più semplice da implementare,
+ ovvero un'
+\series bold
+architettura three-layer 
+\series default
+(monolitica), in cui saranno presenti servizi esterni.
+\end_layout
+
+\begin_layout Standard
+Essa prevede la suddivisione dell'applicazione in tre diversi moduli: Web
+ Layer, Service Layer e Data Layer.
+\end_layout
+
+\begin_layout Standard
+Nell’architettura a tre livelli, ciascuna delle funzionalità principali
+ è isolata dalle altre, in modo che il Web Layer sia indipendente dal Service
+ Layer, che a è sua volta è separato dai dati (Data Layer).
+ 
+\end_layout
+
+\begin_layout Standard
+D'altra parte quando l'applicazione è relativamente 
+\begin_inset Quotes eld
+\end_inset
+
+piccola
+\begin_inset Quotes erd
+\end_inset
+
+, l'architettura monolitica può avere numerosi vantaggi; essa risulta infatti
+ semplice da sviluppare, testare, deployare e scalare, inoltre l'applicazione
+ di cambiamenti radicali è facilitata.
+\end_layout
+
+\begin_layout Standard
+Tuttavia, al crescere delle dimensioni, lo sviluppo, i test, il deploy e
+ lo scaling diventano sempre più difficili.
+\end_layout
+
+\begin_layout Subsection
+Package Diagrams
+\end_layout
+
+\begin_layout Standard
+I Package Diagrams sono utilizzati per modellare la struttura modulare del
+ sistema, d'altra parte essi evidenziano i differenti strati dell'architettura
+ che si rifletteranno nel codice sorgente.
+\end_layout
+
+\begin_layout Standard
+Nel caso in esame sono stati elaborati due differenti diagrammi:
+\end_layout
+
+\begin_layout Itemize
+Un Package Diagram generale, il quale mostra la struttura generale del sistema;
+\end_layout
+
+\begin_layout Itemize
+Un Package Diagram specifico, il quale entra nel dettaglio dei vari moduli
+ del sistema.
+\end_layout
+
+\begin_layout Standard
+Tale distinzione è stata fatta per fornire una versone più 
+\begin_inset Quotes eld
+\end_inset
+
+leggibile
+\begin_inset Quotes erd
+\end_inset
+
+ dell'architettura ed una più dettagliata.
+\end_layout
+
+\begin_layout Subsubsection*
+Package Diagram generale
+\end_layout
+
+\begin_layout Standard
+Come è possibile evincere dalla figura sottostante, l'applicazione lato
+ server è strutturata secondo un'
+\series bold
+architettura three-layer 
+\series default
+(a tre livelli), soluzione ampiamente utilizzata per le applicazioni web.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Package Diagram (generale).jpg
+	lyxscale 40
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Package Diagram generale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Package Diagram specifico
+\end_layout
+
+\begin_layout Standard
+Tale diagrama specifica puntalmente la struttura ed i contenuti dei vari
+ package del sistema, tuttavia risulta poco leggibile a causa delle dimensioni
+ dello stesso.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Package Diagram (specifico).jpg
+	lyxscale 10
+	scale 5
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Package Diagram specifico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Architettura Three-Layer
+\end_layout
+
+\begin_layout Standard
+Come detto in precedenza il Server applicativo è a sua volta suddiviso secondo
+ un'architettura a tre livelli:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Web Layer
+\series default
+: si occupa dell'interfacciamento con il Client.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Service Layer
+\series default
+: si occupa delle elaborazioni dei dati in base alla cosiddetta 
+\shape italic
+busines logic
+\shape default
+.
+ Esso crea un ponte tra il Web Layer e il Data Layer.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Data Layer
+\series default
+: il livello dati garantisce il meccanismo di archiviazione persistente
+ dei dati.
+ Esso supporta la connessione con il database e l'esecuzione delle operazioni
+ di inserimento, aggiornmento, eliminazione e recupero dei dati.
+\end_layout
+
+\begin_layout Subsubsection*
+Web Layer
+\end_layout
+
+\begin_layout Standard
+Il Web Layer è composto da 
+\series bold
+filtri 
+\series default
+e 
+\series bold
+servlet
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Le richieste effettuate dal Client sono in formato HTTP, esse sono ricevute
+ dai filtri, che dopo averle processate le inoltreranno alle servlet, che
+ si occupano di accedere alla risorsa richiesta; ogni risorsa ha una servlet
+ associata.
+\end_layout
+
+\begin_layout Standard
+Viene così a crearsi una catena costituita, per l'appunto, da filtri e servlet.
+\end_layout
+
+\begin_layout Standard
+Quest'ultime si occupano di richiamare le interfacce esposte dai servizi,
+ che implementano le operazioni per servire le richieste, e di formattare
+ la risposta da inviare al Client in formato XML.
+\end_layout
+
+\begin_layout Standard
+Le interfacce esposte dalle servlet sono state realizzate adottando lo stile
+ architetturale 
+\series bold
+REST
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+L'architettura REST si basa sul protocollo HTTP.
+ Il funzionamento prevede una struttura degli URL ben definita che identifica
+ univocamente una risorsa o un insieme di risorse e l'utilizzo dei metodi
+ HTTP specifici per il recupero di informazioni (GET), per la modifica (POST,
+ PUT, PATCH, DELETE) e per altri scopi (OPTIONS, ecc.).
+\end_layout
+
+\begin_layout Standard
+Le interfacce REST sono state interamente documentate secondo lo standard
+ 
+\series bold
+OpenAPI 3.0
+\series default
+ in un file allegato, come mostrato nella seguente figura:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/REST_API.jpg
+	lyxscale 50
+	scale 38
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+REST API
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Service Layer
+\end_layout
+
+\begin_layout Standard
+Il Service Layer si occupa delle elaborazioni dei dati in base alla cosiddetta
+ busines logic; le elaborazioni del livello intermedio generano i risultati
+ richiesti dall'utente.
+\end_layout
+
+\begin_layout Standard
+Il Service Layer è composto dai seguenti moduli:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Registrazione
+\series default
+: si occupa della logica di registrazione di nuovi utenti;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Login
+\series default
+: gestice la logica sul quale si basa il Login;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Utente
+\series default
+: ha la responsabilità di gestire tuttò ciò che riguarda il profilo degli
+ utenti (incluso l'Upgrade ad un profilo 
+\begin_inset Quotes eld
+\end_inset
+
+Docente
+\begin_inset Quotes erd
+\end_inset
+
+);
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Lezione
+\series default
+: include la logica di gestione delle lezioni e del calendario a loro associato;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Pagamento
+\series default
+: include la gestione dei pagamenti e tiene traccia delle persone che hanno
+ pagato una lezione;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Topic
+\series default
+: include la logica di gestione dei topic;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Videoroom
+\series default
+: ha la responsabilità di gestire ciò che riguarda le videochiamate relative
+ alle lezioni.
+\end_layout
+
+\begin_layout Standard
+Si è scelto quindi di adottare uno stile architetturale Service-Oriented,
+ di conseguenza i principali componenti di questo layer sono stati realizzati
+ come servizi indipendenti, inoltre essi sono richiamati attraverso un'interfacc
+ia indipendente dalla specifica implementazione; ciò garantisce modificabilità
+ e riusabilità.
+\end_layout
+
+\begin_layout Subsubsection*
+Data Layer
+\end_layout
+
+\begin_layout Standard
+Il Data Layer ha il compito di gestire la persistenza dei dati, quindi di
+ comunicare con il DBMS relativo al database utilizzato.
+\end_layout
+
+\begin_layout Standard
+Tale livello è strutturato secondo il pattern architetturale 
+\series bold
+DAO
+\series default
+ (
+\series bold
+Data Access Object
+\series default
+): è stata implementata una classe, con i relativi metodi, per ogni entità
+ tabellare del DBMS.
+\end_layout
+
+\begin_layout Standard
+Tali classi sono utili per stratificare e isolare l'accesso ad una tabella
+ tramite query (poste all'interno dei metodi della classe) ovvero al data
+ layer da parte della business logic, creando un maggiore livello di astrazione
+ ed una più facile manutenibilità.
+\end_layout
+
+\begin_layout Standard
+Infatti, il Data Layer espone ai componenti presenti nel Service Layer un
+ insieme di interfacce (API) per accedere ai dati, ma è compito del DAO
+ gestire la connessione al database e lo svolgimento delle operazioni CRUD;
+ tutto ciò favorisce il disaccoppiamento tra il Service Layer con il Database
+ persistente.
+\end_layout
+
+\begin_layout Standard
+La connessione al database è gestita tramite una classe DBConnectionManager,
+ dalla quale sono dipendenti tutte le altre classi del livello.
+\end_layout
+
+\begin_layout Section
+Client
+\end_layout
+
+\begin_layout Standard
+Il Client è strutturato secondo un'architettura detta 
+\series bold
+Thin Client
+\series default
+, ovvero esso svolge solo il compito di interfaccia utente, mentre la logica
+ dell'applicazione e la gestione dei dati è demandata ai server.
+\end_layout
+
+\begin_layout Standard
+Nel caso in questione il Client è un browser che comunica con il server
+ applicativo tramite il protocollo HTTP/HTTPS.
+\end_layout
+
+\begin_layout Standard
+Il browser, attraverso il proprio motore di rendering, genera l'interfaccia
+ utente, interpretando le pagine realizzate tramite HTML, CSS e tecnologia
+ JavaScript.
+ D'altra parte esso comunicherà direttamente con il server Janus, per la
+ fruizione del servizio di videochiamata.
+\end_layout
+
+\begin_layout Section
+Database Server
+\end_layout
+
+\begin_layout Standard
+Il Database Server è stato implementato tramite il DBMS MySQL, utilizzato
+ per la gestione della persistenza dei dati e la loro interrogazione tramite
+ JDBC, ricevendo e soddisfacendo le richieste di lettura/scrittura sul DB
+ da parte della logica applicativa.
+ 
+\end_layout
+
+\begin_layout Standard
+JDBC è un connettore per database, che consente l'accesso ad una base di
+ dati da qualsiasi programma scritto in JAVA, indipendentemente dal tipo
+ di DBMS utilizzato.
+ Esso è costituito da un'API object oriented orientata ai databse relazionali.
+\end_layout
+
+\begin_layout Standard
+Il database è di tipo 
+\series bold
+relazionale
+\series default
+ e le entità tabellari da cui è composto corrispondono alle classi del Data
+ Layer, come definito dal pattern Data Access Object.
+\end_layout
+
+\begin_layout Section
+Servizi esterni: Janus
+\end_layout
+
+\begin_layout Standard
+L’applicazione è basata sulla tecnologia open source WebRTC, disponibile
+ su tutti i moderni browser, che consente di effettuare videochat P2P in
+ tempo reale.
+ A supporto di tale scelta tecnologica si è deciso di utilizzare il WebRTC
+ server Janus.
+ Questo infatti fornisce delle API in javascript che astraggono i dettagli
+ implementativi della tecnologia e ne consentono un rapido e semplice utilizzo
+ in svariati casi d’uso.
+ In particolare sono messi a disposizione una serie di “plugin” da aggiungere
+ al codice base così da personalizzarne l’utilizzo.
+ In questo caso si è deciso di utilizzare il plugin “VideoRoom” che fornisce
+ l’implementazione di una 
+\series bold
+SFU
+\series default
+ (
+\series bold
+Selective Forwarding Unit
+\series default
+).
+\end_layout
+
+\begin_layout Standard
+Maggiori dettagli sul Janus sono forniti nel capitolo 7.
+\end_layout
+
+\begin_layout Section
+Deployment Diagram
+\end_layout
+
+\begin_layout Standard
+Il Deployment Diagram è utilizzato per descrivere un sistema in termini
+ di risorse hardware, dette nodi, e di relazioni fra di esse.
+ Se unito al Component Diagram, mostra come le componenti software siano
+ distribuite rispetto alle risorse hardware disponibili sul sistema.
+\end_layout
+
+\begin_layout Standard
+Come è possibile evincere dalla figura sottostante, il sistema è 
+\begin_inset Quotes eld
+\end_inset
+
+deployato
+\begin_inset Quotes erd
+\end_inset
+
+ nella seguente modalità:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Nodo 1
+\series default
+: Azure Cloud contenente il server Apache Tomcat, sul quale viene eseguito
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Smart Learning
+\begin_inset Quotes erd
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Nodo 2
+\series default
+: Azure Cloud contenente il database MySQL;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Nodo 3
+\series default
+: Azure Cloud contenete il server Janus.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Deployment Diagram.jpg
+	lyxscale 40
+	scale 20
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Deployment Diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
