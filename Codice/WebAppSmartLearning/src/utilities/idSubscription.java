@@ -1,10 +1,15 @@
-package dataLayer.utilities;
+package utilities;
 
 public class idSubscription {
 private int id ;
 	
+	
+	
 
-
+	public idSubscription() {
+	super();
+	// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {
