@@ -1,11 +1,17 @@
-package dataLayer.utilities;
+package utilities;
 
 
 public class idLesson {
 private int id ;
 	
+	
 
 
+
+	public idLesson() {
+	super();
+	// TODO Auto-generated constructor stub
+}
 
 	@Override
 	public String toString() {

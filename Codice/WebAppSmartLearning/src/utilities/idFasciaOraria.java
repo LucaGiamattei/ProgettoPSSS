@@ -1,10 +1,15 @@
-package dataLayer.utilities;
+package utilities;
 
 public class idFasciaOraria {
 	private int id ;
 	
 
+	
 
+	public idFasciaOraria() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {

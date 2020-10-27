@@ -1,0 +1,449 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{listings,xcolor,courier,bookmark}
+\usepackage{listingsutf8}
+\definecolor{darkblue}{named}{blue}
+\definecolor{darkred}{named}{red}
+\definecolor{grau}{named}{gray}
+\let\Righttorque\relax
+\lstset{
+captionpos=b,
+commentstyle=\color[rgb]{0.133,0.545,0.133},
+keywordstyle=\color{darkblue},
+stringstyle=\color{darkred},
+extendedchars=true,
+basicstyle=\small\ttfamily,
+showstringspaces=false,
+tabsize=2,
+numbers=left,
+numberstyle=\tiny,
+breakautoindent  = true,
+breakindent      = 2em,
+breaklines       = true,
+postbreak        = ,
+prebreak         = \raisebox{-.8ex}[0ex][0ex]{\Righttorque},
+showspaces=false, 
+showtabs=false, 
+showstringspaces=false,
+language=VHDL,
+frame=single,
+morecomment=[s]{--}
+}
+
+
+\renewcommand*{\lstlistingname}{Codice Componente}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{} 
+\fancyfoot{} 
+
+\fancyhead[RO,LE]{\bfseries \leftmark}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Tesina in ASE: Architetture dei Sistemi di Elaborazione}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\date{}
+\cfoot{}
+\end_preamble
+\use_default_options true
+\master Tesina.lyx
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2.5cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Interfacce Utente
+\end_layout
+
+\begin_layout Standard
+Il sistema è costituito dalle seguenti interfacce:
+\end_layout
+
+\begin_layout Itemize
+Utente non loggato:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Interfaccia per effetuare la registrazione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per effettuare il login.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Studente:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Interfaccia per effettuare l'upgrade ad un profilo docente;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per effettuare la ricerca di una lezione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per visualizzare le lezioni cercate;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per visualizzare il profilo di un docente;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per effettuare una prenotazione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per la gestione di tutte le lezioni prenotate;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia videochiamata;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per sottoscrivere un 
+\begin_inset Quotes eld
+\end_inset
+
+topic
+\begin_inset Quotes erd
+\end_inset
+
+ di interesse;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per recensire una lezione.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Docente:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Interfaccia per creare una lezione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per la gestione di tutte le lezioni create;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per visualizzare le programamzioni di una lezione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia per aggiungere una programmazione;
+\end_layout
+
+\begin_layout Itemize
+Interfaccia videochiamata.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Requisiti Funzionali
+\end_layout
+
+\begin_layout Standard
+Sono stati elaborati i seguenti Requisiti Funzionali:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Registrazione
+\series default
+: l’utente per ottenere le credenziali di accesso deve registrarsi fornendo
+ i propri dati (nome, cognome, e-mail e password) e verrà registrato come
+ studente; 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Login
+\series default
+: l'utente che intende utilizzare il sito deve inserire le sue credenziali
+ di accesso (e-mail e password);
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Registrazione come docente
+\series default
+: lo studente registrato inserisce l'indirizzo e-mail associato ad un account
+ PayPal e il proprio Curriculum Vitae, per poter accedere alle funzioni
+ dedicate ai docenti;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Crea lezione
+\series default
+: il docente crea una lezione specificandone il titolo, una descrizione,
+ il topic e il numero massimo di studenti che vi possono partecipare;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Aggiungi programmazione
+\series default
+: il docente selezione una lezione e ne aggiunge una programmazione, specificand
+one data, orario di inizio, orario di fine e prezzo;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Visualizza lezioni create
+\series default
+: il docente può visualizzare tutte le lezioni che ha creato;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Cerca lezione
+\series default
+: lo studente effettua una ricerca tra le lezioni create in base al cognome
+ del docente o al topic della lezione;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Prenota lezione
+\series default
+: lo studente prenota una lezione alla quale è interessato;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Visualizza profilo docente
+\series default
+: lo studente può visualizzare il profilo di un docente, contenente le lezioni
+ che ha creato e lo score derivato dalle sue recensioni;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Visualizza lezioni prenotate
+\series default
+: lo studente può visualizzare tutte le lezioni che ha prenotato;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Avvia videochiamata
+\series default
+: il docente avvia la videochiamata relativa ad una lezione nel giorno e
+ nell'orario programmato;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Partecipa a videochiamata
+\series default
+: lo studente si unisce ad una videochiamata relativa ad una lezione che
+ ha prenotato;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Gestisci videochiamata
+\series default
+: l'utente che partecipa ad una videochiamata può disattivare il proprio
+ microfono e la propria videocamera, oltre a poter condividere lo schermo;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Termina lezione
+\series default
+: il docente termina la videochiamata avviata per tutti i partecipanti;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Termina videochiamata
+\series default
+: lo studente termina la videochiamata avviata per se stesso;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Recensione lezione
+\series default
+: lo studente, al termine di una videochiamata, ha la possibilità di recensire
+ una lezione attraverso uno 
+\begin_inset Quotes eld
+\end_inset
+
+score
+\begin_inset Quotes erd
+\end_inset
+
+ e una descrizione;
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Sottoscrivi topic
+\series default
+: lo studente può esprimere una preferenza riguardante alcuni topic, in
+ modo da essere notificato qualora un docente creasse una lezione relativa
+ a quell'argomento.
+\end_layout
+
+\begin_layout Section
+Requisiti Non Funzionali
+\end_layout
+
+\begin_layout Standard
+Sono stati elaborati i seguenti Requisiti non Funzionali:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Sicurezza
+\series default
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Il sistema deve assicurare che un utente non loggato non possa accedere
+ alle funzionalità del sistema;
+\end_layout
+
+\begin_layout Itemize
+Il sistema deve assicurare che un utente con profilo studente non possa
+ accedere alle funzionalità dedicate ai docenti.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Usabilità
+\series default
+: il tempo di formazione necessario ad un utente inesperto per poter usare
+ produttivamente il sistema è di circa 30 minuti.
+ Mentre il numero di iterazioni per svolgere le varie funzioni sono limitate
+ rispetto ad applicativi di simile utilizzo.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Scalabilità, Manutenibilità e Riusabilità
+\series default
+: tali attributi di qualità sono garantiti dagli approcci architetturali
+ utilizzati.
+\end_layout
+
+\end_body
+\end_document

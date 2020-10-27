@@ -1,0 +1,1059 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{listings,xcolor,courier,bookmark}
+\usepackage{listingsutf8}
+\usepackage{lmodern}
+\definecolor{darkblue}{named}{blue}
+\definecolor{darkred}{named}{red}
+\definecolor{grau}{named}{gray}
+\let\Righttorque\relax
+\lstset{
+captionpos=b,
+commentstyle=\color[rgb]{0.133,0.545,0.133},
+keywordstyle=\color{darkblue},
+stringstyle=\color{darkred},
+extendedchars=true,
+basicstyle=\small\ttfamily,
+showstringspaces=false,
+tabsize=2,
+numbers=left,
+numberstyle=\tiny,
+breakautoindent  = true,
+breakindent      = 2em,
+breaklines       = true,
+postbreak        = ,
+prebreak         = \raisebox{-.8ex}[0ex][0ex]{\Righttorque},
+showspaces=false, 
+showtabs=false, 
+showstringspaces=false,
+language=VHDL,
+frame=single,
+morecomment=[s]{--}
+}
+
+
+\renewcommand*{\lstlistingname}{Codice Componente}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{} 
+\fancyfoot{} 
+
+\fancyhead[RO,LE]{\bfseries \leftmark}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Tesina in ASE: Architetture dei Sistemi di Elaborazione}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\date{}
+\cfoot{}
+\end_preamble
+\use_default_options true
+\master Tesina.lyx
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2.5cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introduzione
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+WebRTC
+\series default
+ è una tecnologia OpenSource, disponibile su tutti i moderni browser, che
+ consente di effettuare videochat P2P in tempo reale.
+ 
+\end_layout
+
+\begin_layout Standard
+A supporto di tale scelta tecnologica si è deciso di utilizzare il WebRTC
+ Server Janus, in particolare di utilizzare il plugin “
+\series bold
+VideoRoom
+\series default
+” di Janus che fornisce l’implementazione di una 
+\series bold
+SFU
+\series default
+ (
+\series bold
+Selective Forwarding Unit
+\series default
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda il client, Janus fornisce delle API in javascript (janus.js)
+ che astraendo i dettagli implementativi della tecnologia consentono al
+ client di interfacciarsi con semplicità ai servizi offerti da Janus.
+ 
+\end_layout
+
+\begin_layout Section
+Interazione con Janus 
+\end_layout
+
+\begin_layout Standard
+Il Server Janus è stato installato e mandato in esecuzione su una macchina
+ virtuale con sistema operativo Ubuntu 16.04 su Azure ed il suo servizio
+ è disponibile sulla porta 8088.
+\end_layout
+
+\begin_layout Standard
+La comunicazione tra il Client e il Server Janus avviene tramite protocollo
+ 
+\series bold
+WebSocket
+\series default
+ oppure, nel caso in cui quest'ultimo non sia disponibile, tramite 
+\series bold
+HTTP
+\series default
+ (Long Poll).
+ Questi protocolli permettono di avere un canale bidirezionale in modo tale
+ che il client possa ricevere eventi asincroni.
+\end_layout
+
+\begin_layout Standard
+Di seguito sono mostrati alcune problematiche alle quali si è andato incontro
+ durante la progettazione dell'interazione con il server Janus.
+\end_layout
+
+\begin_layout Subsection
+Gestione degli accessi al Server Janus
+\end_layout
+
+\begin_layout Standard
+Inizialmente, nell'architettura prescrittiva, si era deciso di fare in modo
+ che l'interazione con Janus, per quanto riguarda la creazione e l'eliminazione
+ di una Room, fosse limitata solo al Web Application Server Smart Learning.
+\end_layout
+
+\begin_layout Standard
+Tuttavia, dopo uno studio di fattibilità, si è constatato che tale scelta
+ implementativa avrebbe richiesto di potere eseguire codice Javascript nell'appl
+ication server per fare uso della libreria 
+\begin_inset Quotes eld
+\end_inset
+
+janus.js
+\begin_inset Quotes erd
+\end_inset
+
+ messa a disposizione da Janus.
+\end_layout
+
+\begin_layout Standard
+Non essendo possibile eseguire codice Javascript su Tomcat, si potrebbe
+ delegare tale onere a un altro server, come nodeJS.
+\end_layout
+
+\begin_layout Standard
+In ogni caso tale soluzione richiederebbe un grande spreco di risorse, significh
+erebbe mantere attivo in modo continuativo un ulteriore server per ospitare
+ un handler per comunicare Janus.
+\end_layout
+
+\begin_layout Standard
+Tuttavia, una soluzione più semplice, che in questo momento non è stata
+ adottata ed è rimandata alla prossima release, è quella di permettere l'accesso
+ alla funzionalità di creazione e di eliminazione di una room, non all'Applicati
+on Server, ma ai docenti per un certo periodo di tempo tramite dei Ticket
+ di servizio.
+ In tal caso, l'Appication Server fungerebbe da fornitore dei token per
+ poter accedere a tali funzionalità.
+\end_layout
+
+\begin_layout Subsection
+Gestione degli accessi alla Room
+\end_layout
+
+\begin_layout Standard
+U'ulteriore problematica riguarda la gestione degli accessi alla room una
+ volta creata, che consiste nel limitare l'accesso alla room ai soli studenti
+ prenotati e al docente.
+\end_layout
+
+\begin_layout Standard
+A tal fine la sequenza di passi eseguite da un docente per avviare una videocall
+ è la seguente:
+\end_layout
+
+\begin_layout Itemize
+Egli contatta l'Application Server per ottenere un nome della Room (univoco)
+ e un insieme di token (il suo e quello degli studenti prenotati).
+\end_layout
+
+\begin_layout Itemize
+Il Docente (Client Side) a quel punto, in modo automatico, si occuperà lui
+ stesso di andare a istanziare una nuova Room, fornendo a Janus il nome
+ della Room e i token, e configurando la stanza in modo tale da essere l'unico
+ utente privilegiato, quindi in grado di poterla eliminare e fare il 
+\begin_inset Quotes eld
+\end_inset
+
+kickout
+\begin_inset Quotes erd
+\end_inset
+
+ degli studenti.
+\end_layout
+
+\begin_layout Itemize
+Una volta creata la Room, egli vi accede con una semplice operazione di
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Join
+\begin_inset Quotes erd
+\end_inset
+
+, fornendo il proprio token.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Docente_Avvia_VideoCall_Sequence.jpg
+	lyxscale 50
+	scale 66
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sequence Diagram - Docente avvia videocall
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In modo duale, uno studente per partecipare alla videocall:
+\end_layout
+
+\begin_layout Itemize
+Egli contatta l'Application Server per ottenere il token a lui riservato
+ per accedere alla Room;
+\end_layout
+
+\begin_layout Itemize
+Lo Studente (Client Side) a quel punto si può interfacciare con Janus ed
+ eseguire una semplice 
+\begin_inset Quotes eld
+\end_inset
+
+Join
+\begin_inset Quotes erd
+\end_inset
+
+ fornendo il proprio token.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Studente_Partecipa_VideoCall_Sequence.jpg
+	lyxscale 50
+	scale 66
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sequence Diagram - Studente partecipa a videocall
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mobile-Code (Code-on-demand)
+\end_layout
+
+\begin_layout Standard
+L'architettura del sistema Smart Learning, nella corrente release, prevede
+ quindi che l'interfacciamento con Janus sia Client-Side.
+ Infatti, per ora, si sta assumendo che l'unico possibile client sia un
+ browser, oramai sempre provvisto di engine sia per HTML, che per Javascript.
+\end_layout
+
+\begin_layout Standard
+Di conseguenza, avendo il potenziale client dell'applicazione le risorse
+ per poter eseguire il programma, è possibile delegargli l'interazione con
+ Janus trasmettendogli sia la libreria 
+\begin_inset Quotes eld
+\end_inset
+
+janus.js
+\begin_inset Quotes erd
+\end_inset
+
+ che l'applicativo 
+\begin_inset Quotes eld
+\end_inset
+
+mainpage.js
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Il vantaggio di questa scelta di design è quello di alleggerire il carico
+ dell'Application Server, distribuendolo così sui vari client.
+\end_layout
+
+\begin_layout Standard
+D'altra parte tale scelta può portare a problematiche di sicurezza: lo script
+ javascript potrebbe essere malizioso, tuttavia l'engine javascript di cui
+ sono dotati i browser è progettato per essere Client-Side e, di conseguenza,
+ sono implementate delle policy di sicurezza (ad esempio che proteggono
+ l'accesso al filesystem, alla videocamera, o al microfono) limitando le
+ potenziali funzionalità del codice javascript.
+\end_layout
+
+\begin_layout Section
+Plugin VideoRoom
+\end_layout
+
+\begin_layout Standard
+Come detto in precedenza, si è adottato il plugin 
+\begin_inset Quotes eld
+\end_inset
+
+VideoRoom
+\begin_inset Quotes erd
+\end_inset
+
+ di Janus, il quale fornisce l'implementazione di una SFU.
+\end_layout
+
+\begin_layout Standard
+Una 
+\series bold
+SFU
+\series default
+ (
+\series bold
+Selective Forwarding Unit
+\series default
+) è un'entità in grado di ricevere più stream e decidere ognuno di questi
+ a quali partecipanti deve essere reindirizzato.
+ Uno dei principali vantaggi di questa architettura a confronto con una
+ P2P è la scalabilità, infatti con un P2P ogni peer connesso caricherà flussi
+ multimediali (audio, video, ecc.) N-1 volte (dove N è il numero di persone
+ nella chiamata).
+\end_layout
+
+\begin_layout Standard
+L'utilizzo di una SFU consente ai peer di caricare file multimediali e flussi
+ di dati solo una volta.
+ Il server quindi gestisce la distribuzione agli N-1 partecipanti.
+ Questo essenzialmente aiuta a limitare la larghezza di banda consumata
+ da tutti i partecipanti e consente di avere un numero maggiore di partecipanti
+ alla chiamata.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Janus - SFUn.jpg
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Selective Forwarding Unit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La versione più aggiornata di Janus, inoltre, supporta il 
+\series bold
+multistream
+\series default
+, ovvero la possibilità di aggiungere più track dello stesso tipo ad una
+ singola peerConnection.
+ Nel nostro caso, ad esempio, è stato possibile gestire tutti gli stream
+ in ricezione di un peer con una sola istanza PeerConnection.
+ 
+\end_layout
+
+\begin_layout Standard
+L’utilizzo di una sola connessione presenta alcuni vantaggi, come la riduzione
+ dei tempi di stabilimento della chiamata, poiché sono necessari meno Round
+ di ICE(Interactive Connectivity Establishment – il protocollo per lo stabilimen
+to della connessione tra browser) e un minor spreco di risorse lato client
+ (comporta l’utilizzo di un minor numero di porte).
+ Tuttavia questo approccio risulta essere più complesso nell’implementazione
+ oltre che meno flessibile nell’aggiungere e rimuovere dinamicamente partecipant
+i.
+\end_layout
+
+\begin_layout Subsection
+Publish - Subscribe
+\end_layout
+
+\begin_layout Standard
+Lo script 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+mainpage.js
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+ che interagisce con Janus può istanziare fino a tre handler.
+\end_layout
+
+\begin_layout Standard
+In generale, un handler instaura un canale bidirezionale di controllo e
+ di notifica con Janus, permettendo al server Janus di fare la 
+\begin_inset Quotes eld
+\end_inset
+
+push
+\begin_inset Quotes erd
+\end_inset
+
+ di eventi verso i client, oltre a generare un canale dati unidirezionale
+ (protocollo RTP) su cui viaggeranno i dati multimediali.
+\end_layout
+
+\begin_layout Standard
+Nello specifico, due handler (publishers) sono entrambi dedicati a pubblicare
+ un insieme di track che possono essere l'audio e il video della webcam
+ o il video dello schermo, mentre il terzo handler (subscriber) è dedicato
+ a ricevere lo stream di tracks degli altri utenti.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Deployment_Client_Janus.png
+	lyxscale 30
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Deployment Diagram Client/Janus
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Infatti, Janus adotta lo stile architetturale 
+\series bold
+Publish - Subscribe
+\series default
+, in particolare i topic a cui i subscribers possono sottoscriversi sono
+ le singole track dei publishers mentre il Server Janus funge da intermediario.
+\end_layout
+
+\begin_layout Standard
+Alcuni degli eventi generati da Janus verso i client sono:
+\end_layout
+
+\begin_layout Itemize
+unpublished: comunica al subscriber che un publisher (a cui il subscriber
+ era sottoscritto) ha smesso di pubblicare il proprio stream;
+\end_layout
+
+\begin_layout Itemize
+publishers: comunica al subscriber che l'elenco delle tracks a cui è possibile
+ sottoscriversi è stato aggiornato;
+\end_layout
+
+\begin_layout Itemize
+leaving: comunica che un utente è uscito dalla room.
+\end_layout
+
+\begin_layout Standard
+E' possibile gestire questi eventi tramite l'handler di sottoscrizione,
+ il quale adopera un meccanismo di callback.
+\end_layout
+
+\begin_layout Standard
+Per una maggiore documentazione sulla scelte implementative e, quindi, la
+ definizione delle varie callback adoperate dai vari handler, si rimanda
+ al codice e ai sequence diagrams.
+\end_layout
+
+\begin_layout Standard
+Il vantaggio di avere Janus come intermediario è il disaccoppiamento dei
+ client, esso è di tre diversi tipi:
+\end_layout
+
+\begin_layout Itemize
+Spaziale: un client non ha bisogno di avere informazioni riguardo la raggiungibi
+lità degli altri client;
+\end_layout
+
+\begin_layout Itemize
+Temporale: i client possono essere volatili;
+\end_layout
+
+\begin_layout Itemize
+Di sincronizzazione: non c'è bisogno che i client si sincronizzino, ciò
+ evita numerosi blocchi.
+\end_layout
+
+\begin_layout Standard
+D'altra parte, in una comunicazione multimediale tra N client il disaccoppiament
+o spaziale è indispensabile.
+\end_layout
+
+\begin_layout Standard
+Lo svantaggio principale è il seguente: in questo modo Janus diventa un
+ Single Point of Failure, ovvero nel caso di fallimento del server Janus
+ la comunicazione tra i vari client non è più possibile.
+ 
+\end_layout
+
+\begin_layout Section
+Script di riposizionamento
+\end_layout
+
+\begin_layout Standard
+Ogni utente può entrare/uscire dalla room, cosi come può condividere o meno
+ lo schermo e/o la webcam.
+ Ciascuna di queste azioni comporta una modifica nell’interfaccia degli
+ stream.
+ Di conseguenza, è stato implementato uno 
+\series bold
+script di ricalcolo e riposizionamento 
+\series default
+dei video, il quale permette di avere in ogni momento una griglia ottimale
+ rsipetto alle dimensioni dello schermo dal quale si effettua la chiamata.
+\begin_inset listings
+lstparams "language=Java,basicstyle={\small}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function recalculateLayout() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	Janus.log("RECALCUL");
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  const aspectRatio = 16 / 9;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  const screenWidth = document.body.getBoundingClientRect().width;
+\end_layout
+
+\begin_layout Plain Layout
+
+  const screenHeight = (document.body.getBoundingClientRect().height);
+\end_layout
+
+\begin_layout Plain Layout
+
+  const videoCount1 = document.getElementsByClassName("Video-Stream").length;
+\end_layout
+
+\begin_layout Plain Layout
+
+  const videoCount2 = document.getElementsByClassName("Video-Stream hide").length;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  Janus.log("calcolo",videoCount1-videoCount2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  const videoCount = (videoCount1-videoCount2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // or use this nice lib: https://github.com/fzembow/rect-scaler
+\end_layout
+
+\begin_layout Plain Layout
+
+  function calculateLayout(
+\end_layout
+
+\begin_layout Plain Layout
+
+    containerWidth,
+\end_layout
+
+\begin_layout Plain Layout
+
+    containerHeight,
+\end_layout
+
+\begin_layout Plain Layout
+
+    videoCount,
+\end_layout
+
+\begin_layout Plain Layout
+
+    aspectRatio,
+\end_layout
+
+\begin_layout Plain Layout
+
+  ) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    let bestLayout = {
+\end_layout
+
+\begin_layout Plain Layout
+
+      area: 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+      cols: 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+      rows: 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+      width: 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+      height: 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    };
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // brute-force search layout where video occupy the largest area of
+ the container
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (let cols = 1; cols <= videoCount; cols++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      const rows = Math.ceil(videoCount / cols);
+\end_layout
+
+\begin_layout Plain Layout
+
+      const hScale = containerWidth / (cols * aspectRatio);
+\end_layout
+
+\begin_layout Plain Layout
+
+      const vScale = containerHeight / rows;
+\end_layout
+
+\begin_layout Plain Layout
+
+      let width;
+\end_layout
+
+\begin_layout Plain Layout
+
+      let height;
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (hScale <= vScale) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        width = Math.floor(containerWidth / cols);
+\end_layout
+
+\begin_layout Plain Layout
+
+        height = Math.floor(width / aspectRatio);
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        height = Math.floor(containerHeight / rows);
+\end_layout
+
+\begin_layout Plain Layout
+
+        width = Math.floor(height * aspectRatio);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      const area = width * height;
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (area > bestLayout.area) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        bestLayout = {
+\end_layout
+
+\begin_layout Plain Layout
+
+          area,
+\end_layout
+
+\begin_layout Plain Layout
+
+          width,
+\end_layout
+
+\begin_layout Plain Layout
+
+          height,
+\end_layout
+
+\begin_layout Plain Layout
+
+          rows,
+\end_layout
+
+\begin_layout Plain Layout
+
+          cols
+\end_layout
+
+\begin_layout Plain Layout
+
+        };
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return bestLayout;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  const { width, height, cols } = calculateLayout(
+\end_layout
+
+\begin_layout Plain Layout
+
+    screenWidth,
+\end_layout
+
+\begin_layout Plain Layout
+
+    screenHeight,
+\end_layout
+
+\begin_layout Plain Layout
+
+    videoCount,
+\end_layout
+
+\begin_layout Plain Layout
+
+    aspectRatio
+\end_layout
+
+\begin_layout Plain Layout
+
+  );
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    let root= document.documentElement;
+\end_layout
+
+\begin_layout Plain Layout
+
+    root.style.setProperty("--width", width + "px");
+\end_layout
+
+\begin_layout Plain Layout
+
+    root.style.setProperty("--height", height + "px");
+\end_layout
+
+\begin_layout Plain Layout
+
+    root.style.setProperty("--cols", cols + "");
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

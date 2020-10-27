@@ -1,11 +1,15 @@
-package dataLayer.utilities;
+package utilities;
 
 public class idPagamento {
 private int id ;
 	
-
-
-
+	
+	public idPagamento() {
+		super();
+		
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "" + id + "";

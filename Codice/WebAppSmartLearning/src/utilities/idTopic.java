@@ -1,11 +1,16 @@
-package dataLayer.utilities;
+package utilities;
 
 public class idTopic {
 
 private int id ;
 	
 
+	
 
+	public idTopic() {
+	super();
+	// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {

@@ -1,4 +1,4 @@
-package dataLayer.utilities;
+package utilities;
 
 
 public class idUser {
@@ -6,6 +6,11 @@ public class idUser {
 	
 
 
+
+	public idUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {
